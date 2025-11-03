@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
 import InstallerLayout from '../../components/installer/InstallerLayout';
+import PushNotificationBanner from '../../components/installer/PushNotificationBanner';
 import type { Lead, LeadAssignment } from '../../types';
 import { Phone, Mail, MapPin, ExternalLink, Sparkles, AlertCircle } from 'lucide-react';
 
@@ -97,6 +98,8 @@ export default function InstallerDashboard() {
         </h1>
         <p className="text-sm sm:text-base text-gray-600">Ecco le tue lead più recenti</p>
       </div>
+
+      {installer && <PushNotificationBanner installerId={installer.id} />}
 
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-6 sm:mb-8">
         <div className="bg-white rounded-xl shadow-sm border border-cool-gray-300 p-4 sm:p-6">

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import InstallerLayout from '../../components/installer/InstallerLayout';
+import PushNotificationSettings from '../../components/installer/PushNotificationSettings';
 import { MapPin, Mail, Phone, User } from 'lucide-react';
 import type { AreaManager, Installer } from '../../types';
 
@@ -57,9 +58,15 @@ export default function Contact() {
   return (
     <InstallerLayout>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Contattaci</h1>
-        <p className="text-gray-600">Hai bisogno di supporto? Ecco i tuoi contatti di riferimento</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Impostazioni e Contatti</h1>
+        <p className="text-gray-600">Gestisci le tue preferenze e trova i tuoi contatti di riferimento</p>
       </div>
+
+      {installer && (
+        <div className="mb-8">
+          <PushNotificationSettings installerId={installer.id} />
+        </div>
+      )}
 
       {!installer?.region ? (
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
