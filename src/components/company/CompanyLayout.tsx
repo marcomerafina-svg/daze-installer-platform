@@ -49,11 +49,10 @@ export default function CompanyLayout({ children }: CompanyLayoutProps) {
         )}
 
         <aside className={`
-          fixed lg:static inset-y-0 left-0 z-50
-          w-72 bg-gradient-to-br from-blue-700 via-blue-800 to-blue-900
-          min-h-screen shadow-strong
-          transform transition-all duration-300 ease-in-out
-          lg:transform-none
+          fixed inset-y-0 left-0 z-40
+          w-72 h-screen bg-gradient-to-br from-blue-700 via-blue-800 to-blue-900
+          shadow-strong
+          transform transition-transform duration-300 ease-in-out
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}>
           <div className="flex flex-col h-full p-6">
@@ -130,7 +129,7 @@ export default function CompanyLayout({ children }: CompanyLayoutProps) {
           </div>
         </aside>
 
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 mt-16 lg:mt-0">
+        <main className="flex-1 lg:ml-72 min-h-screen p-4 sm:p-6 lg:p-8 mt-16 lg:mt-0 overflow-auto">
           <div className="max-w-7xl mx-auto">
             {children}
           </div>
