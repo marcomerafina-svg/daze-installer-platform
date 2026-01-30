@@ -111,4 +111,37 @@ git push
 
 ---
 
-*Ultimo aggiornamento: sessione in cui abbiamo indicizzato il progetto, sistemato sidebar, fix RLS (upload PDF + stato lead), script e istruzioni per Supabase/Bolt, e guida per collegare il progetto al nuovo Supabase.*
+---
+
+## 5. Cronologia passaggi fatti (riepilogo chat)
+
+1. **Indicizzazione e documentazione**  
+   Creati INDICE_PROGETTO.md, RECAP_PROGETTO.md, GITHUB_REPO.md, DEPLOY_WORKFLOW.md, PUSH_REPO.md.
+
+2. **Avvio locale**  
+   `vite` non nel PATH → script in package.json usano `node node_modules/vite/bin/vite.js`. Comando: `npm run dev`.
+
+3. **Git e GitHub**  
+   Repo inizializzata, push su https://github.com/marcomerafina-svg/daze-installer-platform.
+
+4. **Vercel – pagina bianca**  
+   Errore "Missing Supabase environment variables". Soluzione: Marco deve aggiungere su Vercel (Environment Variables) `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` (Production/Preview) e fare Redeploy.
+
+5. **Sidebar fissa**  
+   AdminLayout, InstallerLayout, CompanyLayout: sidebar `fixed`, main con margini `lg:ml-72` / `lg:mr-72`.
+
+6. **Fix RLS – Upload PDF**  
+   Errore "new row violates row-level security policy" su bucket `lead-quotes`. Policy estesa per lead assegnate alla company. Migration + APPLICARE_SUPABASE_fix_upload_pdf.sql.
+
+7. **Fix RLS – Stato lead (Chiusa Vinta)**  
+   Update bloccato per lead assegnate alla company. Policy UPDATE su `leads` estesa; frontend Pipeline/LeadDetail controlla risultato update e carica lead per company. Migration + APPLICARE_SUPABASE_fix_leads_update.sql.
+
+8. **Istruzioni per chi ha accesso**  
+   ISTRUZIONI_FIX_SUPABASE.md + due script SQL. ISTRUZIONI_FIX_BOLT_DATABASE.md con testi da incollare in Bolt se il backend è Bolt Database.
+
+9. **Nuovo Supabase (DB copiato da Bolt)**  
+   COLLEGARE_SUPABASE.md: come prendere URL/anon key, aggiornare .env e Vercel, verificare schema/auth/storage/functions/RLS.
+
+---
+
+*Ultimo aggiornamento: sessione in cui abbiamo indicizzato il progetto, sistemato sidebar, fix RLS (upload PDF + stato lead), script e istruzioni per Supabase/Bolt, guida per collegare il progetto al nuovo Supabase. Aggiunta sezione 5 con cronologia passaggi.*
