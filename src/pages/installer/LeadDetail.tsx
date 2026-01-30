@@ -90,7 +90,16 @@ export default function LeadDetail() {
     }
 
     try {
-      await supabase.from('leads').update({ status: newStatus }).eq('id', id);
+      const { data: updated, error: updateError } = await supabase
+        .from('leads')
+        .update({ status: newStatus })
+        .eq('id', id)
+        .select('id');
+
+      if (updateError) throw updateError;
+      if (!updated?.length) {
+        throw new Error('Aggiornamento non consentito per questa lead. Riprova o contatta l\'admin.');
+      }
 
       await supabase.from('lead_status_history').insert({
         lead_id: id,
@@ -127,8 +136,10 @@ export default function LeadDetail() {
       }
 
       await loadLeadData();
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error updating status:', error);
+      const msg = error instanceof Error ? error.message : 'Errore durante l\'aggiornamento dello stato. Riprova.';
+      alert(msg);
     }
   };
 
@@ -138,7 +149,16 @@ export default function LeadDetail() {
       await loadLeadData();
       if (id && installer && lead) {
         try {
-          await supabase.from('leads').update({ status: pendingStatus }).eq('id', id);
+          const { data: updated, error: updateError } = await supabase
+            .from('leads')
+            .update({ status: pendingStatus })
+            .eq('id', id)
+            .select('id');
+
+          if (updateError) throw updateError;
+          if (!updated?.length) {
+            throw new Error('Aggiornamento non consentito per questa lead. Riprova o contatta l\'admin.');
+          }
 
           await supabase.from('lead_status_history').insert({
             lead_id: id,
@@ -180,8 +200,10 @@ export default function LeadDetail() {
           }
 
           await loadLeadData();
-        } catch (error) {
+        } catch (error: unknown) {
           console.error('Error updating status:', error);
+          const msg = error instanceof Error ? error.message : 'Errore durante l\'aggiornamento dello stato. Riprova.';
+          alert(msg);
         }
       }
       setPendingStatus(null);

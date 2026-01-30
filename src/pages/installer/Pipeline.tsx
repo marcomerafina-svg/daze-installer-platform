@@ -59,10 +59,12 @@ export default function Pipeline() {
     if (!installer) return;
 
     try {
-      const { data: assignments } = await supabase
+      const query = supabase
         .from('lead_assignments')
-        .select('*, leads(*)')
-        .eq('installer_id', installer.id);
+        .select('*, leads(*)');
+      const { data: assignments } = installer.company_id
+        ? await query.or(`installer_id.eq.${installer.id},assigned_to_company_id.eq.${installer.company_id}`)
+        : await query.eq('installer_id', installer.id);
 
       if (assignments) {
         const grouped = PIPELINE_STAGES.reduce((acc, stage) => {
@@ -93,12 +95,16 @@ export default function Pipeline() {
     setUpdating(leadId);
 
     try {
-      const { error: updateError } = await supabase
+      const { data: updated, error: updateError } = await supabase
         .from('leads')
         .update({ status: newStatus })
-        .eq('id', leadId);
+        .eq('id', leadId)
+        .select('id');
 
       if (updateError) throw updateError;
+      if (!updated?.length) {
+        throw new Error('Aggiornamento non consentito per questa lead. Riprova o contatta l\'admin.');
+      }
 
       const { error: historyError } = await supabase
         .from('lead_status_history')
