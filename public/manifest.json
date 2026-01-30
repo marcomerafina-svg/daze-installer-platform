@@ -1,0 +1,10 @@
+{
+  "name": "Daze Partner Lead Management",
+  "short_name": "Daze Partners",
+  "description": "Sistema di gestione lead per partner Daze",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4a5fc1",
+  "icons": []
+}
