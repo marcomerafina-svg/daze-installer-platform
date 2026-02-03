@@ -143,8 +143,26 @@ Deno.serve(async (req: Request) => {
     
     const supabaseAdmin = createClient(supabaseUrl, serviceRoleKey);
 
+    // Log all headers to debug
+    console.log('=== ALL HEADERS ===');
+    for (const [key, value] of req.headers.entries()) {
+      if (key.toLowerCase() === 'authorization') {
+        console.log(`${key}: Bearer ...${value.slice(-50)} (length: ${value.length})`);
+      } else if (key.toLowerCase() === 'apikey') {
+        console.log(`${key}: ${value.substring(0, 30)}... (length: ${value.length})`);
+      } else {
+        console.log(`${key}: ${value}`);
+      }
+    }
+    console.log('=== END HEADERS ===');
+    
     const authHeader = req.headers.get('Authorization');
+    const apikeyHeader = req.headers.get('apikey');
+    
     console.log('Auth header exists:', !!authHeader);
+    console.log('Auth header length:', authHeader?.length);
+    console.log('Apikey header exists:', !!apikeyHeader);
+    console.log('Apikey header length:', apikeyHeader?.length);
     
     if (!authHeader) {
       console.log('ERROR: No auth header');
@@ -155,7 +173,9 @@ Deno.serve(async (req: Request) => {
     }
 
     const token = authHeader.replace('Bearer ', '');
-    console.log('Token length:', token.length);
+    console.log('Token length after removing Bearer:', token.length);
+    console.log('Token first 30 chars:', token.substring(0, 30));
+    console.log('Token last 30 chars:', token.substring(token.length - 30));
     
     // Decode JWT to get user info directly
     const jwtPayload = decodeJwtPayload(token);
