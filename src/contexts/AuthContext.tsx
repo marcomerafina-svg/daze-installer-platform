@@ -93,11 +93,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
+    // Pulisci lo stato locale PRIMA di chiamare Supabase
     setUser(null);
     setInstaller(null);
     setCompany(null);
+    
+    // Prova a fare il signOut su Supabase, ma ignora eventuali errori
+    try {
+      await supabase.auth.signOut();
+    } catch (error) {
+      console.error('Supabase signOut error (ignored):', error);
+    }
+    
+    // Pulisci manualmente il localStorage di Supabase come fallback
+    const keys = Object.keys(localStorage);
+    keys.forEach(key => {
+      if (key.startsWith('sb-')) {
+        localStorage.removeItem(key);
+      }
+    });
   };
 
   // Helper computed values

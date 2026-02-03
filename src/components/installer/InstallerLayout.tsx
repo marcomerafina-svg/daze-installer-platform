@@ -28,7 +28,12 @@ export default function InstallerLayout({ children }: InstallerLayoutProps) {
   };
 
   const handleSignOut = async () => {
-    await signOut();
+    try {
+      await signOut();
+    } catch (error) {
+      console.error('Logout error (ignored):', error);
+    }
+    // Naviga sempre al login, anche se c'è un errore
     navigate('/login');
   };
 

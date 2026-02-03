@@ -1,4 +1,4 @@
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { AlertCircle, LogIn } from 'lucide-react';
@@ -11,6 +11,17 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const { signIn, user } = useAuth();
   const navigate = useNavigate();
+
+  // Redirect se l'utente è già loggato
+  useEffect(() => {
+    if (user) {
+      if (user.role === 'admin') {
+        navigate('/admin', { replace: true });
+      } else {
+        navigate('/installer', { replace: true });
+      }
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -26,13 +37,13 @@ export default function Login() {
     }
   };
 
+  // Mostra loading mentre controlla se l'utente è loggato
   if (user) {
-    if (user.role === 'admin') {
-      navigate('/admin');
-    } else {
-      navigate('/installer');
-    }
-    return null;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600"></div>
+      </div>
+    );
   }
 
   return (
