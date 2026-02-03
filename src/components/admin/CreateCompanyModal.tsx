@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { X, Building2, User, Mail, Phone, MapPin, FileText, Lock } from 'lucide-react';
+import { supabase } from '../../lib/supabase';
 
 interface CreateCompanyModalProps {
   onClose: () => void;
@@ -105,11 +106,18 @@ export default function CreateCompanyModal({ onClose, onSuccess }: CreateCompany
       const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
       const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-      const { data: sessionData } = await (await import('../../lib/supabase')).supabase.auth.getSession();
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      
+      console.log('Session data:', sessionData);
+      console.log('Session error:', sessionError);
+      
       const token = sessionData.session?.access_token;
+      
+      console.log('Token length:', token?.length);
+      console.log('Token first 50 chars:', token?.substring(0, 50));
 
       if (!token) {
-        throw new Error('Sessione non valida');
+        throw new Error('Sessione non valida - token non trovato');
       }
 
       const response = await fetch(`${supabaseUrl}/functions/v1/create-company`, {
