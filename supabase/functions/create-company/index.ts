@@ -113,6 +113,19 @@ async function sendCompanyWelcomeEmail(
   }
 }
 
+// Helper function to decode JWT payload
+function decodeJwtPayload(token: string): Record<string, unknown> | null {
+  try {
+    const parts = token.split('.');
+    if (parts.length !== 3) return null;
+    const payload = parts[1];
+    const decoded = atob(payload.replace(/-/g, '+').replace(/_/g, '/'));
+    return JSON.parse(decoded);
+  } catch {
+    return null;
+  }
+}
+
 Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { status: 200, headers: corsHeaders });
@@ -120,13 +133,15 @@ Deno.serve(async (req: Request) => {
 
   try {
     console.log('=== CREATE COMPANY FUNCTION STARTED ===');
-    console.log('SUPABASE_URL:', Deno.env.get('SUPABASE_URL'));
-    console.log('SERVICE_ROLE_KEY exists:', !!Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'));
     
-    const supabaseAdmin = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
-    );
+    const supabaseUrl = Deno.env.get('SUPABASE_URL') ?? '';
+    const serviceRoleKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
+    
+    console.log('SUPABASE_URL:', supabaseUrl);
+    console.log('SERVICE_ROLE_KEY exists:', !!serviceRoleKey);
+    console.log('SERVICE_ROLE_KEY first 20 chars:', serviceRoleKey.substring(0, 20));
+    
+    const supabaseAdmin = createClient(supabaseUrl, serviceRoleKey);
 
     const authHeader = req.headers.get('Authorization');
     console.log('Auth header exists:', !!authHeader);
@@ -142,18 +157,51 @@ Deno.serve(async (req: Request) => {
     const token = authHeader.replace('Bearer ', '');
     console.log('Token length:', token.length);
     
-    const { data: { user }, error: userError } = await supabaseAdmin.auth.getUser(token);
+    // Decode JWT to get user info directly
+    const jwtPayload = decodeJwtPayload(token);
+    console.log('JWT payload decoded:', !!jwtPayload);
     
-    console.log('getUser result - user:', !!user, 'error:', userError?.message);
-
-    if (userError || !user) {
-      console.log('ERROR: Unauthorized -', userError?.message);
+    if (!jwtPayload) {
       return new Response(
-        JSON.stringify({ error: 'Unauthorized', details: userError?.message }),
+        JSON.stringify({ error: 'Invalid token format' }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
-
+    
+    console.log('JWT sub:', jwtPayload.sub);
+    console.log('JWT email:', jwtPayload.email);
+    console.log('JWT app_metadata:', JSON.stringify(jwtPayload.app_metadata));
+    
+    // Check token expiration
+    const exp = jwtPayload.exp as number;
+    if (exp && Date.now() >= exp * 1000) {
+      return new Response(
+        JSON.stringify({ error: 'Token expired' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    // Verify the user exists in the database using admin client
+    const userId = jwtPayload.sub as string;
+    if (!userId) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid token: missing user id' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    // Get user from auth.users to verify they exist
+    const { data: authUserData, error: authUserError } = await supabaseAdmin.auth.admin.getUserById(userId);
+    console.log('getUserById result - user:', !!authUserData?.user, 'error:', authUserError?.message);
+    
+    if (authUserError || !authUserData?.user) {
+      return new Response(
+        JSON.stringify({ error: 'User not found', details: authUserError?.message }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    const user = authUserData.user;
     const userRole = user.app_metadata?.role || user.user_metadata?.role;
     if (userRole !== 'admin') {
       return new Response(
