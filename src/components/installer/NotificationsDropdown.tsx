@@ -116,7 +116,7 @@ export default function NotificationsDropdown({
       </button>
 
       {isOpen && (
-        <div className="fixed sm:absolute left-0 right-0 sm:left-auto sm:right-0 top-14 sm:top-auto sm:mt-2 w-full sm:w-96 bg-white rounded-none sm:rounded-xl shadow-xl border-t sm:border border-gray-200 z-50 max-h-[calc(100vh-3.5rem)] sm:max-h-[600px] flex flex-col">
+        <div className="absolute bottom-full left-0 mb-2 w-80 bg-white rounded-xl shadow-xl border border-gray-200 z-50 max-h-[500px] flex flex-col">
           <div className="flex items-center justify-between p-3 sm:p-4 border-b border-gray-200">
             <div>
               <h3 className="font-bold text-gray-900 text-base sm:text-lg">Notifiche</h3>
