@@ -56,7 +56,7 @@ export default function CompanyLayout({ children }: CompanyLayoutProps) {
         <aside className={`
           fixed inset-y-0 left-0 z-50
           w-72 bg-gradient-to-br from-blue-700 via-blue-800 to-blue-900
-          h-screen shadow-strong overflow-y-auto
+          h-screen shadow-strong overflow-hidden
           transform transition-all duration-300 ease-in-out
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}>

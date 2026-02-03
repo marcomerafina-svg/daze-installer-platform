@@ -30,11 +30,26 @@ export default function CompanyLeads() {
 
     setLoading(true);
     try {
+      // Prima otteniamo tutti gli installatori della company
+      const { data: companyInstallers } = await supabase
+        .from('installers')
+        .select('id')
+        .eq('company_id', installer.company_id);
+
+      if (!companyInstallers || companyInstallers.length === 0) {
+        setLeads([]);
+        setLoading(false);
+        return;
+      }
+
+      const installerIds = companyInstallers.map(i => i.id);
+
+      // Poi otteniamo le lead assegnate a questi installatori
       const { data: assignments } = await supabase
         .from('lead_assignments')
-        .select('*, leads(*), installer:installers!lead_assignments_installer_id_fkey(id, first_name, last_name)')
-        .eq('company_id', installer.company_id)
-        .order('created_at', { ascending: false });
+        .select('*, leads(*), installer:installers(id, first_name, last_name)')
+        .in('installer_id', installerIds)
+        .order('assigned_at', { ascending: false });
 
       if (assignments) {
         let filteredLeads = assignments.map(a => ({

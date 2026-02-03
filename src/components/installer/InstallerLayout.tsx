@@ -74,7 +74,7 @@ export default function InstallerLayout({ children }: InstallerLayoutProps) {
         <aside className={`
           fixed inset-y-0 right-0 z-50
           w-72 bg-gradient-to-br from-teal-500 via-teal-600 to-teal-700
-          h-screen shadow-strong overflow-y-auto
+          h-screen shadow-strong overflow-hidden
           transform transition-all duration-300 ease-in-out
           ${sidebarOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'}
         `}>
@@ -108,9 +108,9 @@ export default function InstallerLayout({ children }: InstallerLayoutProps) {
               })}
             </nav>
 
-            <div className="space-y-4 pt-6 border-t border-white/20">
+            <div className="pt-6 border-t border-white/20 pb-8">
               {installer && (
-                <div className="relative">
+                <div className="mb-4">
                   <NotificationsDropdown
                     installerId={installer.id}
                     unreadCount={unreadCount}
@@ -149,7 +149,7 @@ export default function InstallerLayout({ children }: InstallerLayoutProps) {
                 <Link
                   to="/company"
                   onClick={() => setSidebarOpen(false)}
-                  className="block w-full text-center px-4 py-2.5 bg-white/10 hover:bg-white/20 rounded-lg transition-all text-white font-medium text-sm flex items-center justify-center gap-2"
+                  className="mt-4 mb-2 block w-full text-center px-4 py-2.5 bg-white/10 hover:bg-white/20 rounded-lg transition-all text-white font-medium text-sm flex items-center justify-center gap-2"
                 >
                   <Building2 className="w-4 h-4" />
                   Dashboard Azienda

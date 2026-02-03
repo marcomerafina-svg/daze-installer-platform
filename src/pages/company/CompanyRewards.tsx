@@ -23,7 +23,7 @@ export default function CompanyRewards() {
       const { data: tiersData } = await supabase
         .from('rewards_tiers')
         .select('*')
-        .order('min_points', { ascending: true });
+        .order('points_required', { ascending: true });
 
       setTiers(tiersData || []);
 

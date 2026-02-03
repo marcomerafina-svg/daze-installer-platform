@@ -30,7 +30,7 @@ export default function Rewards() {
           .from('installer_rewards')
           .select('*, tier:rewards_tiers(*)')
           .eq('installer_id', installer.id)
-          .single(),
+          .maybeSingle(),
         supabase.from('rewards_tiers').select('*').order('tier_level', { ascending: true }),
         supabase
           .from('points_transactions')

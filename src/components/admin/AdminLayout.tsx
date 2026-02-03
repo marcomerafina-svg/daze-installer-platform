@@ -59,7 +59,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         <aside className={`
           fixed inset-y-0 left-0 z-50
           w-72 bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900
-          h-screen shadow-strong overflow-y-auto
+          h-screen shadow-strong overflow-hidden
           transform transition-all duration-300 ease-in-out
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}>
