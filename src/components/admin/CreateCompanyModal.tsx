@@ -103,55 +103,26 @@ export default function CreateCompanyModal({ onClose, onSuccess }: CreateCompany
     setError('');
 
     try {
-      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-      const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
-      
-      console.log('Session data:', sessionData);
-      console.log('Session error:', sessionError);
-      
-      const token = sessionData.session?.access_token;
-      
-      console.log('Token length:', token?.length);
-      console.log('Token first 50 chars:', token?.substring(0, 50));
-
-      if (!token) {
-        throw new Error('Sessione non valida - token non trovato');
-      }
-
-      const response = await fetch(`${supabaseUrl}/functions/v1/create-company`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-          'apikey': supabaseAnonKey,
-        },
-        body: JSON.stringify({
+      // Usa supabase.functions.invoke() che gestisce correttamente l'autenticazione
+      const { data: result, error: invokeError } = await supabase.functions.invoke('create-company', {
+        body: {
           company: companyData,
           owner: ownerData,
-        }),
+        },
       });
 
-      let result;
-      const contentType = response.headers.get('content-type');
+      console.log('Function result:', result);
+      console.log('Function error:', invokeError);
 
-      if (contentType && contentType.includes('application/json')) {
-        const text = await response.text();
-        if (text) {
-          result = JSON.parse(text);
-        } else {
-          result = { error: 'Risposta vuota dal server' };
-        }
-      } else {
-        const text = await response.text();
-        result = { error: text || 'Risposta non valida dal server' };
+      if (invokeError) {
+        throw new Error(invokeError.message || 'Errore nella creazione dell\'azienda');
       }
 
-      if (!response.ok) {
-        throw new Error(result.error || `Errore ${response.status}: ${response.statusText}`);
+      if (result?.error) {
+        throw new Error(result.error);
       }
 
+      console.log('Azienda creata con successo:', result);
       onSuccess();
       onClose();
     } catch (err: any) {
