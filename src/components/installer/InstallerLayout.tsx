@@ -55,7 +55,7 @@ export default function InstallerLayout({ children }: InstallerLayoutProps) {
           </div>
         </div>
 
-        <main className="flex-1 pt-16 lg:pt-0 px-4 sm:px-6 lg:px-8 py-6 lg:py-8 overflow-auto">
+        <main className="flex-1 pt-16 lg:pt-0 px-4 sm:px-6 lg:px-8 py-6 lg:py-8 overflow-auto lg:mr-72">
           {children}
         </main>
 
@@ -67,11 +67,10 @@ export default function InstallerLayout({ children }: InstallerLayoutProps) {
         )}
 
         <aside className={`
-          fixed lg:static inset-y-0 right-0 z-50
+          fixed inset-y-0 right-0 z-50
           w-72 bg-gradient-to-br from-teal-500 via-teal-600 to-teal-700
-          min-h-screen shadow-strong
+          h-screen shadow-strong overflow-y-auto
           transform transition-all duration-300 ease-in-out
-          lg:transform-none
           ${sidebarOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'}
         `}>
           <div className="flex flex-col h-full p-6">

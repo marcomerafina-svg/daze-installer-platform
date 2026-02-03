@@ -52,11 +52,10 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         )}
 
         <aside className={`
-          fixed lg:static inset-y-0 left-0 z-50
+          fixed inset-y-0 left-0 z-50
           w-72 bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900
-          min-h-screen shadow-strong
+          h-screen shadow-strong overflow-y-auto
           transform transition-all duration-300 ease-in-out
-          lg:transform-none
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}>
           <div className="flex flex-col h-full p-6">
@@ -115,7 +114,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           </div>
         </aside>
 
-        <main className="flex-1 pt-16 lg:pt-0 px-4 sm:px-6 lg:px-8 py-6 lg:py-8 overflow-auto">
+        <main className="flex-1 pt-16 lg:pt-0 px-4 sm:px-6 lg:px-8 py-6 lg:py-8 overflow-auto lg:ml-72">
           {children}
         </main>
       </div>
