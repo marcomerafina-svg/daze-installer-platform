@@ -158,6 +158,7 @@ export async function unsubscribeFromPushNotifications(
 export async function getActiveSubscription(
   installerId: string
 ): Promise<boolean> {
+  console.log('getActiveSubscription called with installerId:', installerId);
   try {
     const { data, error } = await supabase
       .from('push_subscriptions')
@@ -166,12 +167,16 @@ export async function getActiveSubscription(
       .eq('is_active', true)
       .limit(1);
 
+    console.log('getActiveSubscription result:', { data, error });
+
     if (error) {
       console.error('Error checking subscription:', error);
       return false;
     }
 
-    return data && data.length > 0;
+    const hasSubscription = data && data.length > 0;
+    console.log('hasSubscription:', hasSubscription);
+    return hasSubscription;
   } catch (error) {
     console.error('Error checking subscription:', error);
     return false;
