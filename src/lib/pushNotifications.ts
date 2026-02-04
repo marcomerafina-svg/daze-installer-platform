@@ -115,15 +115,22 @@ export async function subscribeToPushNotifications(
 export async function unsubscribeFromPushNotifications(
   installerId: string
 ): Promise<boolean> {
+  console.log('unsubscribeFromPushNotifications called with installerId:', installerId);
+  
   try {
     // Prima cancella dal database (sempre)
-    const { error: deleteError } = await supabase
+    console.log('Attempting to delete from database...');
+    const { data, error: deleteError } = await supabase
       .from('push_subscriptions')
       .delete()
-      .eq('installer_id', installerId);
+      .eq('installer_id', installerId)
+      .select();
+
+    console.log('Delete result:', { data, deleteError });
 
     if (deleteError) {
       console.error('Error deleting subscription from database:', deleteError);
+      throw deleteError;
     }
 
     // Poi prova a cancellare dal browser (se possibile)
