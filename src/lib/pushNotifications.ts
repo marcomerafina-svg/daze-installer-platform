@@ -116,21 +116,27 @@ export async function unsubscribeFromPushNotifications(
   installerId: string
 ): Promise<boolean> {
   try {
-    const registration = await navigator.serviceWorker.getRegistration('/');
+    // Prima cancella dal database (sempre)
+    const { error: deleteError } = await supabase
+      .from('push_subscriptions')
+      .delete()
+      .eq('installer_id', installerId);
 
-    if (registration) {
-      const subscription = await registration.pushManager.getSubscription();
+    if (deleteError) {
+      console.error('Error deleting subscription from database:', deleteError);
+    }
 
-      if (subscription) {
-        await subscription.unsubscribe();
-
-        const subscriptionData = subscription.toJSON();
-        await supabase
-          .from('push_subscriptions')
-          .delete()
-          .eq('installer_id', installerId)
-          .eq('endpoint', subscriptionData.endpoint!);
+    // Poi prova a cancellare dal browser (se possibile)
+    try {
+      const registration = await navigator.serviceWorker.getRegistration('/');
+      if (registration) {
+        const subscription = await registration.pushManager.getSubscription();
+        if (subscription) {
+          await subscription.unsubscribe();
+        }
       }
+    } catch (browserError) {
+      console.warn('Could not unsubscribe from browser:', browserError);
     }
 
     localStorage.setItem('push_notifications_enabled', 'false');
