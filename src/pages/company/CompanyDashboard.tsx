@@ -155,7 +155,7 @@ export default function CompanyDashboard() {
     return (
       <CompanyLayout>
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-daze-blue"></div>
         </div>
       </CompanyLayout>
     );
@@ -178,75 +178,78 @@ export default function CompanyDashboard() {
         />
       )}
 
-      <div className="space-y-6">
+      <div className="max-w-7xl mx-auto pt-2 lg:pt-4 space-y-6">
+        {/* Header */}
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard Azienda</h1>
+          <h1 className="text-3xl font-roobert font-bold text-daze-black mb-2">Dashboard Azienda</h1>
           {installer?.company && (
-            <div className="flex items-center gap-2 text-gray-600 font-inter">
-              <Building2 className="w-5 h-5" />
+            <div className="flex items-center gap-2 text-daze-black/70 font-inter">
+              <Building2 className="w-5 h-5 text-daze-black" />
               <span className="text-lg">{installer.company.company_name}</span>
             </div>
           )}
         </div>
 
+        {/* Stat cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="bg-white rounded-squircle border border-daze-gray p-6">
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Users className="w-6 h-6 text-blue-600" />
+              <div className="w-12 h-12 bg-daze-blue rounded-xl flex items-center justify-center">
+                <Users className="w-6 h-6 text-white" />
               </div>
             </div>
-            <p className="text-3xl font-bold text-gray-900 mb-1">
+            <p className="text-3xl font-roobert font-bold text-daze-black mb-1">
               {stats?.active_members}/{stats?.total_members}
             </p>
-            <p className="text-sm font-inter text-gray-600">Membri Attivi</p>
+            <p className="text-sm font-inter font-medium text-daze-black/80">Membri Attivi</p>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="bg-white rounded-squircle border border-daze-gray p-6">
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                <Award className="w-6 h-6 text-green-600" />
+              <div className="w-12 h-12 bg-daze-forest rounded-xl flex items-center justify-center">
+                <Award className="w-6 h-6 text-white" />
               </div>
             </div>
-            <p className="text-3xl font-bold text-gray-900 mb-1">
+            <p className="text-3xl font-roobert font-bold text-daze-black mb-1">
               {stats?.total_points.toLocaleString()}
             </p>
-            <p className="text-sm font-inter text-gray-600">Punti Totali</p>
+            <p className="text-sm font-inter font-medium text-daze-black/80">Punti Totali</p>
             {stats?.current_tier && (
-              <div className="mt-2 inline-block px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">
+              <div className="mt-2 inline-block px-2.5 py-1 bg-daze-forest/10 text-daze-forest text-xs font-roobert font-medium rounded-pill">
                 {stats.current_tier.display_name}
               </div>
             )}
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="bg-white rounded-squircle border border-daze-gray p-6">
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                <TrendingUp className="w-6 h-6 text-purple-600" />
+              <div className="w-12 h-12 bg-daze-blue rounded-xl flex items-center justify-center">
+                <TrendingUp className="w-6 h-6 text-white" />
               </div>
             </div>
-            <p className="text-3xl font-bold text-gray-900 mb-1">
+            <p className="text-3xl font-roobert font-bold text-daze-black mb-1">
               {stats?.active_leads}
             </p>
-            <p className="text-sm font-inter text-gray-600">Lead Attive</p>
-            <p className="text-xs font-inter text-gray-500 mt-1">
+            <p className="text-sm font-inter font-medium text-daze-black/80">Lead Attive</p>
+            <p className="text-xs font-inter text-daze-black/70 mt-1">
               {stats?.won_leads} vinte su {stats?.total_leads} totali
             </p>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="bg-white rounded-squircle border border-daze-gray p-6">
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                <CheckCircle className="w-6 h-6 text-orange-600" />
+              <div className="w-12 h-12 bg-daze-honey rounded-xl flex items-center justify-center">
+                <CheckCircle className="w-6 h-6 text-white" />
               </div>
             </div>
-            <p className="text-3xl font-bold text-gray-900 mb-1">
+            <p className="text-3xl font-roobert font-bold text-daze-black mb-1">
               {stats?.conversion_rate}%
             </p>
-            <p className="text-sm font-inter text-gray-600">Conversion Rate</p>
+            <p className="text-sm font-inter font-medium text-daze-black/80">Conversion Rate</p>
           </div>
         </div>
 
+        {/* Onboarding checklist */}
         <OnboardingChecklist
           totalMembers={stats?.total_members || 0}
           totalLeads={stats?.total_leads || 0}
@@ -254,52 +257,55 @@ export default function CompanyDashboard() {
           hasCompanyInfo={!!(installer?.company?.vat_number && installer?.company?.address)}
         />
 
+        {/* Detail cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-green-600" />
+          {/* Installazioni */}
+          <div className="bg-white rounded-squircle border border-daze-gray p-6">
+            <h3 className="text-lg font-roobert font-bold text-daze-black mb-4 flex items-center gap-2">
+              <CheckCircle className="w-5 h-5 text-daze-forest" />
               Installazioni
             </h3>
             <div className="space-y-3 font-inter">
-              <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
-                <span className="text-sm text-gray-700">Totali</span>
-                <span className="text-lg font-bold text-green-700">
+              <div className="flex items-center justify-between p-3 bg-daze-forest/10 rounded-xl">
+                <span className="text-sm font-medium text-daze-black">Totali</span>
+                <span className="text-lg font-roobert font-bold text-daze-forest">
                   {stats?.total_installations}
                 </span>
               </div>
-              <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-daze-honey/10 rounded-xl">
                 <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-orange-600" />
-                  <span className="text-sm text-gray-700">In Attesa Approvazione</span>
+                  <Clock className="w-4 h-4 text-daze-honey-dark" />
+                  <span className="text-sm font-medium text-daze-black">In Attesa Approvazione</span>
                 </div>
-                <span className="text-lg font-bold text-orange-700">
+                <span className="text-lg font-roobert font-bold text-daze-honey-dark">
                   {stats?.pending_installations}
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-blue-600" />
+          {/* Performance Lead */}
+          <div className="bg-white rounded-squircle border border-daze-gray p-6">
+            <h3 className="text-lg font-roobert font-bold text-daze-black mb-4 flex items-center gap-2">
+              <TrendingUp className="w-5 h-5 text-daze-blue" />
               Performance Lead
             </h3>
             <div className="space-y-3 font-inter">
-              <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-                <span className="text-sm text-gray-700">Lead Totali</span>
-                <span className="text-lg font-bold text-blue-700">
+              <div className="flex items-center justify-between p-3 bg-daze-blue-light rounded-xl">
+                <span className="text-sm font-medium text-daze-black">Lead Totali</span>
+                <span className="text-lg font-roobert font-bold text-daze-blue">
                   {stats?.total_leads}
                 </span>
               </div>
-              <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
-                <span className="text-sm text-gray-700">Lead Attive</span>
-                <span className="text-lg font-bold text-purple-700">
+              <div className="flex items-center justify-between p-3 bg-daze-blue-light/50 rounded-xl">
+                <span className="text-sm font-medium text-daze-black">Lead Attive</span>
+                <span className="text-lg font-roobert font-bold text-daze-blue">
                   {stats?.active_leads}
                 </span>
               </div>
-              <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
-                <span className="text-sm text-gray-700">Lead Vinte</span>
-                <span className="text-lg font-bold text-green-700">
+              <div className="flex items-center justify-between p-3 bg-daze-forest/10 rounded-xl">
+                <span className="text-sm font-medium text-daze-black">Lead Vinte</span>
+                <span className="text-lg font-roobert font-bold text-daze-forest">
                   {stats?.won_leads}
                 </span>
               </div>
@@ -307,24 +313,25 @@ export default function CompanyDashboard() {
           </div>
         </div>
 
+        {/* Tier banner */}
         {stats?.current_tier && (
-          <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl shadow-sm border border-green-200 p-6">
+          <div className="bg-daze-forest/10 border border-daze-forest/20 rounded-squircle p-6">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-16 h-16 bg-green-200 rounded-full flex items-center justify-center">
-                <Award className="w-8 h-8 text-green-700" />
+              <div className="w-16 h-16 bg-daze-forest/20 rounded-full flex items-center justify-center">
+                <Award className="w-8 h-8 text-daze-forest" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-green-900">
+                <h3 className="text-2xl font-roobert font-bold text-daze-black">
                   {stats.current_tier.display_name}
                 </h3>
-                <p className="text-green-700 font-inter">Tier Attuale</p>
+                <p className="text-daze-black/70 font-inter">Tier Attuale</p>
               </div>
             </div>
-            <p className="text-green-800 font-inter mb-2">
+            <p className="text-daze-black font-inter mb-2">
               <strong>{stats.total_points.toLocaleString()}</strong> punti totali
             </p>
             {stats.current_tier.description && (
-              <p className="text-sm font-inter text-green-700">{stats.current_tier.description}</p>
+              <p className="text-sm font-inter text-daze-black/70">{stats.current_tier.description}</p>
             )}
           </div>
         )}

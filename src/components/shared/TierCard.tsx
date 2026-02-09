@@ -15,40 +15,40 @@ const tierIcons = {
   Diamond: Gem,
 };
 
-const tierGradients = {
-  Bronze: 'from-[#CD7F32] via-[#E8A87C] to-[#CD7F32]',
-  Silver: 'from-[#C0C0C0] via-[#E8E8E8] to-[#C0C0C0]',
-  Gold: 'from-[#FFD700] via-[#FFED4E] to-[#FFD700]',
-  Platinum: 'from-[#E5E4E2] via-[#F5F5F5] to-[#E5E4E2]',
-  Diamond: 'from-[#B9F2FF] via-[#E0F9FF] to-[#B9F2FF]',
+const tierIconBg = {
+  Bronze: 'bg-[#CD7F32]',
+  Silver: 'bg-[#A0A0A0]',
+  Gold: 'bg-[#D4A017]',
+  Platinum: 'bg-[#8C8C8C]',
+  Diamond: 'bg-[#5BB8D4]',
 };
 
-const tierBgGradients = {
-  Bronze: 'from-salmon-light to-rose',
-  Silver: 'from-cool-gray-50 to-cool-gray-100',
-  Gold: 'from-honey-light to-honey/40',
-  Platinum: 'from-cool-gray-100 to-cool-gray-200',
-  Diamond: 'from-sky-light to-sky/50',
+const tierCardBg = {
+  Bronze: 'bg-daze-rose/30',
+  Silver: 'bg-daze-gray/30',
+  Gold: 'bg-daze-honey/10',
+  Platinum: 'bg-daze-gray/20',
+  Diamond: 'bg-daze-sky/20',
 };
 
 export default function TierCard({ tier, isUnlocked, isCurrent }: TierCardProps) {
   const Icon = tierIcons[tier.tier_name as keyof typeof tierIcons] || Trophy;
-  const gradient = tierGradients[tier.tier_name as keyof typeof tierGradients];
-  const bgGradient = tierBgGradients[tier.tier_name as keyof typeof tierBgGradients];
+  const iconBg = tierIconBg[tier.tier_name as keyof typeof tierIconBg] || 'bg-daze-blue';
+  const cardBg = tierCardBg[tier.tier_name as keyof typeof tierCardBg] || 'bg-daze-gray/10';
 
   return (
     <div
-      className={`relative bg-gradient-to-br ${bgGradient} rounded-xl p-6 border-2 transition-all ${
+      className={`relative ${cardBg} rounded-squircle p-6 border-2 transition-all ${
         isCurrent
-          ? 'border-forest shadow-xl scale-105'
+          ? 'border-daze-forest'
           : isUnlocked
-          ? 'border-cool-gray-400 shadow-md'
-          : 'border-cool-gray-300 opacity-60'
+          ? 'border-daze-gray'
+          : 'border-daze-gray/50 opacity-60'
       }`}
     >
       {isCurrent && (
         <div className="absolute top-3 right-3">
-          <div className="flex items-center gap-1 bg-forest text-white px-2 py-1 rounded-full text-xs font-bold shadow-md">
+          <div className="flex items-center gap-1 bg-daze-forest text-white px-2.5 py-1 rounded-pill text-xs font-roobert font-bold">
             <CheckCircle className="w-3 h-3" />
             Tier Attuale
           </div>
@@ -56,19 +56,19 @@ export default function TierCard({ tier, isUnlocked, isCurrent }: TierCardProps)
       )}
 
       <div className="flex flex-col items-center text-center gap-4">
-        <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${gradient} flex items-center justify-center shadow-lg`}>
+        <div className={`w-16 h-16 rounded-full ${iconBg} flex items-center justify-center`}>
           <Icon className="w-8 h-8 text-white" />
         </div>
 
         <div>
-          <h3 className="text-xl font-bold text-black mb-1">{tier.display_name}</h3>
-          <p className="text-sm font-inter font-medium text-black/70">{tier.points_required.toLocaleString('it-IT')} punti</p>
+          <h3 className="text-xl font-roobert font-bold text-daze-black mb-1">{tier.display_name}</h3>
+          <p className="text-sm font-inter font-medium text-daze-black/70">{tier.points_required.toLocaleString('it-IT')} punti</p>
         </div>
 
-        <p className="text-sm font-inter text-black/80 leading-relaxed">{tier.description}</p>
+        <p className="text-sm font-inter text-daze-black/70 leading-relaxed">{tier.description}</p>
 
         {isUnlocked && !isCurrent && (
-          <div className="flex items-center gap-1 text-forest text-sm font-medium">
+          <div className="flex items-center gap-1 text-daze-forest text-sm font-roobert font-medium">
             <CheckCircle className="w-4 h-4" />
             Sbloccato
           </div>

@@ -63,7 +63,7 @@ export default function Login() {
           <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
               <div className="bg-rose-50 border border-rose-200 rounded-xl p-4 flex items-start gap-3 animate-scale-in">
-                <AlertCircle className="w-5 h-5 text-daze-salmon flex-shrink-0 mt-0.5" />
+                <AlertCircle className="w-5 h-5 text-daze-salmon-dark flex-shrink-0 mt-0.5" />
                 <p className="text-sm text-rose-800 font-medium">{error}</p>
               </div>
             )}

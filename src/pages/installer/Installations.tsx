@@ -121,23 +121,23 @@ export default function Installations() {
   const getStatusBadge = (status: 'pending' | 'approved' | 'rejected') => {
     const badges = {
       pending: {
-        bg: 'bg-amber-100',
-        text: 'text-amber-700',
-        border: 'border-amber-200',
+        bg: 'bg-daze-honey/10',
+        text: 'text-daze-honey-dark',
+        border: 'border-daze-honey/20',
         icon: Clock,
         label: 'In Approvazione',
       },
       approved: {
-        bg: 'bg-emerald-100',
-        text: 'text-emerald-700',
-        border: 'border-emerald-200',
+        bg: 'bg-daze-forest/10',
+        text: 'text-daze-forest',
+        border: 'border-daze-forest/20',
         icon: CheckCircle,
         label: 'Approvata',
       },
       rejected: {
-        bg: 'bg-rose-100',
-        text: 'text-rose-700',
-        border: 'border-rose-200',
+        bg: 'bg-daze-salmon/10',
+        text: 'text-daze-salmon-dark',
+        border: 'border-daze-salmon/20',
         icon: XCircle,
         label: 'Rifiutata',
       },
@@ -147,15 +147,15 @@ export default function Installations() {
 
   const getSourceBadge = (sourceType: 'daze_lead' | 'self_reported') => {
     return sourceType === 'daze_lead'
-      ? { bg: 'bg-teal-100', text: 'text-teal-700', label: 'Lead Daze' }
-      : { bg: 'bg-blue-100', text: 'text-blue-700', label: 'Autonoma' };
+      ? { bg: 'bg-daze-blue-light', text: 'text-daze-blue', label: 'Lead Daze' }
+      : { bg: 'bg-daze-gray', text: 'text-daze-black', label: 'Autonoma' };
   };
 
   if (loading) {
     return (
       <InstallerLayout>
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-daze-blue"></div>
         </div>
       </InstallerLayout>
     );
@@ -163,83 +163,64 @@ export default function Installations() {
 
   return (
     <InstallerLayout>
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto pt-2 lg:pt-4">
+        {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">Le Mie Installazioni</h1>
-          <p className="text-slate-600 font-inter">Tutte le tue installazioni, da lead Daze e autonome</p>
+          <h1 className="text-3xl font-roobert font-bold text-daze-black mb-2">Le Mie Installazioni</h1>
+          <p className="text-daze-black/70 font-inter">Tutte le tue installazioni, da lead Daze e autonome</p>
         </div>
 
+        {/* Stat cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8 font-inter">
-          <div className="bg-white rounded-xl shadow-soft border border-slate-200 p-4">
-            <p className="text-sm text-slate-600 mb-1">Totali</p>
-            <p className="text-3xl font-bold text-slate-900">{stats.total}</p>
+          <div className="bg-white rounded-squircle border border-daze-gray p-4">
+            <p className="text-sm font-medium text-daze-black/80 mb-1">Totali</p>
+            <p className="text-3xl font-bold text-daze-black">{stats.total}</p>
           </div>
-          <div className="bg-white rounded-xl shadow-soft border border-slate-200 p-4">
-            <p className="text-sm text-slate-600 mb-1">Da Lead</p>
-            <p className="text-3xl font-bold text-teal-600">{stats.from_leads}</p>
+          <div className="bg-white rounded-squircle border border-daze-gray p-4">
+            <p className="text-sm font-medium text-daze-black/80 mb-1">Da Lead</p>
+            <p className="text-3xl font-bold text-daze-blue">{stats.from_leads}</p>
           </div>
-          <div className="bg-white rounded-xl shadow-soft border border-slate-200 p-4">
-            <p className="text-sm text-slate-600 mb-1">Autonome</p>
-            <p className="text-3xl font-bold text-blue-600">{stats.self_reported}</p>
+          <div className="bg-white rounded-squircle border border-daze-gray p-4">
+            <p className="text-sm font-medium text-daze-black/80 mb-1">Autonome</p>
+            <p className="text-3xl font-bold text-daze-black">{stats.self_reported}</p>
           </div>
-          <div className="bg-white rounded-xl shadow-soft border border-slate-200 p-4">
-            <p className="text-sm text-slate-600 mb-1">In Approvazione</p>
-            <p className="text-3xl font-bold text-amber-600">{stats.pending}</p>
+          <div className="bg-white rounded-squircle border border-daze-gray p-4">
+            <p className="text-sm font-medium text-daze-black/80 mb-1">In Approvazione</p>
+            <p className="text-3xl font-bold text-daze-honey-dark">{stats.pending}</p>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-soft border border-slate-200 p-6 mb-6">
+        {/* Filter tabs + pending banner */}
+        <div className="mb-6">
           <div className="flex flex-wrap gap-3 mb-4">
-            <button
-              onClick={() => setFilter('all')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                filter === 'all'
-                  ? 'bg-teal-500 text-white shadow-md'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-              }`}
-            >
-              Tutte ({stats.total})
-            </button>
-            <button
-              onClick={() => setFilter('daze_lead')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                filter === 'daze_lead'
-                  ? 'bg-teal-500 text-white shadow-md'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-              }`}
-            >
-              Da Lead Daze ({stats.from_leads})
-            </button>
-            <button
-              onClick={() => setFilter('self_reported')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                filter === 'self_reported'
-                  ? 'bg-teal-500 text-white shadow-md'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-              }`}
-            >
-              Autonome ({stats.self_reported})
-            </button>
-            <button
-              onClick={() => setFilter('pending')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                filter === 'pending'
-                  ? 'bg-teal-500 text-white shadow-md'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-              }`}
-            >
-              In Approvazione ({stats.pending})
-            </button>
+            {([
+              { key: 'all' as FilterTab, label: `Tutte (${stats.total})` },
+              { key: 'daze_lead' as FilterTab, label: `Da Lead Daze (${stats.from_leads})` },
+              { key: 'self_reported' as FilterTab, label: `Autonome (${stats.self_reported})` },
+              { key: 'pending' as FilterTab, label: `In Approvazione (${stats.pending})` },
+            ]).map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setFilter(tab.key)}
+                className={`px-4 py-2 rounded-pill font-roobert font-medium text-sm transition-all ${
+                  filter === tab.key
+                    ? 'bg-daze-black text-white'
+                    : 'bg-daze-gray text-daze-black hover:bg-daze-gray/80'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
 
           {stats.pending_points > 0 && (
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-              <div className="flex items-center gap-2 text-amber-800">
-                <Clock className="w-5 h-5" />
+            <div className="bg-daze-honey/10 border border-daze-honey/20 rounded-squircle p-4">
+              <div className="flex items-center gap-2 text-daze-black">
+                <Clock className="w-5 h-5 text-daze-honey-dark" />
                 <div>
-                  <p className="text-sm font-medium">Punti in Attesa di Approvazione</p>
-                  <p className="text-xs mt-1">
-                    Hai <span className="font-bold">{stats.pending_points} punti</span> in attesa di verifica admin
+                  <p className="text-sm font-inter font-medium">Punti in Attesa di Approvazione</p>
+                  <p className="text-xs font-inter text-daze-black/70 mt-1">
+                    Hai <span className="font-bold text-daze-black">{stats.pending_points} punti</span> in attesa di verifica admin
                   </p>
                 </div>
               </div>
@@ -247,12 +228,13 @@ export default function Installations() {
           )}
         </div>
 
+        {/* Installation list */}
         <div className="space-y-4">
           {filteredInstallations.length === 0 ? (
-            <div className="bg-white rounded-xl shadow-soft border border-slate-200 p-12 text-center">
-              <Package className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-              <p className="text-slate-600 font-medium">Nessuna installazione trovata</p>
-              <p className="text-sm text-slate-500 mt-2">
+            <div className="bg-white rounded-squircle border border-daze-gray p-12 text-center">
+              <Package className="w-16 h-16 text-daze-black/20 mx-auto mb-4" />
+              <p className="text-daze-black font-inter font-medium">Nessuna installazione trovata</p>
+              <p className="text-sm text-daze-black/70 font-inter mt-2">
                 {filter !== 'all' ? 'Prova a cambiare filtro' : 'Registra la tua prima installazione dalla dashboard'}
               </p>
             </div>
@@ -266,50 +248,53 @@ export default function Installations() {
                 <div
                   key={installation.id}
                   onClick={() => setSelectedInstallation(installation)}
-                  className="bg-white rounded-xl shadow-soft border border-slate-200 p-6 hover:shadow-medium hover:border-slate-300 transition-all cursor-pointer"
+                  className="bg-white rounded-squircle border border-daze-gray p-6 hover:border-daze-black/20 transition-all cursor-pointer"
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-lg font-bold text-slate-900">
-                          {installation.customer_name}
-                        </h3>
-                        <span className={`px-2 py-1 rounded-lg text-xs font-medium ${sourceBadge.bg} ${sourceBadge.text}`}>
+                        <div className="flex items-center gap-2">
+                          <User className="w-5 h-5 text-daze-black" />
+                          <h3 className="text-lg font-roobert font-bold text-daze-black">
+                            {installation.customer_name}
+                          </h3>
+                        </div>
+                        <span className={`px-2.5 py-1 rounded-pill text-xs font-roobert font-medium ${sourceBadge.bg} ${sourceBadge.text}`}>
                           {sourceBadge.label}
                         </span>
                       </div>
-                      <div className="flex items-center gap-4 text-sm font-inter text-slate-600">
-                        <div className="flex items-center gap-1">
-                          <Calendar className="w-4 h-4" />
+                      <div className="flex items-center gap-x-6 text-sm font-inter font-medium text-daze-black">
+                        <div className="flex items-center gap-1.5">
+                          <Calendar className="w-4 h-4 text-daze-black" />
                           <span>{new Date(installation.installation_date).toLocaleDateString('it-IT')}</span>
                         </div>
                         {installation.customer_phone && (
-                          <div className="flex items-center gap-1">
-                            <Phone className="w-4 h-4" />
+                          <div className="flex items-center gap-1.5">
+                            <Phone className="w-4 h-4 text-daze-black" />
                             <span>{installation.customer_phone}</span>
                           </div>
                         )}
                         {installation.photo_count > 0 && (
-                          <div className="flex items-center gap-1">
-                            <ImageIcon className="w-4 h-4" />
+                          <div className="flex items-center gap-1.5">
+                            <ImageIcon className="w-4 h-4 text-daze-black" />
                             <span>{installation.photo_count} foto</span>
                           </div>
                         )}
                       </div>
                     </div>
-                    <div className={`flex items-center gap-2 px-3 py-2 rounded-lg border ${statusBadge.bg} ${statusBadge.text} ${statusBadge.border}`}>
+                    <div className={`flex items-center gap-2 px-3 py-2 rounded-pill border ${statusBadge.bg} ${statusBadge.text} ${statusBadge.border}`}>
                       <StatusIcon className="w-4 h-4" />
-                      <span className="text-sm font-medium">{statusBadge.label}</span>
+                      <span className="text-sm font-roobert font-medium">{statusBadge.label}</span>
                     </div>
                   </div>
 
                   {installation.rejection_reason && (
-                    <div className="bg-rose-50 border border-rose-200 rounded-lg p-3 mb-4">
-                      <div className="flex items-start gap-2 text-rose-800">
+                    <div className="bg-daze-salmon/10 border border-daze-salmon/20 rounded-squircle p-3 mb-4">
+                      <div className="flex items-start gap-2 text-daze-salmon-dark">
                         <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
                         <div>
-                          <p className="text-sm font-medium">Motivo Rifiuto</p>
-                          <p className="text-xs mt-1">{installation.rejection_reason}</p>
+                          <p className="text-sm font-inter font-medium">Motivo Rifiuto</p>
+                          <p className="text-xs font-inter mt-1 text-daze-black/70">{installation.rejection_reason}</p>
                         </div>
                       </div>
                     </div>
@@ -317,12 +302,12 @@ export default function Installations() {
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-slate-600 mb-1">Prodotti Installati</p>
-                      <div className="flex flex-wrap gap-2">
+                      <p className="text-sm font-inter text-daze-black/70 mb-1.5">Prodotti Installati</p>
+                      <div className="flex flex-wrap gap-2 -ml-0.5">
                         {installation.serials.map((serial, idx) => (
                           <span
                             key={idx}
-                            className="px-2 py-1 bg-slate-100 text-slate-700 rounded text-xs font-medium"
+                            className="px-2.5 py-1 bg-daze-gray text-daze-black rounded-pill text-xs font-roobert font-medium"
                           >
                             {serial.product?.name || 'Prodotto Sconosciuto'}
                           </span>
@@ -330,13 +315,13 @@ export default function Installations() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm text-slate-600">Punti</p>
-                      <p className={`text-2xl font-bold ${
+                      <p className="text-sm font-inter text-daze-black/70">Punti</p>
+                      <p className={`text-2xl font-roobert font-bold ${
                         installation.approval_status === 'approved'
-                          ? 'text-emerald-600'
+                          ? 'text-daze-forest'
                           : installation.approval_status === 'pending'
-                          ? 'text-amber-600'
-                          : 'text-slate-400'
+                          ? 'text-daze-honey-dark'
+                          : 'text-daze-black/30'
                       }`}>
                         {installation.approval_status === 'approved'
                           ? installation.total_points
@@ -344,7 +329,7 @@ export default function Installations() {
                         }
                       </p>
                       {installation.approval_status === 'pending' && (
-                        <p className="text-xs text-amber-600 font-medium">In attesa</p>
+                        <p className="text-xs font-inter font-medium text-daze-honey-dark">In attesa</p>
                       )}
                     </div>
                   </div>
@@ -355,27 +340,28 @@ export default function Installations() {
         </div>
       </div>
 
+      {/* Detail modal */}
       {selectedInstallation && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
           onClick={() => setSelectedInstallation(null)}
         >
           <div
-            className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6"
+            className="bg-white rounded-squircle max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between mb-6">
               <div>
-                <h2 className="text-2xl font-bold text-slate-900 mb-2">
+                <h2 className="text-2xl font-roobert font-bold text-daze-black mb-2">
                   {selectedInstallation.customer_name}
                 </h2>
                 <div className="flex items-center gap-2">
-                  <span className={`px-2 py-1 rounded-lg text-xs font-medium ${
+                  <span className={`px-2.5 py-1 rounded-pill text-xs font-roobert font-medium ${
                     getSourceBadge(selectedInstallation.source_type).bg
                   } ${getSourceBadge(selectedInstallation.source_type).text}`}>
                     {getSourceBadge(selectedInstallation.source_type).label}
                   </span>
-                  <span className={`px-2 py-1 rounded-lg text-xs font-medium border ${
+                  <span className={`px-2.5 py-1 rounded-pill text-xs font-roobert font-medium border ${
                     getStatusBadge(selectedInstallation.approval_status).bg
                   } ${getStatusBadge(selectedInstallation.approval_status).text} ${
                     getStatusBadge(selectedInstallation.approval_status).border
@@ -386,74 +372,76 @@ export default function Installations() {
               </div>
               <button
                 onClick={() => setSelectedInstallation(null)}
-                className="p-2 hover:bg-slate-100 rounded-lg transition-all"
+                className="p-2 hover:bg-daze-gray/20 rounded-xl transition-all"
               >
-                <XCircle className="w-6 h-6 text-slate-500" />
+                <XCircle className="w-6 h-6 text-daze-black/40" />
               </button>
             </div>
 
             {selectedInstallation.rejection_reason && (
-              <div className="bg-rose-50 border border-rose-200 rounded-xl p-4 mb-6">
-                <div className="flex items-start gap-3 text-rose-800">
+              <div className="bg-daze-salmon/10 border border-daze-salmon/20 rounded-squircle p-4 mb-6">
+                <div className="flex items-start gap-3 text-daze-salmon-dark">
                   <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-medium mb-1">Motivo Rifiuto</p>
-                    <p className="text-sm">{selectedInstallation.rejection_reason}</p>
+                    <p className="font-inter font-medium">Motivo Rifiuto</p>
+                    <p className="text-sm font-inter mt-1 text-daze-black/70">{selectedInstallation.rejection_reason}</p>
                   </div>
                 </div>
               </div>
             )}
 
             <div className="space-y-4">
-              <div className="bg-slate-50 rounded-xl p-4">
-                <h3 className="font-semibold text-slate-900 mb-3">Informazioni Cliente</h3>
+              {/* Customer info */}
+              <div className="bg-daze-gray/10 rounded-squircle p-4">
+                <h3 className="font-roobert font-bold text-daze-black mb-3">Informazioni Cliente</h3>
                 <div className="space-y-2 text-sm font-inter">
                   <div className="flex items-center gap-2">
-                    <User className="w-4 h-4 text-slate-400" />
-                    <span className="text-slate-900 font-medium">{selectedInstallation.customer_name}</span>
+                    <User className="w-4 h-4 text-daze-black" />
+                    <span className="text-daze-black font-medium">{selectedInstallation.customer_name}</span>
                   </div>
                   {selectedInstallation.customer_phone && (
                     <div className="flex items-center gap-2">
-                      <Phone className="w-4 h-4 text-slate-400" />
-                      <span className="text-slate-600">{selectedInstallation.customer_phone}</span>
+                      <Phone className="w-4 h-4 text-daze-black" />
+                      <span className="text-daze-black">{selectedInstallation.customer_phone}</span>
                     </div>
                   )}
                   {selectedInstallation.customer_address && (
                     <div className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4 text-slate-400" />
-                      <span className="text-slate-600">{selectedInstallation.customer_address}</span>
+                      <MapPin className="w-4 h-4 text-daze-black" />
+                      <span className="text-daze-black">{selectedInstallation.customer_address}</span>
                     </div>
                   )}
                   <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-slate-400" />
-                    <span className="text-slate-600">
+                    <Calendar className="w-4 h-4 text-daze-black" />
+                    <span className="text-daze-black">
                       Installata il {new Date(selectedInstallation.installation_date).toLocaleDateString('it-IT')}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-slate-50 rounded-xl p-4">
-                <h3 className="font-semibold text-slate-900 mb-3">
+              {/* Products */}
+              <div className="bg-daze-gray/10 rounded-squircle p-4">
+                <h3 className="font-roobert font-bold text-daze-black mb-3">
                   Prodotti Installati ({selectedInstallation.serials.length})
                 </h3>
                 <div className="space-y-2">
                   {selectedInstallation.serials.map((serial, idx) => (
-                    <div key={idx} className="flex items-center justify-between p-3 bg-white rounded-lg">
+                    <div key={idx} className="flex items-center justify-between p-3 bg-white rounded-xl">
                       <div>
-                        <p className="font-medium text-slate-900">{serial.product?.name || 'Prodotto Sconosciuto'}</p>
-                        <p className="text-xs text-slate-500">S/N: {serial.serial_code}</p>
+                        <p className="font-inter font-medium text-daze-black">{serial.product?.name || 'Prodotto Sconosciuto'}</p>
+                        <p className="text-xs font-inter text-daze-black/40">S/N: {serial.serial_code}</p>
                       </div>
                       <div className="text-right">
-                        <p className={`font-bold ${
+                        <p className={`font-roobert font-bold ${
                           selectedInstallation.approval_status === 'approved'
-                            ? 'text-emerald-600'
-                            : 'text-amber-600'
+                            ? 'text-daze-forest'
+                            : 'text-daze-honey-dark'
                         }`}>
                           {serial.product?.points || 0} pt
                         </p>
                         {selectedInstallation.approval_status === 'pending' && (
-                          <p className="text-xs text-amber-600">In attesa</p>
+                          <p className="text-xs font-inter text-daze-honey-dark">In attesa</p>
                         )}
                       </div>
                     </div>
@@ -461,10 +449,11 @@ export default function Installations() {
                 </div>
               </div>
 
-              <div className="bg-teal-50 border border-teal-200 rounded-xl p-4">
+              {/* Total points */}
+              <div className="bg-daze-blue-light border border-daze-blue/20 rounded-squircle p-4">
                 <div className="flex items-center justify-between">
-                  <span className="font-semibold text-teal-900">Totale Punti</span>
-                  <span className="text-2xl font-bold text-teal-600">
+                  <span className="font-roobert font-bold text-daze-black">Totale Punti</span>
+                  <span className="text-2xl font-roobert font-bold text-daze-blue">
                     {selectedInstallation.approval_status === 'approved'
                       ? selectedInstallation.total_points
                       : selectedInstallation.serials.reduce((sum, s) => sum + (s.product?.points || 0), 0)
@@ -472,7 +461,7 @@ export default function Installations() {
                   </span>
                 </div>
                 {selectedInstallation.approval_status === 'pending' && (
-                  <p className="text-xs text-amber-600 font-medium mt-2">
+                  <p className="text-xs font-inter font-medium text-daze-honey-dark mt-2">
                     I punti saranno confermati dopo l'approvazione admin
                   </p>
                 )}

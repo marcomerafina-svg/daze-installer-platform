@@ -4,37 +4,42 @@ import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
 import InstallerLayout from '../../components/installer/InstallerLayout';
+import Button from '../../components/shared/Button';
 import type { Lead, LeadStatus } from '../../types';
-import { Phone, Mail, ExternalLink, Sparkles, Clock, CheckCircle, XCircle, Lock } from 'lucide-react';
+import { Phone, Mail, ArrowRight, Sparkles, Clock, CheckCircle, XCircle, Lock, ChevronDown, User } from 'lucide-react';
 
-const PIPELINE_STAGES: { status: LeadStatus; label: string; color: string; icon: any; gradient: string }[] = [
+const PIPELINE_STAGES: { status: LeadStatus; label: string; bgColor: string; borderColor: string; iconBg: string; icon: any }[] = [
   {
     status: 'Nuova',
     label: 'Nuove',
-    color: 'bg-sky-100 border-sky-300 text-sky-900',
+    bgColor: 'bg-daze-blue-light',
+    borderColor: 'border-daze-blue/20',
+    iconBg: 'bg-daze-blue',
     icon: Sparkles,
-    gradient: 'from-sky-400 to-sky-500'
   },
   {
     status: 'In lavorazione',
     label: 'In Lavorazione',
-    color: 'bg-amber-100 border-amber-300 text-amber-900',
+    bgColor: 'bg-daze-honey/10',
+    borderColor: 'border-daze-honey/20',
+    iconBg: 'bg-daze-honey',
     icon: Clock,
-    gradient: 'from-amber-400 to-amber-500'
   },
   {
     status: 'Chiusa Vinta',
     label: 'Chiuse Vinte',
-    color: 'bg-emerald-100 border-emerald-300 text-emerald-900',
+    bgColor: 'bg-daze-forest/10',
+    borderColor: 'border-daze-forest/20',
+    iconBg: 'bg-daze-forest',
     icon: CheckCircle,
-    gradient: 'from-emerald-400 to-emerald-500'
   },
   {
     status: 'Chiusa Persa',
     label: 'Chiuse Perse',
-    color: 'bg-rose-100 border-rose-300 text-rose-900',
+    bgColor: 'bg-daze-salmon/10',
+    borderColor: 'border-daze-salmon/20',
+    iconBg: 'bg-daze-salmon',
     icon: XCircle,
-    gradient: 'from-rose-400 to-rose-500'
   },
 ];
 
@@ -152,7 +157,7 @@ export default function Pipeline() {
     return (
       <InstallerLayout>
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-daze-blue"></div>
         </div>
       </InstallerLayout>
     );
@@ -160,9 +165,10 @@ export default function Pipeline() {
 
   return (
     <InstallerLayout>
-      <div className="max-w-7xl mx-auto mb-8">
-        <h1 className="text-3xl font-bold text-slate-900 mb-2">Pipeline Lead</h1>
-        <p className="text-slate-600 font-inter">Gestisci lo stato delle tue lead con il board Kanban - Trascina le card per cambiare stato</p>
+      <div className="max-w-7xl mx-auto pt-2 lg:pt-4">
+      <div className="mb-8">
+        <h1 className="text-3xl font-roobert font-bold text-daze-black mb-2">Pipeline Lead</h1>
+        <p className="text-daze-black/70 font-inter">Trascina le card per aggiornare lo stato delle tue lead</p>
       </div>
 
       <DragDropContext onDragEnd={handleDragEnd}>
@@ -172,25 +178,27 @@ export default function Pipeline() {
               const Icon = stage.icon;
               return (
                 <div key={stage.status} className="flex flex-col w-80 lg:w-auto flex-shrink-0">
-                  <div className={`${stage.color} border-2 rounded-2xl p-4 mb-4 shadow-soft`}>
+                  {/* Stage header */}
+                  <div className={`${stage.bgColor} border ${stage.borderColor} rounded-squircle p-4 mb-4`}>
                     <div className="flex items-center gap-3 mb-2">
-                      <div className={`p-2 bg-gradient-to-br ${stage.gradient} rounded-xl shadow-sm`}>
+                      <div className={`p-2 ${stage.iconBg} rounded-xl`}>
                         <Icon className="w-5 h-5 text-white" />
                       </div>
-                      <h3 className="font-bold text-lg">{stage.label}</h3>
+                      <h3 className="font-roobert font-bold text-lg text-daze-black">{stage.label}</h3>
                     </div>
-                    <p className="text-sm opacity-80 font-inter font-medium">
+                    <p className="text-sm text-daze-black/70 font-inter font-medium">
                       {leadsByStatus[stage.status].length} lead
                     </p>
                   </div>
 
+                  {/* Droppable zone */}
                   <Droppable droppableId={stage.status}>
                     {(provided, snapshot) => (
                       <div
                         ref={provided.innerRef}
                         {...provided.droppableProps}
-                        className={`space-y-4 flex-1 min-h-[200px] rounded-2xl transition-all ${
-                          snapshot.isDraggingOver ? 'bg-slate-100 ring-2 ring-teal-400 ring-offset-2' : ''
+                        className={`space-y-4 flex-1 min-h-[200px] rounded-squircle transition-all ${
+                          snapshot.isDraggingOver ? 'bg-daze-blue-light/30 ring-2 ring-daze-blue/30 ring-offset-2' : ''
                         }`}
                       >
                         {leadsByStatus[stage.status].map((lead, index) => {
@@ -208,65 +216,74 @@ export default function Pipeline() {
                                   ref={provided.innerRef}
                                   {...provided.draggableProps}
                                   {...provided.dragHandleProps}
-                                  className={`bg-white rounded-2xl border-2 border-slate-200 p-4 transition-all ${
+                                  className={`bg-white rounded-squircle border border-daze-gray p-4 transition-all ${
                                     snapshot.isDragging
-                                      ? 'shadow-xl rotate-2 scale-105 border-teal-400'
-                                      : 'hover:shadow-medium hover:border-slate-300'
+                                      ? 'rotate-2 scale-105 border-daze-blue'
+                                      : ''
                                   } ${isClosed ? 'opacity-75 cursor-not-allowed' : 'cursor-grab active:cursor-grabbing'}`}
                                 >
+                                  {/* Closed banner */}
                                   {isClosed && (
-                                    <div className="flex items-center gap-2 mb-2 text-xs text-slate-500 bg-slate-100 rounded-lg px-2 py-1">
-                                      <Lock className="w-3 h-3" />
-                                      <span>Lead chiusa - non modificabile</span>
+                                    <div className="flex items-center gap-2 mb-3 text-xs font-inter font-medium text-daze-black bg-daze-gray rounded-lg px-3 py-1.5">
+                                      <Lock className="w-3 h-3 text-daze-black" />
+                                      <span>Lead chiusa — non modificabile</span>
                                     </div>
                                   )}
 
+                                  {/* Nome — protagonista */}
                                   <Link to={`/installer/leads/${lead.id}`}>
-                                    <h4 className="font-bold text-slate-900 text-base mb-3 hover:text-teal-600 transition-colors">
-                                      {lead.first_name} {lead.last_name}
-                                    </h4>
+                                    <div className="flex items-center gap-2 mb-3 -ml-[1px] hover:text-daze-blue transition-colors">
+                                      <User className="w-[18px] h-[18px] text-daze-black flex-shrink-0" />
+                                      <h4 className="font-roobert font-bold text-daze-black text-base">
+                                        {lead.first_name} {lead.last_name}
+                                      </h4>
+                                    </div>
                                   </Link>
 
+                                  {/* Contatti — semplici, senza box */}
                                   <div className="space-y-2 mb-4">
                                     {lead.phone && (
-                                      <div className="flex items-center gap-2 text-sm text-slate-600 bg-slate-50 rounded-lg p-2">
-                                        <Phone className="w-4 h-4 flex-shrink-0 text-slate-400" />
-                                        <a href={`tel:${lead.phone}`} className="hover:text-teal-600 truncate font-medium">
+                                      <div className="flex items-center gap-2 text-sm font-inter font-medium text-daze-black">
+                                        <Phone className="w-4 h-4 flex-shrink-0 text-daze-black" />
+                                        <a href={`tel:${lead.phone}`} className="hover:text-daze-blue transition-colors truncate">
                                           {lead.phone}
                                         </a>
                                       </div>
                                     )}
                                     {lead.email && (
-                                      <div className="flex items-center gap-2 text-sm text-slate-600 bg-slate-50 rounded-lg p-2">
-                                        <Mail className="w-4 h-4 flex-shrink-0 text-slate-400" />
+                                      <div className="flex items-center gap-2 text-sm font-inter font-medium text-daze-black">
+                                        <Mail className="w-4 h-4 flex-shrink-0 text-daze-black" />
                                         <span className="truncate">{lead.email}</span>
                                       </div>
                                     )}
                                   </div>
 
-                                  <select
-                                    value={lead.status}
-                                    onChange={(e) => updateLeadStatus(lead.id, lead.status, e.target.value as LeadStatus)}
-                                    disabled={isClosed || updating === lead.id}
-                                    className={`w-full text-sm px-3 py-2 border-2 border-slate-200 rounded-xl bg-white transition-all mb-3 font-medium ${
-                                      isClosed
-                                        ? 'opacity-50 cursor-not-allowed'
-                                        : 'hover:bg-slate-50 hover:border-teal-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 cursor-pointer'
-                                    } ${updating === lead.id ? 'opacity-50' : ''}`}
-                                  >
-                                    {PIPELINE_STAGES.map((s) => (
-                                      <option key={s.status} value={s.status}>
-                                        {s.label}
-                                      </option>
-                                    ))}
-                                  </select>
+                                  {/* Dropdown stato — DS pill */}
+                                  <div className="relative mb-3">
+                                    <select
+                                      value={lead.status}
+                                      onChange={(e) => updateLeadStatus(lead.id, lead.status, e.target.value as LeadStatus)}
+                                      disabled={isClosed || updating === lead.id}
+                                      className={`w-full text-sm pl-4 pr-10 py-2.5 border border-daze-gray rounded-pill bg-white appearance-none transition-all font-roobert font-medium text-daze-black ${
+                                        isClosed
+                                          ? 'opacity-50 cursor-not-allowed'
+                                          : 'hover:border-daze-black/30 focus:border-daze-blue focus:ring-1 focus:ring-daze-blue/30 focus:outline-none cursor-pointer'
+                                      } ${updating === lead.id ? 'opacity-50' : ''}`}
+                                    >
+                                      {PIPELINE_STAGES.map((s) => (
+                                        <option key={s.status} value={s.status}>
+                                          {s.label}
+                                        </option>
+                                      ))}
+                                    </select>
+                                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-daze-black/40 pointer-events-none" />
+                                  </div>
 
-                                  <Link
-                                    to={`/installer/leads/${lead.id}`}
-                                    className="flex items-center justify-center gap-2 text-sm text-teal-600 hover:text-teal-700 font-semibold hover:bg-teal-50 rounded-lg py-2 transition-all"
-                                  >
-                                    Dettagli
-                                    <ExternalLink className="w-4 h-4" />
+                                  {/* Bottone Visualizza Dettagli */}
+                                  <Link to={`/installer/leads/${lead.id}`}>
+                                    <Button variant="secondary" size="sm" fullWidth icon={<ArrowRight className="w-5 h-5" />}>
+                                      Visualizza Dettagli
+                                    </Button>
                                   </Link>
                                 </div>
                               )}
@@ -275,10 +292,11 @@ export default function Pipeline() {
                         })}
                         {provided.placeholder}
 
+                        {/* Empty state */}
                         {leadsByStatus[stage.status].length === 0 && (
-                          <div className="bg-slate-50 rounded-2xl border-2 border-dashed border-slate-300 p-6 text-center">
-                            <Icon className="w-8 h-8 text-slate-300 mx-auto mb-2" />
-                            <p className="text-sm text-slate-400 font-medium">Nessuna lead</p>
+                          <div className="bg-daze-gray/20 rounded-squircle border-2 border-dashed border-daze-gray p-6 text-center">
+                            <Icon className="w-8 h-8 text-daze-black/30 mx-auto mb-2" />
+                            <p className="text-sm font-inter font-medium text-daze-black/40">Nessuna lead</p>
                           </div>
                         )}
                       </div>
@@ -290,6 +308,7 @@ export default function Pipeline() {
           </div>
         </div>
       </DragDropContext>
+      </div>
     </InstallerLayout>
   );
 }

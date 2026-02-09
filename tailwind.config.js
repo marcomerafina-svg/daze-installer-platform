@@ -20,9 +20,15 @@ export default {
           },
           gray: '#e0e1e2',
           sky: '#a9e0ed',
-          salmon: '#ee6c4d',
+          salmon: {
+            DEFAULT: '#ee6c4d',
+            dark: '#c4502e',
+          },
           forest: '#00785c',
-          honey: '#f2b200',
+          honey: {
+            DEFAULT: '#f2b200',
+            dark: '#946D00',
+          },
           rose: '#f5d3c8',
           border: '#aaadb0',
         },

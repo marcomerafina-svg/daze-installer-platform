@@ -105,9 +105,9 @@ export default function InstallerDashboard() {
   const getStatusColor = (status: string) => {
     const colors: Record<string, string> = {
       'Nuova': 'bg-daze-blue-light text-daze-blue border-daze-blue/20',
-      'In lavorazione': 'bg-daze-honey/10 text-daze-honey border-daze-honey/20',
+      'In lavorazione': 'bg-daze-honey/10 text-daze-honey-dark border-daze-honey/20',
       'Chiusa Vinta': 'bg-daze-forest/10 text-daze-forest border-daze-forest/20',
-      'Chiusa Persa': 'bg-daze-salmon/10 text-daze-salmon border-daze-salmon/20',
+      'Chiusa Persa': 'bg-daze-salmon/10 text-daze-salmon-dark border-daze-salmon/20',
     };
     return colors[status] || 'bg-daze-gray text-daze-black/70';
   };
@@ -129,7 +129,7 @@ export default function InstallerDashboard() {
           <h1 className="text-3xl font-roobert font-bold text-daze-black mb-2">
             Benvenuto, {installer?.first_name}!
           </h1>
-          <p className="text-daze-black/60 font-inter">Ecco una panoramica delle tue attività</p>
+          <p className="text-daze-black/70 font-inter">Ecco una panoramica delle tue attività</p>
         </div>
 
         {installer && <PushNotificationBanner installerId={installer.id} />}
@@ -183,7 +183,7 @@ export default function InstallerDashboard() {
                 <Users className="w-6 h-6 text-daze-black" />
               </div>
             </div>
-            <h3 className="text-daze-black/60 text-sm font-inter font-medium mb-1">Lead Totali</h3>
+            <h3 className="text-daze-black/80 text-sm font-inter font-medium mb-1">Lead Totali</h3>
             <p className="text-3xl font-roobert font-bold text-daze-black">{stats.total}</p>
           </div>
 
@@ -193,7 +193,7 @@ export default function InstallerDashboard() {
                 <Target className="w-6 h-6 text-daze-blue" />
               </div>
             </div>
-            <h3 className="text-daze-black/60 text-sm font-inter font-medium mb-1">Lead Attive</h3>
+            <h3 className="text-daze-black/80 text-sm font-inter font-medium mb-1">Lead Attive</h3>
             <p className="text-3xl font-roobert font-bold text-daze-black">{stats.active}</p>
           </div>
 
@@ -203,17 +203,17 @@ export default function InstallerDashboard() {
                 <Award className="w-6 h-6 text-daze-forest" />
               </div>
             </div>
-            <h3 className="text-daze-black/60 text-sm font-inter font-medium mb-1">Lead Vinte</h3>
+            <h3 className="text-daze-black/80 text-sm font-inter font-medium mb-1">Lead Vinte</h3>
             <p className="text-3xl font-roobert font-bold text-daze-black">{stats.won}</p>
           </div>
 
           <div className="bg-white rounded-squircle border border-daze-gray p-6">
             <div className="flex items-start justify-between mb-4">
               <div className="p-3 bg-daze-honey/10 rounded-xl">
-                <TrendingUp className="w-6 h-6 text-daze-honey" />
+                <TrendingUp className="w-6 h-6 text-daze-honey-dark" />
               </div>
             </div>
-            <h3 className="text-daze-black/60 text-sm font-inter font-medium mb-1">Conversione</h3>
+            <h3 className="text-daze-black/80 text-sm font-inter font-medium mb-1">Conversione</h3>
             <p className="text-3xl font-roobert font-bold text-daze-black">{stats.conversionRate}%</p>
           </div>
         </div>
@@ -317,7 +317,7 @@ export default function InstallerDashboard() {
 
                   {lead.description && (
                     <p className="text-sm font-inter text-daze-black mt-3">
-                      <span className="text-daze-black/60">Note:</span> {lead.description}
+                      <span className="text-daze-black/70">Note:</span> {lead.description}
                     </p>
                   )}
                 </div>

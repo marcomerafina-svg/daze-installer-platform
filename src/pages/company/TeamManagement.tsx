@@ -126,9 +126,9 @@ export default function TeamManagement() {
 
   const getRoleBadge = (role: string) => {
     const badges = {
-      owner: 'bg-purple-100 text-purple-800 border-purple-200',
-      admin: 'bg-blue-100 text-blue-800 border-blue-200',
-      member: 'bg-gray-100 text-gray-800 border-gray-200',
+      owner: 'bg-daze-blue-light text-daze-blue border-daze-blue/20',
+      admin: 'bg-daze-blue-light/50 text-daze-blue border-daze-blue/20',
+      member: 'bg-daze-gray text-daze-black border-daze-gray',
     };
     return badges[role as keyof typeof badges] || badges.member;
   };
@@ -137,7 +137,7 @@ export default function TeamManagement() {
     return (
       <CompanyLayout>
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-daze-blue"></div>
         </div>
       </CompanyLayout>
     );
@@ -145,11 +145,12 @@ export default function TeamManagement() {
 
   return (
     <CompanyLayout>
-      <div className="space-y-6">
+      <div className="max-w-7xl mx-auto pt-2 lg:pt-4 space-y-6">
+        {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Gestione Team</h1>
-            <p className="text-gray-600 font-inter">
+            <h1 className="text-3xl font-roobert font-bold text-daze-black mb-2">Gestione Team</h1>
+            <p className="text-daze-black/70 font-inter">
               {teamMembers.length} {teamMembers.length === 1 ? 'membro' : 'membri'} nel team
             </p>
           </div>
@@ -165,52 +166,53 @@ export default function TeamManagement() {
           )}
         </div>
 
+        {/* Team members */}
         <div className="grid grid-cols-1 gap-4">
           {teamMembers.map((member) => (
             <div
               key={member.id}
-              className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
+              className="bg-white rounded-squircle border border-daze-gray p-6 hover:border-daze-black/20 transition-all"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-start gap-4">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-2xl font-bold text-blue-600">
+                  <div className="w-16 h-16 bg-daze-blue-light rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-2xl font-roobert font-bold text-daze-blue">
                       {member.first_name[0]}{member.last_name[0]}
                     </span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-1">
+                    <h3 className="text-xl font-roobert font-bold text-daze-black mb-1">
                       {member.first_name} {member.last_name}
                     </h3>
                     <div className="flex items-center gap-2 mb-2">
                       <span
-                        className={`px-2 py-1 text-xs font-semibold rounded border ${getRoleBadge(member.role_in_company || 'member')}`}
+                        className={`px-2.5 py-1 text-xs font-roobert font-medium rounded-pill border ${getRoleBadge(member.role_in_company || 'member')}`}
                       >
                         {member.role_in_company?.toUpperCase() || 'MEMBER'}
                       </span>
                       {member.can_manage_company && (
-                        <span className="px-2 py-1 text-xs font-semibold rounded border bg-orange-100 text-orange-800 border-orange-200 flex items-center gap-1">
+                        <span className="px-2.5 py-1 text-xs font-roobert font-medium rounded-pill border bg-daze-honey/10 text-daze-honey-dark border-daze-honey/20 flex items-center gap-1">
                           <Shield className="w-3 h-3" />
                           MANAGER
                         </span>
                       )}
                       {!member.is_active && (
-                        <span className="px-2 py-1 text-xs font-semibold rounded border bg-red-100 text-red-800 border-red-200">
+                        <span className="px-2.5 py-1 text-xs font-roobert font-medium rounded-pill border bg-daze-salmon/10 text-daze-salmon-dark border-daze-salmon/20">
                           INATTIVO
                         </span>
                       )}
                     </div>
-                    <div className="space-y-1 text-sm font-inter text-gray-600">
+                    <div className="space-y-1 text-sm font-inter text-daze-black/70">
                       <div className="flex items-center gap-2">
-                        <Mail className="w-4 h-4" />
-                        <a href={`mailto:${member.email}`} className="hover:text-blue-600">
+                        <Mail className="w-4 h-4 text-daze-black" />
+                        <a href={`mailto:${member.email}`} className="hover:text-daze-blue">
                           {member.email}
                         </a>
                       </div>
                       {member.phone && (
                         <div className="flex items-center gap-2">
-                          <Phone className="w-4 h-4" />
-                          <a href={`tel:${member.phone}`} className="hover:text-blue-600">
+                          <Phone className="w-4 h-4 text-daze-black" />
+                          <a href={`tel:${member.phone}`} className="hover:text-daze-blue">
                             {member.phone}
                           </a>
                         </div>
@@ -224,67 +226,68 @@ export default function TeamManagement() {
                     {installer.role_in_company === 'owner' && member.role_in_company !== 'owner' && (
                       <button
                         onClick={() => toggleManagementPermission(member.id, member.can_manage_company)}
-                        className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                        className="p-2 hover:bg-daze-gray/20 rounded-xl transition-colors"
                         title={member.can_manage_company ? 'Rimuovi permessi gestione' : 'Assegna permessi gestione'}
                       >
                         {member.can_manage_company ? (
-                          <Shield className="w-5 h-5 text-orange-600" />
+                          <Shield className="w-5 h-5 text-daze-honey-dark" />
                         ) : (
-                          <Shield className="w-5 h-5 text-gray-400" />
+                          <Shield className="w-5 h-5 text-daze-black/30" />
                         )}
                       </button>
                     )}
                     <button
                       onClick={() => toggleMemberStatus(member.id, member.is_active)}
-                      className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                      className="p-2 hover:bg-daze-gray/20 rounded-xl transition-colors"
                     >
                       {member.is_active ? (
-                        <ToggleRight className="w-6 h-6 text-green-600" />
+                        <ToggleRight className="w-6 h-6 text-daze-forest" />
                       ) : (
-                        <ToggleLeft className="w-6 h-6 text-gray-400" />
+                        <ToggleLeft className="w-6 h-6 text-daze-black/30" />
                       )}
                     </button>
                   </div>
                 )}
               </div>
 
+              {/* Stat mini-cards */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 font-inter">
-                <div className="bg-green-50 rounded-lg p-3">
+                <div className="bg-daze-forest/10 rounded-xl p-3">
                   <div className="flex items-center gap-2 mb-1">
-                    <Award className="w-4 h-4 text-green-600" />
-                    <span className="text-xs text-gray-600">Punti</span>
+                    <Award className="w-4 h-4 text-daze-forest" />
+                    <span className="text-xs text-daze-black/70">Punti</span>
                   </div>
-                  <p className="text-lg font-semibold text-gray-900">
+                  <p className="text-lg font-roobert font-bold text-daze-black">
                     {member.total_points.toLocaleString()}
                   </p>
                 </div>
 
-                <div className="bg-blue-50 rounded-lg p-3">
+                <div className="bg-daze-blue-light rounded-xl p-3">
                   <div className="flex items-center gap-2 mb-1">
-                    <Users className="w-4 h-4 text-blue-600" />
-                    <span className="text-xs text-gray-600">Lead Totali</span>
+                    <Users className="w-4 h-4 text-daze-blue" />
+                    <span className="text-xs text-daze-black/70">Lead Totali</span>
                   </div>
-                  <p className="text-lg font-semibold text-gray-900">
+                  <p className="text-lg font-roobert font-bold text-daze-black">
                     {member.total_leads}
                   </p>
                 </div>
 
-                <div className="bg-purple-50 rounded-lg p-3">
+                <div className="bg-daze-blue-light/50 rounded-xl p-3">
                   <div className="flex items-center gap-2 mb-1">
-                    <Award className="w-4 h-4 text-purple-600" />
-                    <span className="text-xs text-gray-600">Lead Vinte</span>
+                    <Award className="w-4 h-4 text-daze-blue" />
+                    <span className="text-xs text-daze-black/70">Lead Vinte</span>
                   </div>
-                  <p className="text-lg font-semibold text-gray-900">
+                  <p className="text-lg font-roobert font-bold text-daze-black">
                     {member.won_leads}
                   </p>
                 </div>
 
-                <div className="bg-orange-50 rounded-lg p-3">
+                <div className="bg-daze-honey/10 rounded-xl p-3">
                   <div className="flex items-center gap-2 mb-1">
-                    <Award className="w-4 h-4 text-orange-600" />
-                    <span className="text-xs text-gray-600">Conversion</span>
+                    <Award className="w-4 h-4 text-daze-honey-dark" />
+                    <span className="text-xs text-daze-black/70">Conversion</span>
                   </div>
-                  <p className="text-lg font-semibold text-gray-900">
+                  <p className="text-lg font-roobert font-bold text-daze-black">
                     {member.conversion_rate}%
                   </p>
                 </div>
@@ -293,10 +296,11 @@ export default function TeamManagement() {
           ))}
         </div>
 
+        {/* Empty state */}
         {teamMembers.length === 0 && (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-            <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500 text-lg mb-2">Nessun membro nel team</p>
+          <div className="bg-white rounded-squircle border border-daze-gray p-12 text-center">
+            <Users className="w-16 h-16 text-daze-black/20 mx-auto mb-4" />
+            <p className="text-daze-black/70 text-lg font-inter mb-2">Nessun membro nel team</p>
             {installer?.can_manage_company && (
               <Button
                 variant="ghost"
