@@ -42,7 +42,7 @@ export default function InstallerDashboard() {
           .eq('installer_id', installer.id),
         supabase
           .from('wallbox_serials')
-          .select('id')
+          .select('id, approval_status, installation_date, created_at')
           .eq('installer_id', installer.id)
       ]);
 
