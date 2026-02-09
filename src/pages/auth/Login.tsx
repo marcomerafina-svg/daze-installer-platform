@@ -78,6 +78,7 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                autoComplete="username"
                 className="w-full px-4 py-3 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all text-daze-black font-inter placeholder:text-daze-border"
                 placeholder="tua@email.it"
               />
