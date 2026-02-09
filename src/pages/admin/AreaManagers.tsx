@@ -61,8 +61,10 @@ export default function AreaManagers() {
   if (loading) {
     return (
       <AdminLayout>
-        <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#4a5fc1]"></div>
+        <div className="max-w-7xl mx-auto pt-2 lg:pt-4">
+          <div className="flex items-center justify-center h-64">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-daze-blue"></div>
+          </div>
         </div>
       </AdminLayout>
     );
@@ -70,116 +72,118 @@ export default function AreaManagers() {
 
   return (
     <AdminLayout>
-      <div className="mb-8 flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Area Manager</h1>
-          <p className="text-gray-600 font-inter">Gestisci i responsabili commerciali per territorio</p>
-        </div>
-        <Button
-          variant="primaryBlack"
-          size="sm"
-          icon={<Plus className="w-5 h-5" />}
-          onClick={openCreateModal}
-        >
-          Nuovo Area Manager
-        </Button>
-      </div>
-
-      {areaManagers.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-          <MapPin className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">Nessun area manager</h3>
-          <p className="text-gray-600 font-inter mb-6">Inizia aggiungendo il primo area manager</p>
+      <div className="max-w-7xl mx-auto pt-2 lg:pt-4">
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-daze-black mb-2">Area Manager</h1>
+            <p className="text-daze-black/70 font-inter">Gestisci i responsabili commerciali per territorio</p>
+          </div>
           <Button
             variant="primaryBlack"
             size="sm"
             icon={<Plus className="w-5 h-5" />}
             onClick={openCreateModal}
           >
-            Aggiungi Area Manager
+            Nuovo Area Manager
           </Button>
         </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {areaManagers.map((manager) => (
-            <div
-              key={manager.id}
-              className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
+
+        {areaManagers.length === 0 ? (
+          <div className="bg-white rounded-squircle border border-daze-gray p-12 text-center">
+            <MapPin className="w-16 h-16 text-daze-black/20 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-daze-black mb-2">Nessun area manager</h3>
+            <p className="text-daze-black/70 font-inter mb-6">Inizia aggiungendo il primo area manager</p>
+            <Button
+              variant="primaryBlack"
+              size="sm"
+              icon={<Plus className="w-5 h-5" />}
+              onClick={openCreateModal}
             >
-              <div className="flex items-start justify-between mb-4">
-                <div className="bg-gradient-to-br from-[#223aa3] to-[#4a5fc1] p-3 rounded-lg">
-                  <MapPin className="w-6 h-6 text-white" />
-                </div>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => openEditModal(manager)}
-                    className="p-2 text-gray-600 hover:text-[#4a5fc1] hover:bg-gray-100 rounded-lg transition-colors"
-                  >
-                    <Pencil className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(manager.id)}
-                    className="p-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-
-              <h3 className="text-xl font-bold text-gray-900 mb-4">{manager.name}</h3>
-
-              <div className="space-y-3 mb-4 font-inter">
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Mail className="w-4 h-4" />
-                  <a href={`mailto:${manager.email}`} className="hover:text-[#4a5fc1]">
-                    {manager.email}
-                  </a>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Phone className="w-4 h-4" />
-                  <a href={`tel:${manager.phone}`} className="hover:text-[#4a5fc1]">
-                    {manager.phone}
-                  </a>
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-gray-200">
-                <p className="text-xs font-inter font-medium text-gray-500 mb-2">REGIONI GESTITE</p>
-                <div className="flex flex-wrap gap-1">
-                  {manager.regions.slice(0, 3).map((region) => (
-                    <span
-                      key={region}
-                      className="inline-flex items-center px-2 py-1 rounded-md bg-blue-50 text-blue-700 text-xs font-medium"
+              Aggiungi Area Manager
+            </Button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {areaManagers.map((manager) => (
+              <div
+                key={manager.id}
+                className="bg-white rounded-squircle border border-daze-gray p-6"
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className="bg-daze-blue p-3 rounded-lg">
+                    <MapPin className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => openEditModal(manager)}
+                      className="p-2 text-daze-black/70 hover:text-daze-blue hover:bg-daze-gray/20 rounded-lg transition-colors"
                     >
-                      {region}
-                    </span>
-                  ))}
-                  {manager.regions.length > 3 && (
-                    <span className="inline-flex items-center px-2 py-1 rounded-md bg-gray-100 text-gray-600 text-xs font-medium">
-                      +{manager.regions.length - 3}
-                    </span>
-                  )}
+                      <Pencil className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(manager.id)}
+                      className="p-2 text-daze-black/70 hover:text-daze-salmon-dark hover:bg-daze-salmon/10 rounded-lg transition-colors"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                <h3 className="text-xl font-bold text-daze-black mb-4">{manager.name}</h3>
+
+                <div className="space-y-3 mb-4 font-inter">
+                  <div className="flex items-center gap-2 text-sm text-daze-black/70">
+                    <Mail className="w-4 h-4" />
+                    <a href={`mailto:${manager.email}`} className="hover:text-daze-blue">
+                      {manager.email}
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-daze-black/70">
+                    <Phone className="w-4 h-4" />
+                    <a href={`tel:${manager.phone}`} className="hover:text-daze-blue">
+                      {manager.phone}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-daze-gray">
+                  <p className="text-xs font-inter font-medium text-daze-black/60 mb-2">REGIONI GESTITE</p>
+                  <div className="flex flex-wrap gap-1">
+                    {manager.regions.slice(0, 3).map((region) => (
+                      <span
+                        key={region}
+                        className="inline-flex items-center px-2 py-1 rounded-md bg-daze-blue-light text-daze-blue text-xs font-medium"
+                      >
+                        {region}
+                      </span>
+                    ))}
+                    {manager.regions.length > 3 && (
+                      <span className="inline-flex items-center px-2 py-1 rounded-md bg-daze-gray text-daze-black/70 text-xs font-medium">
+                        +{manager.regions.length - 3}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
 
-      {showModal && (
-        <AreaManagerModal
-          manager={editingManager}
-          onClose={() => {
-            setShowModal(false);
-            setEditingManager(null);
-          }}
-          onSave={() => {
-            setShowModal(false);
-            setEditingManager(null);
-            loadAreaManagers();
-          }}
-        />
-      )}
+        {showModal && (
+          <AreaManagerModal
+            manager={editingManager}
+            onClose={() => {
+              setShowModal(false);
+              setEditingManager(null);
+            }}
+            onSave={() => {
+              setShowModal(false);
+              setEditingManager(null);
+              loadAreaManagers();
+            }}
+          />
+        )}
+      </div>
     </AdminLayout>
   );
 }
@@ -259,16 +263,16 @@ function AreaManagerModal({ manager, onClose, onSave }: AreaManagerModalProps) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="p-6 border-b border-gray-200">
-          <h2 className="text-2xl font-bold text-gray-900">
+      <div className="bg-white rounded-squircle max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="p-6 border-b border-daze-gray">
+          <h2 className="text-2xl font-bold text-daze-black">
             {manager ? 'Modifica Area Manager' : 'Nuovo Area Manager'}
           </h2>
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6 font-inter">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-daze-black/70 mb-2">
               Nome completo
             </label>
             <input
@@ -276,13 +280,13 @@ function AreaManagerModal({ manager, onClose, onSave }: AreaManagerModalProps) {
               required
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4a5fc1] focus:border-transparent"
+              className="w-full px-4 py-2 border border-daze-gray rounded-lg outline-none focus:ring-0 focus:border-daze-blue transition-all"
               placeholder="Mario Rossi"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-daze-black/70 mb-2">
               Email
             </label>
             <input
@@ -290,13 +294,13 @@ function AreaManagerModal({ manager, onClose, onSave }: AreaManagerModalProps) {
               required
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4a5fc1] focus:border-transparent"
+              className="w-full px-4 py-2 border border-daze-gray rounded-lg outline-none focus:ring-0 focus:border-daze-blue transition-all"
               placeholder="mario.rossi@example.com"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-daze-black/70 mb-2">
               Telefono
             </label>
             <input
@@ -304,28 +308,28 @@ function AreaManagerModal({ manager, onClose, onSave }: AreaManagerModalProps) {
               required
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4a5fc1] focus:border-transparent"
+              className="w-full px-4 py-2 border border-daze-gray rounded-lg outline-none focus:ring-0 focus:border-daze-blue transition-all"
               placeholder="+39 333 123 4567"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-daze-black/70 mb-2">
               Regioni gestite ({formData.regions.length} selezionate)
             </label>
-            <div className="grid grid-cols-2 gap-2 max-h-60 overflow-y-auto p-4 border border-gray-200 rounded-lg">
+            <div className="grid grid-cols-2 gap-2 max-h-60 overflow-y-auto p-4 border border-daze-gray rounded-lg">
               {ITALIAN_REGIONS.map((region) => (
                 <label
                   key={region}
-                  className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded"
+                  className="flex items-center gap-2 cursor-pointer hover:bg-daze-gray/10 p-2 rounded"
                 >
                   <input
                     type="checkbox"
                     checked={formData.regions.includes(region)}
                     onChange={() => toggleRegion(region)}
-                    className="w-4 h-4 text-[#4a5fc1] border-gray-300 rounded focus:ring-[#4a5fc1]"
+                    className="w-4 h-4 text-daze-blue border-daze-gray rounded focus:ring-daze-blue"
                   />
-                  <span className="text-sm text-gray-700">{region}</span>
+                  <span className="text-sm text-daze-black/70">{region}</span>
                 </label>
               ))}
             </div>

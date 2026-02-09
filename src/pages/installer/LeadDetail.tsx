@@ -356,7 +356,7 @@ export default function LeadDetail() {
     return (
       <InstallerLayout>
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#4a5fc1]"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-daze-blue"></div>
         </div>
       </InstallerLayout>
     );
@@ -366,7 +366,7 @@ export default function LeadDetail() {
     return (
       <InstallerLayout>
         <div className="text-center py-12">
-          <p className="text-gray-500">Lead non trovata</p>
+          <p className="text-daze-black/60">Lead non trovata</p>
         </div>
       </InstallerLayout>
     );
@@ -374,16 +374,17 @@ export default function LeadDetail() {
 
   const getStatusColor = (status: string) => {
     const colors: Record<string, string> = {
-      'Nuova': 'bg-blue-100 text-blue-800',
-      'In lavorazione': 'bg-yellow-100 text-yellow-800',
-      'Chiusa Vinta': 'bg-green-100 text-green-800',
-      'Chiusa Persa': 'bg-red-100 text-red-800',
+      'Nuova': 'bg-daze-blue-light text-daze-blue',
+      'In lavorazione': 'bg-daze-honey/10 text-daze-honey-dark',
+      'Chiusa Vinta': 'bg-daze-forest/10 text-daze-forest',
+      'Chiusa Persa': 'bg-daze-salmon/10 text-daze-salmon-dark',
     };
-    return colors[status] || 'bg-gray-100 text-gray-800';
+    return colors[status] || 'bg-daze-gray text-daze-black';
   };
 
   return (
     <InstallerLayout>
+      <div className="max-w-7xl mx-auto pt-2 lg:pt-4">
       <Button
         variant="ghost"
         size="sm"
@@ -398,16 +399,16 @@ export default function LeadDetail() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         <div className="lg:col-span-2 space-y-4 sm:space-y-6">
           {lead.status === 'Nuova' && assignment && !assignment.confirmed_by_installer && (
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 sm:p-6 border-2 border-blue-300 shadow-md">
+            <div className="bg-daze-blue-light rounded-squircle p-4 sm:p-6 border border-daze-blue/20">
               <div className="flex items-start gap-3 sm:gap-4">
-                <div className="bg-blue-500 p-2 sm:p-3 rounded-lg flex-shrink-0">
+                <div className="bg-daze-blue p-2 sm:p-3 rounded-lg flex-shrink-0">
                   <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-lg sm:text-xl font-bold text-blue-900 mb-2">
+                  <h3 className="text-lg sm:text-xl font-bold text-daze-black mb-2">
                     Conferma Presa in Carico
                   </h3>
-                  <p className="text-sm sm:text-base font-inter text-blue-700 mb-4">
+                  <p className="text-sm sm:text-base font-inter text-daze-black/70 mb-4">
                     Hai contattato questa lead? Conferma per far sapere all'admin che hai preso in carico la richiesta.
                     Lo stato passerà automaticamente a "In lavorazione".
                   </p>
@@ -428,12 +429,12 @@ export default function LeadDetail() {
           )}
 
           {assignment?.confirmed_by_installer && (
-            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 border border-green-300">
+            <div className="bg-daze-forest/10 rounded-squircle p-4 border border-daze-forest/20">
               <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-green-600" />
+                <CheckCircle className="w-5 h-5 text-daze-forest" />
                 <div>
-                  <p className="text-green-900 font-semibold">Lead confermata</p>
-                  <p className="text-sm text-green-700">
+                  <p className="text-daze-black font-semibold">Lead confermata</p>
+                  <p className="text-sm text-daze-black/70">
                     Hai confermato di aver contattato questa lead il {new Date(assignment.confirmed_at!).toLocaleString('it-IT')}
                   </p>
                 </div>
@@ -441,13 +442,13 @@ export default function LeadDetail() {
             </div>
           )}
 
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
+          <div className="bg-white rounded-squircle border border-daze-gray p-4 sm:p-6">
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-0 mb-4 sm:mb-6">
               <div>
-                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+                <h1 className="text-2xl sm:text-3xl font-bold text-daze-black mb-2">
                   {lead.first_name} {lead.last_name}
                 </h1>
-                <span className={`inline-block px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium ${getStatusColor(lead.status)}`}>
+                <span className={`inline-block px-2 sm:px-3 py-1 rounded-pill text-xs sm:text-sm font-medium ${getStatusColor(lead.status)}`}>
                   {lead.status}
                 </span>
               </div>
@@ -455,10 +456,10 @@ export default function LeadDetail() {
 
             <div className="grid gap-3 sm:gap-4 font-inter">
               <div className="flex items-start gap-2 sm:gap-3">
-                <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-daze-black/40 mt-0.5 flex-shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-xs sm:text-sm text-gray-500 mb-1">Telefono</p>
-                  <a href={`tel:${lead.phone}`} className="text-base sm:text-lg font-medium text-[#4a5fc1] hover:text-[#223aa3] break-all">
+                  <p className="text-xs sm:text-sm text-daze-black/60 mb-1">Telefono</p>
+                  <a href={`tel:${lead.phone}`} className="text-base sm:text-lg font-medium text-daze-blue hover:text-daze-blue break-all">
                     {lead.phone}
                   </a>
                 </div>
@@ -466,10 +467,10 @@ export default function LeadDetail() {
 
               {lead.email && (
                 <div className="flex items-start gap-2 sm:gap-3">
-                  <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                  <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-daze-black/40 mt-0.5 flex-shrink-0" />
                   <div className="min-w-0">
-                    <p className="text-xs sm:text-sm text-gray-500 mb-1">Email</p>
-                    <a href={`mailto:${lead.email}`} className="text-base sm:text-lg font-medium text-[#4a5fc1] hover:text-[#223aa3] break-all">
+                    <p className="text-xs sm:text-sm text-daze-black/60 mb-1">Email</p>
+                    <a href={`mailto:${lead.email}`} className="text-base sm:text-lg font-medium text-daze-blue hover:text-daze-blue break-all">
                       {lead.email}
                     </a>
                   </div>
@@ -478,44 +479,44 @@ export default function LeadDetail() {
 
               {lead.address && (
                 <div className="flex items-start gap-2 sm:gap-3">
-                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-daze-black/40 mt-0.5 flex-shrink-0" />
                   <div className="min-w-0">
-                    <p className="text-xs sm:text-sm text-gray-500 mb-1">Indirizzo</p>
-                    <p className="text-base sm:text-lg font-medium text-gray-900 break-words">{lead.address}</p>
+                    <p className="text-xs sm:text-sm text-daze-black/60 mb-1">Indirizzo</p>
+                    <p className="text-base sm:text-lg font-medium text-daze-black break-words">{lead.address}</p>
                   </div>
                 </div>
               )}
 
               {lead.description && (
-                <div className="pt-3 sm:pt-4 border-t border-gray-200">
-                  <p className="text-xs sm:text-sm text-gray-500 mb-2">Descrizione</p>
-                  <p className="text-sm sm:text-base text-gray-700 leading-relaxed">{lead.description}</p>
+                <div className="pt-3 sm:pt-4 border-t border-daze-gray">
+                  <p className="text-xs sm:text-sm text-daze-black/60 mb-2">Descrizione</p>
+                  <p className="text-sm sm:text-base text-daze-black/70 leading-relaxed">{lead.description}</p>
                 </div>
               )}
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
-            <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 flex items-center gap-2">
+          <div className="bg-white rounded-squircle border border-daze-gray p-4 sm:p-6">
+            <h2 className="text-lg sm:text-xl font-bold text-daze-black mb-3 sm:mb-4 flex items-center gap-2">
               <FileText className="w-4 h-4 sm:w-5 sm:h-5" />
               Preventivo
             </h2>
 
             {lead.quote_pdf_url ? (
-              <div className="bg-green-50 border-2 border-green-200 rounded-lg p-4">
+              <div className="bg-daze-forest/10 border border-daze-forest/20 rounded-squircle p-4">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="bg-green-500 p-2 rounded-lg">
+                    <div className="bg-daze-forest p-2 rounded-lg">
                       <FileText className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900">Preventivo caricato</p>
-                      <p className="text-sm text-gray-600">File PDF disponibile</p>
+                      <p className="font-semibold text-daze-black">Preventivo caricato</p>
+                      <p className="text-sm text-daze-black/70">File PDF disponibile</p>
                     </div>
                   </div>
                   <button
                     onClick={handleDeletePDF}
-                    className="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-all"
+                    className="p-2 text-daze-salmon-dark hover:bg-daze-salmon/10 rounded-lg transition-all"
                     title="Elimina preventivo"
                   >
                     <XIcon className="w-5 h-5" />
@@ -526,7 +527,7 @@ export default function LeadDetail() {
                     href={lead.quote_pdf_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-[#223aa3] to-[#4a5fc1] text-white px-4 py-2 rounded-lg font-medium hover:shadow-lg transition-all"
+                    className="flex-1 flex items-center justify-center gap-2 bg-daze-blue text-white px-4 py-2 rounded-pill font-medium transition-all"
                   >
                     <Download className="w-4 h-4" />
                     Visualizza PDF
@@ -534,13 +535,13 @@ export default function LeadDetail() {
                 </div>
               </div>
             ) : (
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                <Upload className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-                <p className="text-gray-600 font-inter font-medium mb-2">Carica il preventivo</p>
-                <p className="text-sm font-inter text-gray-500 mb-4">
+              <div className="border-2 border-dashed border-daze-gray rounded-squircle p-6 text-center">
+                <Upload className="w-12 h-12 text-daze-black/20 mx-auto mb-3" />
+                <p className="text-daze-black/70 font-inter font-medium mb-2">Carica il preventivo</p>
+                <p className="text-sm font-inter text-daze-black/60 mb-4">
                   File PDF fino a 10MB (opzionale)
                 </p>
-                <label className="inline-flex items-center gap-2 bg-gradient-to-r from-[#223aa3] to-[#4a5fc1] text-white px-4 py-2 rounded-lg font-medium hover:shadow-lg transition-all cursor-pointer">
+                <label className="inline-flex items-center gap-2 bg-daze-blue text-white px-4 py-2 rounded-pill font-medium transition-all cursor-pointer">
                   <Upload className="w-4 h-4" />
                   {uploading ? 'Caricamento...' : 'Scegli File PDF'}
                   <input
@@ -556,28 +557,28 @@ export default function LeadDetail() {
           </div>
 
           {serials.length > 0 && (
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <div className="bg-white rounded-squircle border border-daze-gray p-6">
+              <h2 className="text-xl font-bold text-daze-black mb-4 flex items-center gap-2">
                 <Package className="w-5 h-5" />
                 Prodotti Installati ({serials.length})
               </h2>
               <div className="grid gap-3">
                 {serials.map((serial) => (
-                  <div key={serial.id} className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-4">
+                  <div key={serial.id} className="bg-daze-blue-light border border-daze-blue/20 rounded-squircle p-4">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <p className="font-bold text-blue-900 text-lg mb-1">
+                        <p className="font-bold text-daze-black text-lg mb-1">
                           {serial.product?.name || 'Prodotto sconosciuto'}
                         </p>
-                        <p className="text-sm text-blue-700 font-mono mb-2">
+                        <p className="text-sm text-daze-black/70 font-mono mb-2">
                           {serial.serial_code}
                         </p>
-                        <div className="flex gap-4 text-xs text-blue-600">
+                        <div className="flex gap-4 text-xs text-daze-blue">
                           {serial.year && <span>Anno: {serial.year}</span>}
                           {serial.production_number && <span>Prog: {serial.production_number}</span>}
                         </div>
                       </div>
-                      <div className="bg-blue-500 p-2 rounded-lg">
+                      <div className="bg-daze-blue p-2 rounded-lg">
                         <Package className="w-5 h-5 text-white" />
                       </div>
                     </div>
@@ -587,8 +588,8 @@ export default function LeadDetail() {
             </div>
           )}
 
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+          <div className="bg-white rounded-squircle border border-daze-gray p-6">
+            <h2 className="text-xl font-bold text-daze-black mb-4 flex items-center gap-2">
               <MessageSquare className="w-5 h-5" />
               Note
             </h2>
@@ -599,7 +600,7 @@ export default function LeadDetail() {
                 onChange={(e) => setNewNote(e.target.value)}
                 placeholder="Aggiungi una nota..."
                 rows={3}
-                className="w-full px-4 py-3 font-inter border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4a5fc1] focus:border-transparent resize-none"
+                className="w-full px-4 py-3 font-inter border border-daze-gray rounded-xl focus:ring-2 focus:ring-daze-blue focus:border-transparent resize-none"
               />
               <Button
                 variant="primaryBlack"
@@ -615,12 +616,12 @@ export default function LeadDetail() {
 
             <div className="space-y-3">
               {notes.length === 0 ? (
-                <p className="text-gray-500 text-sm text-center py-4">Nessuna nota</p>
+                <p className="text-daze-black/60 text-sm text-center py-4">Nessuna nota</p>
               ) : (
                 notes.map((note) => (
-                  <div key={note.id} className="bg-gray-50 rounded-lg p-4 font-inter">
-                    <p className="text-gray-700 mb-2">{note.note_text}</p>
-                    <p className="text-xs text-gray-500">
+                  <div key={note.id} className="bg-daze-gray/10 rounded-xl p-4 font-inter">
+                    <p className="text-daze-black/70 mb-2">{note.note_text}</p>
+                    <p className="text-xs text-daze-black/60">
                       {new Date(note.created_at).toLocaleString('it-IT')}
                     </p>
                   </div>
@@ -631,18 +632,18 @@ export default function LeadDetail() {
         </div>
 
         <div className="space-y-4 sm:space-y-6">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
-            <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Cambia Stato</h2>
+          <div className="bg-white rounded-squircle border border-daze-gray p-4 sm:p-6">
+            <h2 className="text-base sm:text-lg font-bold text-daze-black mb-3 sm:mb-4">Cambia Stato</h2>
             <div className="space-y-2">
               {PIPELINE_STAGES.map((status) => (
                 <button
                   key={status}
                   onClick={() => updateLeadStatus(status)}
                   disabled={lead.status === status}
-                  className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-medium text-left transition-all ${
+                  className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-medium text-left transition-all ${
                     lead.status === status
-                      ? 'bg-[#223aa3] text-white'
-                      : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
+                      ? 'bg-daze-blue text-white'
+                      : 'bg-daze-gray/10 text-daze-black hover:bg-daze-gray'
                   }`}
                 >
                   {status}
@@ -651,21 +652,21 @@ export default function LeadDetail() {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
-            <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4 flex items-center gap-2">
+          <div className="bg-white rounded-squircle border border-daze-gray p-4 sm:p-6">
+            <h2 className="text-base sm:text-lg font-bold text-daze-black mb-3 sm:mb-4 flex items-center gap-2">
               <Clock className="w-4 h-4 sm:w-5 sm:h-5" />
               Storico
             </h2>
             <div className="space-y-3">
               {history.length === 0 ? (
-                <p className="text-gray-500 text-xs sm:text-sm text-center py-4">Nessuno storico</p>
+                <p className="text-daze-black/60 text-xs sm:text-sm text-center py-4">Nessuno storico</p>
               ) : (
                 history.map((h) => (
-                  <div key={h.id} className="border-l-2 border-[#4a5fc1] pl-3 py-1">
-                    <p className="text-xs sm:text-sm font-medium text-gray-900">
+                  <div key={h.id} className="border-l-2 border-daze-blue pl-3 py-1">
+                    <p className="text-xs sm:text-sm font-medium text-daze-black">
                       {h.old_status ? `${h.old_status} → ${h.new_status}` : h.new_status}
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-daze-black/60">
                       {new Date(h.changed_at).toLocaleString('it-IT')}
                     </p>
                   </div>
@@ -674,6 +675,7 @@ export default function LeadDetail() {
             </div>
           </div>
         </div>
+      </div>
       </div>
 
       {showSerialModal && id && installer && (

@@ -92,28 +92,28 @@ export default function AdminDashboard() {
       value: stats.totalInstallers,
       subtitle: `${stats.activeInstallers} attivi`,
       icon: Users,
-      gradient: 'from-sky-500 to-sky-600',
+      bg: 'bg-daze-blue',
     },
     {
       title: 'Area Manager',
       value: stats.totalAreaManagers,
       subtitle: 'Responsabili territorio',
       icon: MapPin,
-      gradient: 'from-teal-500 to-teal-600',
+      bg: 'bg-daze-forest',
     },
     {
       title: 'Lead Totali',
       value: stats.totalLeads,
       subtitle: `${stats.newLeads} nuove`,
       icon: FileText,
-      gradient: 'from-slate-500 to-slate-600',
+      bg: 'bg-daze-black',
     },
     {
       title: 'Lead Vinte',
       value: stats.wonLeads,
       subtitle: `${stats.totalLeads > 0 ? Math.round((stats.wonLeads / stats.totalLeads) * 100) : 0}% tasso conversione`,
       icon: TrendingUp,
-      gradient: 'from-emerald-500 to-emerald-600',
+      bg: 'bg-daze-forest',
     },
   ];
 
@@ -121,7 +121,7 @@ export default function AdminDashboard() {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-slate-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-daze-blue"></div>
         </div>
       </AdminLayout>
     );
@@ -129,10 +129,10 @@ export default function AdminDashboard() {
 
   return (
     <AdminLayout>
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto pt-2 lg:pt-4">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">Dashboard</h1>
-          <p className="text-slate-600 font-inter">Panoramica generale della piattaforma</p>
+          <h1 className="text-3xl font-bold text-daze-black mb-2">Dashboard</h1>
+          <p className="text-daze-black/70 font-inter">Panoramica generale della piattaforma</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -141,16 +141,16 @@ export default function AdminDashboard() {
             return (
               <div
                 key={card.title}
-                className="bg-white rounded-2xl shadow-soft border border-slate-200 p-6 hover:shadow-medium transition-all group"
+                className="bg-white rounded-squircle border border-daze-gray p-6"
               >
                 <div className="flex items-start justify-between mb-4">
-                  <div className={`p-3 bg-gradient-to-br ${card.gradient} rounded-xl shadow-sm`}>
+                  <div className={`p-3 ${card.bg} rounded-xl`}>
                     <Icon className="w-6 h-6 text-white" />
                   </div>
                 </div>
-                <h3 className="text-slate-600 text-sm font-inter font-medium mb-1">{card.title}</h3>
-                <p className="text-3xl font-bold text-slate-900 mb-1">{card.value}</p>
-                <p className="text-sm font-inter text-slate-500">{card.subtitle}</p>
+                <h3 className="text-daze-black/80 font-medium text-sm font-inter mb-1">{card.title}</h3>
+                <p className="text-3xl font-bold text-daze-black mb-1">{card.value}</p>
+                <p className="text-sm font-inter text-daze-black/60">{card.subtitle}</p>
               </div>
             );
           })}
@@ -159,35 +159,35 @@ export default function AdminDashboard() {
         {stats.pendingInstallations > 0 && (
           <Link
             to="/admin/pending-installations"
-            className="block bg-gradient-to-br from-amber-500 via-amber-600 to-amber-700 rounded-2xl shadow-strong p-6 mb-8 hover:shadow-xl hover:scale-[1.02] transition-all group"
+            className="block bg-daze-honey rounded-squircle p-6 mb-8 transition-all group"
           >
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl group-hover:scale-110 transition-transform">
+                  <div className="p-3 bg-white/20 rounded-xl">
                     <Clock className="w-8 h-8 text-white" />
                   </div>
                   <h2 className="text-2xl font-bold text-white">Installazioni da Approvare</h2>
                 </div>
-                <p className="text-amber-50 text-sm font-inter mb-4">
+                <p className="text-white/80 text-sm font-inter mb-4">
                   Ci sono installazioni autonome degli installatori in attesa di verifica e approvazione
                 </p>
                 <div className="flex items-center gap-6 text-white">
                   <div className="flex items-center gap-2">
-                    <Package className="w-5 h-5 text-amber-200" />
+                    <Package className="w-5 h-5 text-white/70" />
                     <span className="text-sm font-inter font-medium">
                       {stats.pendingInstallations} in attesa
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-5 h-5 text-emerald-200" />
+                    <CheckCircle className="w-5 h-5 text-white/70" />
                     <span className="text-sm font-inter font-medium">
                       {stats.approvedInstallations} approvate
                     </span>
                   </div>
                 </div>
               </div>
-              <div className="hidden lg:flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full group-hover:bg-white/30 transition-all">
+              <div className="hidden lg:flex items-center justify-center w-16 h-16 bg-white/20 rounded-full">
                 <TrendingUp className="w-8 h-8 text-white" />
               </div>
             </div>

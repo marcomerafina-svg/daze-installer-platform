@@ -150,190 +150,192 @@ export default function Companies() {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Aziende Installatrici</h1>
-            <p className="text-gray-500 font-inter mt-1">Gestisci le aziende partner e i loro team</p>
+      <div className="max-w-7xl mx-auto pt-2 lg:pt-4">
+        <div className="space-y-6">
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-3xl font-bold text-daze-black">Aziende Installatrici</h1>
+              <p className="text-daze-black/60 font-inter mt-1">Gestisci le aziende partner e i loro team</p>
+            </div>
+            <Button
+              variant="primaryBlack"
+              size="sm"
+              icon={<Plus className="w-5 h-5" />}
+              onClick={() => setShowModal(true)}
+            >
+              Nuova Azienda
+            </Button>
           </div>
-          <Button
-            variant="primaryBlack"
-            size="sm"
-            icon={<Plus className="w-5 h-5" />}
-            onClick={() => setShowModal(true)}
-          >
-            Nuova Azienda
-          </Button>
-        </div>
 
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <input
-              type="text"
-              placeholder="Cerca per nome azienda, città, owner..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 font-inter border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
+          <div className="bg-white rounded-squircle border border-daze-gray p-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-daze-black/40 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Cerca per nome azienda, città, owner..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 font-inter border border-daze-gray rounded-lg outline-none focus:ring-0 focus:border-daze-blue transition-all"
+              />
+            </div>
           </div>
-        </div>
 
-        {loading ? (
-          <div className="text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-            <p className="text-gray-500 font-inter mt-2">Caricamento aziende...</p>
-          </div>
-        ) : filteredCompanies.length === 0 ? (
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
-            <Building2 className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500 text-lg">
-              {searchQuery ? 'Nessuna azienda trovata' : 'Nessuna azienda ancora registrata'}
-            </p>
-            {!searchQuery && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setShowModal(true)}
-                className="mt-4"
-              >
-                Crea la prima azienda
-              </Button>
-            )}
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 gap-6">
-            {filteredCompanies.map((company) => (
-              <div
-                key={company.id}
-                className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
-              >
-                <div className="flex items-start justify-between">
-                  <div className="flex items-start gap-4 flex-1">
-                    <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      {company.logo_url ? (
-                        <img
-                          src={company.logo_url}
-                          alt={company.company_name}
-                          className="w-full h-full object-cover rounded-lg"
-                        />
-                      ) : (
-                        <Building2 className="w-8 h-8 text-blue-600" />
-                      )}
+          {loading ? (
+            <div className="text-center py-12">
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-daze-blue"></div>
+              <p className="text-daze-black/60 font-inter mt-2">Caricamento aziende...</p>
+            </div>
+          ) : filteredCompanies.length === 0 ? (
+            <div className="bg-white rounded-squircle border border-daze-gray p-12 text-center">
+              <Building2 className="w-16 h-16 text-daze-black/20 mx-auto mb-4" />
+              <p className="text-daze-black/60 text-lg">
+                {searchQuery ? 'Nessuna azienda trovata' : 'Nessuna azienda ancora registrata'}
+              </p>
+              {!searchQuery && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowModal(true)}
+                  className="mt-4"
+                >
+                  Crea la prima azienda
+                </Button>
+              )}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-6">
+              {filteredCompanies.map((company) => (
+                <div
+                  key={company.id}
+                  className="bg-white rounded-squircle border border-daze-gray p-6 transition-shadow"
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-start gap-4 flex-1">
+                      <div className="w-16 h-16 bg-daze-blue-light rounded-lg flex items-center justify-center flex-shrink-0">
+                        {company.logo_url ? (
+                          <img
+                            src={company.logo_url}
+                            alt={company.company_name}
+                            className="w-full h-full object-cover rounded-lg"
+                          />
+                        ) : (
+                          <Building2 className="w-8 h-8 text-daze-blue" />
+                        )}
+                      </div>
+
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <h3 className="text-xl font-semibold text-daze-black">
+                            {company.company_name}
+                          </h3>
+                          {!company.is_active && (
+                            <span className="px-2 py-1 text-xs font-medium bg-daze-salmon/10 text-daze-salmon-dark rounded-pill">
+                              Inattiva
+                            </span>
+                          )}
+                        </div>
+
+                        {company.business_name && (
+                          <p className="text-sm font-inter text-daze-black/70 mb-2">{company.business_name}</p>
+                        )}
+
+                        <div className="flex flex-wrap gap-4 text-sm font-inter text-daze-black/70 mb-4">
+                          {company.owner && (
+                            <div className="flex items-center gap-1">
+                              <Users className="w-4 h-4" />
+                              <span>Owner: {company.owner.first_name} {company.owner.last_name}</span>
+                            </div>
+                          )}
+                          {company.city && (
+                            <div className="flex items-center gap-1">
+                              <MapPin className="w-4 h-4" />
+                              <span>{company.city}{company.province && ` (${company.province})`}</span>
+                            </div>
+                          )}
+                          {company.email && (
+                            <div className="flex items-center gap-1">
+                              <Mail className="w-4 h-4" />
+                              <span>{company.email}</span>
+                            </div>
+                          )}
+                          {company.phone && (
+                            <div className="flex items-center gap-1">
+                              <Phone className="w-4 h-4" />
+                              <span>{company.phone}</span>
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 font-inter">
+                          <div className="bg-daze-blue-light rounded-lg p-3">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Users className="w-4 h-4 text-daze-blue" />
+                              <span className="text-xs text-daze-black/70">Installatori</span>
+                            </div>
+                            <p className="text-lg font-semibold text-daze-black">
+                              {company.stats.active_installers}/{company.stats.total_installers}
+                            </p>
+                          </div>
+
+                          <div className="bg-daze-forest/10 rounded-lg p-3">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Award className="w-4 h-4 text-daze-forest" />
+                              <span className="text-xs text-daze-black/70">Punti Totali</span>
+                            </div>
+                            <p className="text-lg font-semibold text-daze-black">
+                              {company.stats.total_points.toLocaleString()}
+                            </p>
+                          </div>
+
+                          <div className="bg-daze-blue-light rounded-lg p-3">
+                            <div className="flex items-center gap-2 mb-1">
+                              <TrendingUp className="w-4 h-4 text-daze-blue" />
+                              <span className="text-xs text-daze-black/70">Lead Assegnate</span>
+                            </div>
+                            <p className="text-lg font-semibold text-daze-black">
+                              {company.stats.total_leads}
+                            </p>
+                          </div>
+
+                          <div className="bg-daze-honey/10 rounded-lg p-3">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Award className="w-4 h-4 text-daze-honey-dark" />
+                              <span className="text-xs text-daze-black/70">Tier</span>
+                            </div>
+                            <p className="text-sm font-semibold text-daze-black">
+                              {company.stats.current_tier?.display_name || 'Nessuno'}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-xl font-semibold text-gray-900">
-                          {company.company_name}
-                        </h3>
-                        {!company.is_active && (
-                          <span className="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full">
-                            Inattiva
-                          </span>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => resetOwnerPassword(company)}
+                        className="p-2 text-daze-honey-dark hover:bg-daze-honey/10 rounded-lg transition-colors"
+                        title="Reset password owner"
+                      >
+                        <KeyRound className="w-5 h-5" />
+                      </button>
+                      <button
+                        onClick={() => toggleCompanyStatus(company.id, company.is_active)}
+                        className="text-daze-black/40 hover:text-daze-black/70"
+                        title={company.is_active ? 'Disattiva azienda' : 'Attiva azienda'}
+                      >
+                        {company.is_active ? (
+                          <ToggleRight className="w-8 h-8 text-daze-forest" />
+                        ) : (
+                          <ToggleLeft className="w-8 h-8 text-daze-black/40" />
                         )}
-                      </div>
-
-                      {company.business_name && (
-                        <p className="text-sm font-inter text-gray-600 mb-2">{company.business_name}</p>
-                      )}
-
-                      <div className="flex flex-wrap gap-4 text-sm font-inter text-gray-600 mb-4">
-                        {company.owner && (
-                          <div className="flex items-center gap-1">
-                            <Users className="w-4 h-4" />
-                            <span>Owner: {company.owner.first_name} {company.owner.last_name}</span>
-                          </div>
-                        )}
-                        {company.city && (
-                          <div className="flex items-center gap-1">
-                            <MapPin className="w-4 h-4" />
-                            <span>{company.city}{company.province && ` (${company.province})`}</span>
-                          </div>
-                        )}
-                        {company.email && (
-                          <div className="flex items-center gap-1">
-                            <Mail className="w-4 h-4" />
-                            <span>{company.email}</span>
-                          </div>
-                        )}
-                        {company.phone && (
-                          <div className="flex items-center gap-1">
-                            <Phone className="w-4 h-4" />
-                            <span>{company.phone}</span>
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 font-inter">
-                        <div className="bg-blue-50 rounded-lg p-3">
-                          <div className="flex items-center gap-2 mb-1">
-                            <Users className="w-4 h-4 text-blue-600" />
-                            <span className="text-xs text-gray-600">Installatori</span>
-                          </div>
-                          <p className="text-lg font-semibold text-gray-900">
-                            {company.stats.active_installers}/{company.stats.total_installers}
-                          </p>
-                        </div>
-
-                        <div className="bg-green-50 rounded-lg p-3">
-                          <div className="flex items-center gap-2 mb-1">
-                            <Award className="w-4 h-4 text-green-600" />
-                            <span className="text-xs text-gray-600">Punti Totali</span>
-                          </div>
-                          <p className="text-lg font-semibold text-gray-900">
-                            {company.stats.total_points.toLocaleString()}
-                          </p>
-                        </div>
-
-                        <div className="bg-purple-50 rounded-lg p-3">
-                          <div className="flex items-center gap-2 mb-1">
-                            <TrendingUp className="w-4 h-4 text-purple-600" />
-                            <span className="text-xs text-gray-600">Lead Assegnate</span>
-                          </div>
-                          <p className="text-lg font-semibold text-gray-900">
-                            {company.stats.total_leads}
-                          </p>
-                        </div>
-
-                        <div className="bg-orange-50 rounded-lg p-3">
-                          <div className="flex items-center gap-2 mb-1">
-                            <Award className="w-4 h-4 text-orange-600" />
-                            <span className="text-xs text-gray-600">Tier</span>
-                          </div>
-                          <p className="text-sm font-semibold text-gray-900">
-                            {company.stats.current_tier?.display_name || 'Nessuno'}
-                          </p>
-                        </div>
-                      </div>
+                      </button>
                     </div>
-                  </div>
-
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => resetOwnerPassword(company)}
-                      className="p-2 text-orange-600 hover:bg-orange-50 rounded-lg transition-colors"
-                      title="Reset password owner"
-                    >
-                      <KeyRound className="w-5 h-5" />
-                    </button>
-                    <button
-                      onClick={() => toggleCompanyStatus(company.id, company.is_active)}
-                      className="text-gray-400 hover:text-gray-600"
-                      title={company.is_active ? 'Disattiva azienda' : 'Attiva azienda'}
-                    >
-                      {company.is_active ? (
-                        <ToggleRight className="w-8 h-8 text-green-500" />
-                      ) : (
-                        <ToggleLeft className="w-8 h-8 text-gray-400" />
-                      )}
-                    </button>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {showModal && (

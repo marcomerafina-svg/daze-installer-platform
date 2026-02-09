@@ -251,92 +251,92 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2">
-            Nome Cliente <span className="text-red-500">*</span>
+          <label className="block text-sm font-medium text-daze-black/70 mb-2">
+            Nome Cliente <span className="text-daze-salmon-dark">*</span>
           </label>
           <input
             type="text"
             value={customerData.firstName}
             onChange={(e) => setCustomerData({ ...customerData, firstName: e.target.value })}
-            className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all text-daze-black font-inter placeholder:text-daze-border"
             placeholder="Mario"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2">
-            Cognome Cliente <span className="text-red-500">*</span>
+          <label className="block text-sm font-medium text-daze-black/70 mb-2">
+            Cognome Cliente <span className="text-daze-salmon-dark">*</span>
           </label>
           <input
             type="text"
             value={customerData.lastName}
             onChange={(e) => setCustomerData({ ...customerData, lastName: e.target.value })}
-            className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all text-daze-black font-inter placeholder:text-daze-border"
             placeholder="Rossi"
           />
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">
-          Telefono <span className="text-red-500">*</span>
+        <label className="block text-sm font-medium text-daze-black/70 mb-2">
+          Telefono <span className="text-daze-salmon-dark">*</span>
         </label>
         <input
           type="tel"
           value={customerData.phone}
           onChange={(e) => setCustomerData({ ...customerData, phone: e.target.value })}
-          className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+          className="w-full px-4 py-3 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all text-daze-black font-inter placeholder:text-daze-border"
           placeholder="+39 333 1234567"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">
+        <label className="block text-sm font-medium text-daze-black/70 mb-2">
           Email
         </label>
         <input
           type="email"
           value={customerData.email}
           onChange={(e) => setCustomerData({ ...customerData, email: e.target.value })}
-          className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+          className="w-full px-4 py-3 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all text-daze-black font-inter placeholder:text-daze-border"
           placeholder="mario.rossi@email.com"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">
+        <label className="block text-sm font-medium text-daze-black/70 mb-2">
           Indirizzo Installazione
         </label>
         <input
           type="text"
           value={customerData.address}
           onChange={(e) => setCustomerData({ ...customerData, address: e.target.value })}
-          className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+          className="w-full px-4 py-3 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all text-daze-black font-inter placeholder:text-daze-border"
           placeholder="Via Roma 123, Milano"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">
-          Data Installazione <span className="text-red-500">*</span>
+        <label className="block text-sm font-medium text-daze-black/70 mb-2">
+          Data Installazione <span className="text-daze-salmon-dark">*</span>
         </label>
         <input
           type="date"
           value={customerData.installationDate}
           max={new Date().toISOString().split('T')[0]}
           onChange={(e) => setCustomerData({ ...customerData, installationDate: e.target.value })}
-          className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+          className="w-full px-4 py-3 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all text-daze-black font-inter"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">
+        <label className="block text-sm font-medium text-daze-black/70 mb-2">
           Note Installazione
         </label>
         <textarea
           value={customerData.notes}
           onChange={(e) => setCustomerData({ ...customerData, notes: e.target.value })}
           rows={3}
-          className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+          className="w-full px-4 py-3 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all text-daze-black font-inter placeholder:text-daze-border"
           placeholder="Eventuali note sull'installazione..."
         />
       </div>
@@ -345,25 +345,25 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
 
   const renderStep2 = () => (
     <div className="space-y-4">
-      <div className="bg-teal-50 border border-teal-200 rounded-xl p-4">
+      <div className="bg-daze-blue-light border border-daze-blue/20 rounded-squircle p-4">
         <div className="flex gap-3">
-          <AlertCircle className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" />
-          <p className="text-sm text-teal-800">
+          <AlertCircle className="w-5 h-5 text-daze-blue flex-shrink-0 mt-0.5" />
+          <p className="text-sm text-daze-black/70">
             Inserisci i numeri di seriale delle wallbox installate. Il sistema riconoscerà automaticamente il prodotto.
           </p>
         </div>
       </div>
 
       {serials.map((serial, index) => (
-        <div key={serial.id} className="border border-slate-200 rounded-xl p-4">
+        <div key={serial.id} className="border border-daze-gray rounded-xl p-4">
           <div className="flex items-center gap-2 mb-2">
-            <label className="block text-sm font-medium text-slate-700">
+            <label className="block text-sm font-medium text-daze-black/70">
               Seriale #{index + 1}
             </label>
             {serials.length > 1 && (
               <button
                 onClick={() => removeSerialInput(serial.id)}
-                className="p-1 text-red-600 hover:bg-red-50 rounded transition-all"
+                className="p-1 text-daze-salmon-dark hover:bg-daze-salmon/10 rounded transition-all"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
@@ -376,21 +376,21 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
             onBlur={() => serial.value.trim() && validateSerial(serial)}
             placeholder="Es: 25DT0101143"
             maxLength={11}
-            className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent ${
+            className={`w-full px-4 py-3 border rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all text-daze-black font-inter placeholder:text-daze-border ${
               serial.parseResult?.isValid === false
-                ? 'border-red-500'
+                ? 'border-daze-salmon'
                 : serial.parseResult?.isValid === true
-                ? 'border-green-500'
-                : 'border-slate-300'
+                ? 'border-daze-forest'
+                : 'border-daze-gray'
             }`}
           />
           {serial.validating && (
-            <p className="mt-2 text-sm text-slate-600">Validazione in corso...</p>
+            <p className="mt-2 text-sm text-daze-black/70">Validazione in corso...</p>
           )}
           {serial.parseResult && !serial.validating && (
             <div className="mt-2">
               {serial.parseResult.isValid ? (
-                <div className="flex items-start gap-2 text-green-700 bg-green-50 p-3 rounded-lg">
+                <div className="flex items-start gap-2 text-daze-forest bg-daze-forest/10 p-3 rounded-lg">
                   <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5" />
                   <div className="flex-1">
                     <p className="font-medium text-sm">{serial.parseResult.product?.name}</p>
@@ -400,7 +400,7 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center gap-2 text-red-600 text-sm">
+                <div className="flex items-center gap-2 text-daze-salmon-dark text-sm">
                   <AlertCircle className="w-4 h-4" />
                   <span>{serial.parseResult.error}</span>
                 </div>
@@ -412,7 +412,7 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
 
       <button
         onClick={addSerialInput}
-        className="w-full py-3 border-2 border-dashed border-slate-300 rounded-xl text-slate-600 hover:border-teal-500 hover:text-teal-600 transition-all flex items-center justify-center gap-2"
+        className="w-full py-3 border-2 border-dashed border-daze-gray rounded-xl text-daze-black/70 hover:border-daze-blue hover:text-daze-blue transition-all flex items-center justify-center gap-2"
       >
         <Package className="w-5 h-5" />
         <span>Aggiungi altro seriale</span>
@@ -422,12 +422,12 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
 
   const renderStep3 = () => (
     <div className="space-y-4">
-      <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
+      <div className="bg-daze-honey/10 border border-daze-honey/20 rounded-squircle p-4">
         <div className="flex gap-3">
-          <Camera className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+          <Camera className="w-5 h-5 text-daze-honey-dark flex-shrink-0 mt-0.5" />
           <div>
-            <p className="text-sm font-medium text-amber-900 mb-1">Foto Installazione (Opzionale)</p>
-            <p className="text-sm text-amber-800">
+            <p className="text-sm font-medium text-daze-black mb-1">Foto Installazione (Opzionale)</p>
+            <p className="text-sm text-daze-black/70">
               Carica fino a 5 foto dell'installazione. Le foto aiutano nella verifica da parte dell'admin.
             </p>
           </div>
@@ -436,11 +436,11 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
 
       <div className="grid grid-cols-2 gap-4">
         {photos.map((photo) => (
-          <div key={photo.id} className="relative aspect-video rounded-xl overflow-hidden border-2 border-slate-200">
+          <div key={photo.id} className="relative aspect-video rounded-xl overflow-hidden border-2 border-daze-gray">
             <img src={photo.preview} alt="Preview" className="w-full h-full object-cover" />
             <button
               onClick={() => removePhoto(photo.id)}
-              className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all"
+              className="absolute top-2 right-2 p-1.5 bg-daze-salmon text-white rounded-lg hover:bg-daze-salmon-dark transition-all"
             >
               <Trash2 className="w-4 h-4" />
             </button>
@@ -448,7 +448,7 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
         ))}
 
         {photos.length < 5 && (
-          <label className="aspect-video rounded-xl border-2 border-dashed border-slate-300 hover:border-teal-500 transition-all cursor-pointer flex flex-col items-center justify-center gap-2 text-slate-600 hover:text-teal-600">
+          <label className="aspect-video rounded-xl border-2 border-dashed border-daze-gray hover:border-daze-blue transition-all cursor-pointer flex flex-col items-center justify-center gap-2 text-daze-black/70 hover:text-daze-blue">
             <Upload className="w-8 h-8" />
             <span className="text-sm font-medium">Carica Foto</span>
             <input
@@ -463,7 +463,7 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
       </div>
 
       {photos.length === 0 && (
-        <p className="text-sm text-slate-500 text-center">
+        <p className="text-sm text-daze-black/60 text-center">
           Puoi saltare questo passaggio e aggiungere foto in seguito
         </p>
       )}
@@ -476,73 +476,73 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
 
     return (
       <div className="space-y-4">
-        <div className="bg-gradient-to-br from-teal-50 to-teal-100 border border-teal-200 rounded-xl p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="p-3 bg-teal-500 rounded-xl">
-              <FileCheck className="w-6 h-6 text-white" />
+        <div className="flex items-center gap-3 mb-2">
+          <div className="p-3 bg-daze-blue rounded-xl">
+            <FileCheck className="w-6 h-6 text-white" />
+          </div>
+          <h3 className="text-lg font-roobert font-bold text-daze-black">Riepilogo Installazione</h3>
+        </div>
+
+        <div className="rounded-squircle border border-daze-gray p-5 space-y-4">
+          <div>
+            <h4 className="text-xs font-roobert font-bold text-daze-black/60 uppercase tracking-wide mb-3">Cliente</h4>
+            <p className="text-base font-roobert font-bold text-daze-black mb-1">
+              {customerData.firstName} {customerData.lastName}
+            </p>
+            <div className="space-y-1 text-sm font-inter text-daze-black/70">
+              <p>{customerData.phone}</p>
+              {customerData.email && <p>{customerData.email}</p>}
+              {customerData.address && <p>{customerData.address}</p>}
+              <p>Data: {new Date(customerData.installationDate).toLocaleDateString('it-IT')}</p>
             </div>
-            <h3 className="text-lg font-bold text-teal-900">Riepilogo Installazione</h3>
           </div>
 
-          <div className="space-y-3">
-            <div className="bg-white rounded-lg p-4">
-              <h4 className="text-sm font-semibold text-slate-700 mb-2">Cliente</h4>
-              <p className="text-slate-900 font-medium">
-                {customerData.firstName} {customerData.lastName}
-              </p>
-              <p className="text-sm text-slate-600">{customerData.phone}</p>
-              {customerData.email && <p className="text-sm text-slate-600">{customerData.email}</p>}
-              {customerData.address && <p className="text-sm text-slate-600 mt-1">{customerData.address}</p>}
-              <p className="text-sm text-slate-600 mt-1">
-                Data: {new Date(customerData.installationDate).toLocaleDateString('it-IT')}
-              </p>
-            </div>
-
-            <div className="bg-white rounded-lg p-4">
-              <h4 className="text-sm font-semibold text-slate-700 mb-2">
-                Prodotti Installati ({validSerials.length})
-              </h4>
-              {validSerials.map((s, i) => (
-                <div key={s.id} className="flex items-center justify-between py-2 border-b border-slate-100 last:border-0">
+          <div className="border-t border-daze-gray pt-4">
+            <h4 className="text-xs font-roobert font-bold text-daze-black/60 uppercase tracking-wide mb-3">
+              Prodotti Installati ({validSerials.length})
+            </h4>
+            <div className="space-y-0">
+              {validSerials.map((s) => (
+                <div key={s.id} className="flex items-center justify-between py-2.5 border-b border-daze-gray/50 last:border-0">
                   <div>
-                    <p className="text-sm font-medium text-slate-900">{s.parseResult?.product?.name}</p>
-                    <p className="text-xs text-slate-500">{s.value.toUpperCase()}</p>
+                    <p className="text-sm font-medium text-daze-black">{s.parseResult?.product?.name}</p>
+                    <p className="text-xs font-mono text-daze-black/60">{s.value.toUpperCase()}</p>
                   </div>
-                  <span className="text-sm font-semibold text-teal-600">
+                  <span className="text-sm font-roobert font-bold text-daze-blue">
                     {s.parseResult?.product?.points || 0} pt
                   </span>
                 </div>
               ))}
             </div>
+          </div>
 
-            {photos.length > 0 && (
-              <div className="bg-white rounded-lg p-4">
-                <h4 className="text-sm font-semibold text-slate-700 mb-2">
-                  Foto ({photos.length})
-                </h4>
-                <div className="grid grid-cols-4 gap-2">
-                  {photos.map((photo) => (
-                    <img
-                      key={photo.id}
-                      src={photo.preview}
-                      alt="Preview"
-                      className="w-full aspect-square object-cover rounded-lg"
-                    />
-                  ))}
-                </div>
+          {photos.length > 0 && (
+            <div className="border-t border-daze-gray pt-4">
+              <h4 className="text-xs font-roobert font-bold text-daze-black/60 uppercase tracking-wide mb-3">
+                Foto ({photos.length})
+              </h4>
+              <div className="grid grid-cols-4 gap-2">
+                {photos.map((photo) => (
+                  <img
+                    key={photo.id}
+                    src={photo.preview}
+                    alt="Preview"
+                    className="w-full aspect-square object-cover rounded-xl"
+                  />
+                ))}
               </div>
-            )}
+            </div>
+          )}
+        </div>
 
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-              <div className="flex items-center gap-2 text-amber-800">
-                <AlertCircle className="w-5 h-5" />
-                <div className="flex-1">
-                  <p className="text-sm font-medium">Punti in Attesa di Approvazione</p>
-                  <p className="text-xs mt-1">
-                    I tuoi <span className="font-bold">{totalPoints} punti</span> saranno confermati dopo la verifica dell'admin
-                  </p>
-                </div>
-              </div>
+        <div className="bg-daze-honey/10 border border-daze-honey/20 rounded-squircle p-4">
+          <div className="flex items-center gap-3 text-daze-honey-dark">
+            <AlertCircle className="w-5 h-5 flex-shrink-0" />
+            <div className="flex-1">
+              <p className="text-sm font-roobert font-medium">Punti in Attesa di Approvazione</p>
+              <p className="text-xs font-inter mt-1">
+                I tuoi <span className="font-bold">{totalPoints} punti</span> saranno confermati dopo la verifica dell'admin
+              </p>
             </div>
           </div>
         </div>
@@ -550,21 +550,14 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
     );
   };
 
-  const handleBackdropClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
-
   return (
     <div
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
-      onClick={handleBackdropClick}
     >
-      <div className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 rounded-t-2xl">
+      <div className="bg-white rounded-squircle max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 bg-white border-b border-daze-gray px-6 py-4">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-bold text-slate-900">Registra Installazione</h2>
+            <h2 className="text-2xl font-bold text-daze-black">Registra Installazione</h2>
             <Button variant="icon" onClick={onClose}>
               <X className="w-5 h-5" />
             </Button>
@@ -576,8 +569,8 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all ${
                     step >= s
-                      ? 'bg-teal-500 text-white'
-                      : 'bg-slate-200 text-slate-400'
+                      ? 'bg-daze-blue text-white'
+                      : 'bg-daze-gray text-daze-black/40'
                   }`}
                 >
                   {s}
@@ -585,7 +578,7 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
                 {s < 4 && (
                   <div
                     className={`flex-1 h-1 mx-2 rounded transition-all ${
-                      step > s ? 'bg-teal-500' : 'bg-slate-200'
+                      step > s ? 'bg-daze-blue' : 'bg-daze-gray'
                     }`}
                   />
                 )}
@@ -594,10 +587,10 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
           </div>
 
           <div className="flex justify-between mt-2 text-xs font-medium">
-            <span className={step >= 1 ? 'text-teal-600' : 'text-slate-400'}>Cliente</span>
-            <span className={step >= 2 ? 'text-teal-600' : 'text-slate-400'}>Seriali</span>
-            <span className={step >= 3 ? 'text-teal-600' : 'text-slate-400'}>Foto</span>
-            <span className={step >= 4 ? 'text-teal-600' : 'text-slate-400'}>Conferma</span>
+            <span className={step >= 1 ? 'text-daze-blue' : 'text-daze-black/40'}>Cliente</span>
+            <span className={step >= 2 ? 'text-daze-blue' : 'text-daze-black/40'}>Seriali</span>
+            <span className={step >= 3 ? 'text-daze-blue' : 'text-daze-black/40'}>Foto</span>
+            <span className={step >= 4 ? 'text-daze-blue' : 'text-daze-black/40'}>Conferma</span>
           </div>
         </div>
 
@@ -608,8 +601,8 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
           {step === 4 && renderStep4()}
 
           {error && (
-            <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-sm text-red-600 flex items-center gap-2">
+            <div className="mt-4 p-3 bg-daze-salmon/10 border border-daze-salmon/20 rounded-xl">
+              <p className="text-sm text-daze-salmon-dark flex items-center gap-2">
                 <AlertCircle className="w-4 h-4" />
                 {error}
               </p>
@@ -617,7 +610,7 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
           )}
         </div>
 
-        <div className="sticky bottom-0 bg-white border-t border-slate-200 px-6 py-4 rounded-b-2xl flex gap-3">
+        <div className="sticky bottom-0 bg-white border-t border-daze-gray px-6 py-4 flex gap-3">
           {step > 1 && (
             <Button
               variant="secondary"

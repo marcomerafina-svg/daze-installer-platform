@@ -231,7 +231,7 @@ export default function PendingInstallations() {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-daze-blue"></div>
         </div>
       </AdminLayout>
     );
@@ -239,20 +239,20 @@ export default function PendingInstallations() {
 
   return (
     <AdminLayout>
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto pt-2 lg:pt-4">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">Approvazione Installazioni</h1>
-          <p className="text-slate-600 font-inter">Gestisci le installazioni autonome degli installatori</p>
+          <h1 className="text-3xl font-bold text-daze-black mb-2">Approvazione Installazioni</h1>
+          <p className="text-daze-black/70 font-inter">Gestisci le installazioni autonome degli installatori</p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-soft border border-slate-200 p-6 mb-6">
+        <div className="bg-white rounded-squircle border border-daze-gray p-6 mb-6">
           <div className="flex flex-wrap gap-3 mb-4">
             <button
               onClick={() => setFilter('pending')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+              className={`px-4 py-2 rounded-pill font-medium transition-all ${
                 filter === 'pending'
-                  ? 'bg-amber-500 text-white shadow-md'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  ? 'bg-daze-honey text-white'
+                  : 'bg-daze-gray text-daze-black hover:bg-daze-gray/80'
               }`}
             >
               <div className="flex items-center gap-2">
@@ -262,10 +262,10 @@ export default function PendingInstallations() {
             </button>
             <button
               onClick={() => setFilter('approved')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+              className={`px-4 py-2 rounded-pill font-medium transition-all ${
                 filter === 'approved'
-                  ? 'bg-emerald-500 text-white shadow-md'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  ? 'bg-daze-forest text-white'
+                  : 'bg-daze-gray text-daze-black hover:bg-daze-gray/80'
               }`}
             >
               <div className="flex items-center gap-2">
@@ -275,10 +275,10 @@ export default function PendingInstallations() {
             </button>
             <button
               onClick={() => setFilter('rejected')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+              className={`px-4 py-2 rounded-pill font-medium transition-all ${
                 filter === 'rejected'
-                  ? 'bg-rose-500 text-white shadow-md'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  ? 'bg-daze-salmon text-white'
+                  : 'bg-daze-gray text-daze-black hover:bg-daze-gray/80'
               }`}
             >
               <div className="flex items-center gap-2">
@@ -289,8 +289,8 @@ export default function PendingInstallations() {
           </div>
 
           {filter === 'pending' && stats.pending > 0 && (
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-              <p className="text-sm font-inter text-amber-800">
+            <div className="bg-daze-honey/10 border border-daze-honey/20 rounded-squircle p-4">
+              <p className="text-sm font-inter text-daze-honey-dark">
                 <span className="font-bold">{stats.pending}</span> installazioni in attesa di approvazione per un totale di{' '}
                 <span className="font-bold">{stats.total_points} punti</span>
               </p>
@@ -300,9 +300,9 @@ export default function PendingInstallations() {
 
         <div className="space-y-4">
           {installations.length === 0 ? (
-            <div className="bg-white rounded-xl shadow-soft border border-slate-200 p-12 text-center">
-              <Package className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-              <p className="text-slate-600 font-medium">
+            <div className="bg-white rounded-squircle border border-daze-gray p-12 text-center">
+              <Package className="w-16 h-16 text-daze-black/20 mx-auto mb-4" />
+              <p className="text-daze-black/70 font-medium">
                 {filter === 'pending' ? 'Nessuna installazione in attesa' : 'Nessuna installazione'}
               </p>
             </div>
@@ -310,23 +310,23 @@ export default function PendingInstallations() {
             installations.map((installation) => (
               <div
                 key={installation.id}
-                className="bg-white rounded-xl shadow-soft border border-slate-200 p-6 hover:shadow-medium transition-all"
+                className="bg-white rounded-squircle border border-daze-gray p-6"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-lg font-bold text-slate-900">{installation.customer_name}</h3>
-                      <span className="px-2 py-1 rounded-lg text-xs font-medium bg-blue-100 text-blue-700">
+                      <h3 className="text-lg font-roobert font-bold text-daze-black">{installation.customer_name}</h3>
+                      <span className="px-2 py-1 rounded-pill text-xs font-medium bg-daze-blue-light text-daze-blue">
                         Autonoma
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm font-inter text-slate-600 mb-2">
+                    <div className="flex items-center gap-2 text-sm font-inter text-daze-black/70 mb-2">
                       <User className="w-4 h-4" />
                       <span className="font-medium">
                         {installation.installer.first_name} {installation.installer.last_name}
                       </span>
                     </div>
-                    <div className="flex items-center gap-4 text-sm font-inter text-slate-600">
+                    <div className="flex items-center gap-4 text-sm font-inter text-daze-black/70">
                       <div className="flex items-center gap-1">
                         <Calendar className="w-4 h-4" />
                         <span>{new Date(installation.installation_date).toLocaleDateString('it-IT')}</span>
@@ -344,16 +344,16 @@ export default function PendingInstallations() {
                     </div>
                   </div>
                   <div className="text-right font-inter">
-                    <p className="text-sm text-slate-600 mb-1">Punti</p>
-                    <p className="text-2xl font-bold text-teal-600">{installation.total_points}</p>
+                    <p className="text-sm text-daze-black/70 mb-1">Punti</p>
+                    <p className="text-2xl font-bold text-daze-blue">{installation.total_points}</p>
                   </div>
                 </div>
 
                 <div className="mb-4">
-                  <p className="text-sm font-inter text-slate-600 mb-2">Prodotti Installati ({installation.serials.length})</p>
+                  <p className="text-sm font-inter text-daze-black/70 mb-2">Prodotti Installati ({installation.serials.length})</p>
                   <div className="flex flex-wrap gap-2">
                     {installation.serials.map((serial, idx) => (
-                      <span key={idx} className="px-3 py-1 bg-slate-100 text-slate-700 rounded-lg text-sm font-medium">
+                      <span key={idx} className="px-3 py-1 bg-daze-gray text-daze-black rounded-pill text-sm font-medium">
                         {serial.product?.name || 'Sconosciuto'} - {serial.serial_code}
                       </span>
                     ))}
@@ -407,13 +407,13 @@ export default function PendingInstallations() {
           onClick={() => setSelectedInstallation(null)}
         >
           <div
-            className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6"
+            className="bg-white rounded-squircle max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between mb-6">
               <div>
-                <h2 className="text-2xl font-bold text-slate-900 mb-2">{selectedInstallation.customer_name}</h2>
-                <p className="text-slate-600 font-inter">
+                <h2 className="text-2xl font-bold text-daze-black mb-2">{selectedInstallation.customer_name}</h2>
+                <p className="text-daze-black/70 font-inter">
                   Installatore: {selectedInstallation.installer.first_name} {selectedInstallation.installer.last_name}
                 </p>
               </div>
@@ -423,58 +423,58 @@ export default function PendingInstallations() {
             </div>
 
             <div className="space-y-4 mb-6">
-              <div className="bg-slate-50 rounded-xl p-4">
-                <h3 className="font-semibold text-slate-900 mb-3">Informazioni Cliente</h3>
+              <div className="bg-daze-gray/10 rounded-squircle p-4">
+                <h3 className="font-roobert font-bold text-daze-black mb-3">Informazioni Cliente</h3>
                 <div className="grid grid-cols-2 gap-4 text-sm font-inter">
                   <div>
-                    <p className="text-slate-600">Nome Completo</p>
-                    <p className="font-medium text-slate-900">{selectedInstallation.customer_name}</p>
+                    <p className="text-daze-black/70">Nome Completo</p>
+                    <p className="font-medium text-daze-black">{selectedInstallation.customer_name}</p>
                   </div>
                   <div>
-                    <p className="text-slate-600">Telefono</p>
-                    <p className="font-medium text-slate-900">{selectedInstallation.customer_phone}</p>
+                    <p className="text-daze-black/70">Telefono</p>
+                    <p className="font-medium text-daze-black">{selectedInstallation.customer_phone}</p>
                   </div>
                   {selectedInstallation.customer_email && (
                     <div>
-                      <p className="text-slate-600">Email</p>
-                      <p className="font-medium text-slate-900">{selectedInstallation.customer_email}</p>
+                      <p className="text-daze-black/70">Email</p>
+                      <p className="font-medium text-daze-black">{selectedInstallation.customer_email}</p>
                     </div>
                   )}
                   {selectedInstallation.customer_address && (
                     <div className="col-span-2">
-                      <p className="text-slate-600">Indirizzo</p>
-                      <p className="font-medium text-slate-900">{selectedInstallation.customer_address}</p>
+                      <p className="text-daze-black/70">Indirizzo</p>
+                      <p className="font-medium text-daze-black">{selectedInstallation.customer_address}</p>
                     </div>
                   )}
                   <div>
-                    <p className="text-slate-600">Data Installazione</p>
-                    <p className="font-medium text-slate-900">
+                    <p className="text-daze-black/70">Data Installazione</p>
+                    <p className="font-medium text-daze-black">
                       {new Date(selectedInstallation.installation_date).toLocaleDateString('it-IT')}
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-slate-50 rounded-xl p-4">
-                <h3 className="font-semibold text-slate-900 mb-3">
+              <div className="bg-daze-gray/10 rounded-squircle p-4">
+                <h3 className="font-roobert font-bold text-daze-black mb-3">
                   Prodotti Installati ({selectedInstallation.serials.length})
                 </h3>
                 <div className="space-y-2">
                   {selectedInstallation.serials.map((serial, idx) => (
-                    <div key={idx} className="flex items-center justify-between p-3 bg-white rounded-lg">
+                    <div key={idx} className="flex items-center justify-between p-3 bg-white rounded-xl">
                       <div>
-                        <p className="font-medium text-slate-900">{serial.product?.name || 'Prodotto Sconosciuto'}</p>
-                        <p className="text-xs text-slate-500">S/N: {serial.serial_code}</p>
+                        <p className="font-medium text-daze-black">{serial.product?.name || 'Prodotto Sconosciuto'}</p>
+                        <p className="text-xs text-daze-black/60">S/N: {serial.serial_code}</p>
                       </div>
-                      <p className="font-bold text-teal-600">{serial.product?.points || 0} pt</p>
+                      <p className="font-bold text-daze-blue">{serial.product?.points || 0} pt</p>
                     </div>
                   ))}
                 </div>
               </div>
 
               {selectedInstallation.photo_urls.length > 0 && (
-                <div className="bg-slate-50 rounded-xl p-4">
-                  <h3 className="font-semibold text-slate-900 mb-3">
+                <div className="bg-daze-gray/10 rounded-squircle p-4">
+                  <h3 className="font-roobert font-bold text-daze-black mb-3">
                     Foto Installazione ({selectedInstallation.photo_urls.length})
                   </h3>
                   <div className="grid grid-cols-2 gap-4">
@@ -484,7 +484,7 @@ export default function PendingInstallations() {
                         href={getPhotoUrl(url)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="aspect-video rounded-lg overflow-hidden border-2 border-slate-200 hover:border-teal-500 transition-all"
+                        className="aspect-video rounded-lg overflow-hidden border-2 border-daze-gray hover:border-daze-blue transition-all"
                       >
                         <img
                           src={getPhotoUrl(url)}
@@ -535,17 +535,17 @@ export default function PendingInstallations() {
           }}
         >
           <div
-            className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6"
+            className="bg-white rounded-squircle max-w-md w-full p-6"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-rose-100 rounded-xl">
-                <AlertCircle className="w-6 h-6 text-rose-600" />
+              <div className="p-3 bg-daze-salmon/10 rounded-xl">
+                <AlertCircle className="w-6 h-6 text-daze-salmon-dark" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900">Rifiuta Installazione</h3>
+              <h3 className="text-xl font-bold text-daze-black">Rifiuta Installazione</h3>
             </div>
 
-            <p className="text-slate-600 font-inter mb-4">
+            <p className="text-daze-black/70 font-inter mb-4">
               Inserisci il motivo per cui rifiuti questa installazione. Il messaggio sarà visibile all'installatore.
             </p>
 
@@ -554,7 +554,7 @@ export default function PendingInstallations() {
               onChange={(e) => setRejectReason(e.target.value)}
               placeholder="Es: Le foto fornite non sono sufficienti per verificare l'installazione..."
               rows={4}
-              className="w-full px-4 py-3 font-inter border border-slate-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:border-transparent mb-4"
+              className="w-full px-4 py-3 font-inter border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all mb-4"
             />
 
             <div className="flex gap-3">

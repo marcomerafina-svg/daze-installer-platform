@@ -136,11 +136,11 @@ export default function CreateCompanyModal({ onClose, onSuccess }: CreateCompany
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+      <div className="bg-white rounded-squircle max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 bg-white border-b border-daze-gray px-6 py-4 flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Crea Nuova Azienda</h2>
-            <p className="text-sm text-gray-500 mt-1">
+            <h2 className="text-2xl font-bold text-daze-black">Crea Nuova Azienda</h2>
+            <p className="text-sm text-daze-black/60 mt-1">
               {step === 1 ? 'Step 1: Dati Azienda' : 'Step 2: Dati Owner'}
             </p>
           </div>
@@ -154,7 +154,7 @@ export default function CreateCompanyModal({ onClose, onSuccess }: CreateCompany
 
         <div className="p-6 font-inter">
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-800 text-sm">
+            <div className="mb-4 p-3 bg-daze-salmon/10 border border-daze-salmon/20 rounded-lg text-daze-salmon-dark text-sm">
               {error}
             </div>
           )}
@@ -162,16 +162,16 @@ export default function CreateCompanyModal({ onClose, onSuccess }: CreateCompany
           {step === 1 ? (
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-daze-black/70 mb-1">
                   Nome Azienda *
                 </label>
                 <div className="relative">
-                  <Building2 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <Building2 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-daze-black/40 w-5 h-5" />
                   <input
                     type="text"
                     value={companyData.company_name}
                     onChange={(e) => handleCompanyChange('company_name', e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-2 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all"
                     placeholder="Es: Installazioni Milano SRL"
                   />
                 </div>
@@ -179,46 +179,46 @@ export default function CreateCompanyModal({ onClose, onSuccess }: CreateCompany
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-daze-black/70 mb-1">
                     Partita IVA
                   </label>
                   <div className="relative">
-                    <FileText className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                    <FileText className="absolute left-3 top-1/2 transform -translate-y-1/2 text-daze-black/40 w-5 h-5" />
                     <input
                       type="text"
                       value={companyData.vat_number}
                       onChange={(e) => handleCompanyChange('vat_number', e.target.value)}
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-2 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all"
                       placeholder="12345678901"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-daze-black/70 mb-1">
                     Ragione Sociale
                   </label>
                   <input
                     type="text"
                     value={companyData.business_name}
                     onChange={(e) => handleCompanyChange('business_name', e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all"
                     placeholder="Nome legale"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-daze-black/70 mb-1">
                   Indirizzo
                 </label>
                 <div className="relative">
-                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-daze-black/40 w-5 h-5" />
                   <input
                     type="text"
                     value={companyData.address}
                     onChange={(e) => handleCompanyChange('address', e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-2 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all"
                     placeholder="Via Roma 123"
                   />
                 </div>
@@ -226,27 +226,27 @@ export default function CreateCompanyModal({ onClose, onSuccess }: CreateCompany
 
               <div className="grid grid-cols-3 gap-4">
                 <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-daze-black/70 mb-1">
                     Città
                   </label>
                   <input
                     type="text"
                     value={companyData.city}
                     onChange={(e) => handleCompanyChange('city', e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all"
                     placeholder="Milano"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-daze-black/70 mb-1">
                     Provincia
                   </label>
                   <input
                     type="text"
                     value={companyData.province}
                     onChange={(e) => handleCompanyChange('province', e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all"
                     placeholder="MI"
                     maxLength={2}
                   />
@@ -254,46 +254,46 @@ export default function CreateCompanyModal({ onClose, onSuccess }: CreateCompany
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-daze-black/70 mb-1">
                   CAP
                 </label>
                 <input
                   type="text"
                   value={companyData.zip_code}
                   onChange={(e) => handleCompanyChange('zip_code', e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all"
                   placeholder="20121"
                 />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-daze-black/70 mb-1">
                     Telefono
                   </label>
                   <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-daze-black/40 w-5 h-5" />
                     <input
                       type="tel"
                       value={companyData.phone}
                       onChange={(e) => handleCompanyChange('phone', e.target.value)}
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-2 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all"
                       placeholder="+39 02 1234567"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-daze-black/70 mb-1">
                     Email *
                   </label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-daze-black/40 w-5 h-5" />
                     <input
                       type="email"
                       value={companyData.email}
                       onChange={(e) => handleCompanyChange('email', e.target.value)}
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-2 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all"
                       placeholder="info@azienda.it"
                     />
                   </div>
@@ -302,90 +302,90 @@ export default function CreateCompanyModal({ onClose, onSuccess }: CreateCompany
             </div>
           ) : (
             <div className="space-y-4">
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-                <p className="text-sm text-blue-800">
+              <div className="bg-daze-blue-light border border-daze-blue/20 rounded-lg p-4 mb-6">
+                <p className="text-sm text-daze-blue">
                   Crea l'account per il proprietario dell'azienda. Riceverà una email con le credenziali di accesso.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-daze-black/70 mb-1">
                     Nome *
                   </label>
                   <div className="relative">
-                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-daze-black/40 w-5 h-5" />
                     <input
                       type="text"
                       value={ownerData.first_name}
                       onChange={(e) => handleOwnerChange('first_name', e.target.value)}
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-2 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all"
                       placeholder="Mario"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-daze-black/70 mb-1">
                     Cognome *
                   </label>
                   <input
                     type="text"
                     value={ownerData.last_name}
                     onChange={(e) => handleOwnerChange('last_name', e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all"
                     placeholder="Rossi"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-daze-black/70 mb-1">
                   Email *
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-daze-black/40 w-5 h-5" />
                   <input
                     type="email"
                     value={ownerData.email}
                     onChange={(e) => handleOwnerChange('email', e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-2 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all"
                     placeholder="owner@azienda.it"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-daze-black/70 mb-1">
                   Telefono
                 </label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-daze-black/40 w-5 h-5" />
                   <input
                     type="tel"
                     value={ownerData.phone}
                     onChange={(e) => handleOwnerChange('phone', e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-2 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all"
                     placeholder="+39 333 1234567"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-daze-black/70 mb-1">
                   Password *
                 </label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-daze-black/40 w-5 h-5" />
                   <input
                     type="password"
                     value={ownerData.password}
                     onChange={(e) => handleOwnerChange('password', e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-2 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all"
                     placeholder="Min. 8 caratteri"
                   />
                 </div>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-daze-black/60 mt-1">
                   La password deve essere di almeno 8 caratteri
                 </p>
               </div>
@@ -393,7 +393,7 @@ export default function CreateCompanyModal({ onClose, onSuccess }: CreateCompany
           )}
         </div>
 
-        <div className="sticky bottom-0 bg-gray-50 border-t border-gray-200 px-6 py-4 flex justify-between">
+        <div className="sticky bottom-0 bg-daze-gray/10 border-t border-daze-gray px-6 py-4 flex justify-between">
           {step === 1 ? (
             <>
               <Button variant="secondary" size="sm" onClick={onClose}>

@@ -224,7 +224,7 @@ export default function WallboxSerialModal({ leadId, installerId, onClose, onSav
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
       onClick={handleBackdropClick}
     >
-      <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 relative">
+      <div className="bg-white rounded-squircle max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 relative">
         <Button
           variant="icon"
           onClick={onClose}
@@ -234,23 +234,23 @@ export default function WallboxSerialModal({ leadId, installerId, onClose, onSav
         </Button>
 
         <div className="flex items-center gap-3 mb-6">
-          <div className="bg-gradient-to-br from-[#223aa3] to-[#4a5fc1] p-3 rounded-lg">
+          <div className="bg-daze-blue p-3 rounded-lg">
             <Package className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-gray-900">Seriali Prodotti Installati</h2>
-            <p className="text-sm font-inter text-gray-600">Aggiungi uno o più seriali dei prodotti installati</p>
+            <h2 className="text-xl font-bold text-daze-black">Seriali Prodotti Installati</h2>
+            <p className="text-sm font-inter text-daze-black/70">Aggiungi uno o più seriali dei prodotti installati</p>
           </div>
         </div>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 font-inter">
+        <div className="bg-daze-blue-light border border-daze-blue/20 rounded-squircle p-4 mb-6 font-inter">
           <div className="flex gap-3">
-            <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+            <AlertCircle className="w-5 h-5 text-daze-blue flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm font-medium text-blue-900 mb-1">
+              <p className="text-sm font-medium text-daze-black mb-1">
                 Riconoscimento Automatico Prodotto
               </p>
-              <p className="text-sm text-blue-700">
+              <p className="text-sm text-daze-black/70">
                 Il sistema riconosce automaticamente il prodotto dal seriale. Inserisci il numero di seriale della wallbox installata (11 caratteri).
               </p>
             </div>
@@ -259,17 +259,17 @@ export default function WallboxSerialModal({ leadId, installerId, onClose, onSav
 
         <div className="space-y-4 mb-6">
           {serials.map((serial, index) => (
-            <div key={serial.id} className="border border-gray-200 rounded-lg p-4">
+            <div key={serial.id} className="border border-daze-gray rounded-xl p-4">
               <div className="flex items-start gap-3">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-daze-black/70">
                       Seriale #{index + 1}
                     </label>
                     {serials.length > 1 && (
                       <button
                         onClick={() => removeSerialInput(serial.id)}
-                        className="p-1 text-red-600 hover:bg-red-50 rounded transition-all"
+                        className="p-1 text-daze-salmon-dark hover:bg-daze-salmon/10 rounded transition-all"
                         title="Rimuovi seriale"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -283,23 +283,23 @@ export default function WallboxSerialModal({ leadId, installerId, onClose, onSav
                     onBlur={() => handleSerialBlur(serial)}
                     placeholder="Es: 25DT0101143"
                     maxLength={11}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#4a5fc1] focus:border-transparent ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-daze-blue focus:border-transparent ${
                       serial.parseResult?.isValid === false
-                        ? 'border-red-500'
+                        ? 'border-daze-salmon'
                         : serial.parseResult?.isValid === true
-                        ? 'border-green-500'
-                        : 'border-gray-300'
+                        ? 'border-daze-forest'
+                        : 'border-daze-gray'
                     }`}
                   />
                   {serial.validating && (
-                    <p className="mt-2 text-sm text-gray-600">
+                    <p className="mt-2 text-sm text-daze-black/70">
                       Validazione in corso...
                     </p>
                   )}
                   {serial.parseResult && !serial.validating && (
                     <div className="mt-2">
                       {serial.parseResult.isValid ? (
-                        <div className="flex items-start gap-2 text-green-700 bg-green-50 p-3 rounded-lg">
+                        <div className="flex items-start gap-2 text-daze-forest bg-daze-forest/10 p-3 rounded-lg">
                           <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5" />
                           <div className="flex-1">
                             <p className="font-medium text-sm">
@@ -311,7 +311,7 @@ export default function WallboxSerialModal({ leadId, installerId, onClose, onSav
                           </div>
                         </div>
                       ) : (
-                        <div className="flex items-center gap-2 text-red-600 text-sm">
+                        <div className="flex items-center gap-2 text-daze-salmon-dark text-sm">
                           <XCircle className="w-4 h-4 flex-shrink-0" />
                           <span>{serial.parseResult.error}</span>
                         </div>
@@ -325,7 +325,7 @@ export default function WallboxSerialModal({ leadId, installerId, onClose, onSav
 
           <button
             onClick={addSerialInput}
-            className="w-full py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-[#4a5fc1] hover:text-[#4a5fc1] transition-all flex items-center justify-center gap-2"
+            className="w-full py-3 border-2 border-dashed border-daze-gray rounded-xl text-daze-black/70 hover:border-daze-blue hover:text-daze-blue transition-all flex items-center justify-center gap-2"
           >
             <Plus className="w-5 h-5" />
             <span>Aggiungi altro seriale</span>
@@ -333,13 +333,13 @@ export default function WallboxSerialModal({ leadId, installerId, onClose, onSav
         </div>
 
         {validSerialsCount > 0 && (
-          <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
-            <h3 className="text-sm font-medium text-gray-900 mb-2">
+          <div className="bg-daze-gray/10 border border-daze-gray rounded-xl p-4 mb-6">
+            <h3 className="text-sm font-medium text-daze-black mb-2">
               Riepilogo ({validSerialsCount} prodotti)
             </h3>
             <div className="space-y-1">
               {Object.entries(productsSummary).map(([productName, count]) => (
-                <div key={productName} className="text-sm text-gray-700">
+                <div key={productName} className="text-sm text-daze-black/70">
                   <span className="font-medium">{count}x</span> {productName}
                 </div>
               ))}
@@ -348,8 +348,8 @@ export default function WallboxSerialModal({ leadId, installerId, onClose, onSav
         )}
 
         {(error || duplicateError) && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-sm text-red-600 flex items-center gap-2">
+          <div className="mb-4 p-3 bg-daze-salmon/10 border border-daze-salmon/20 rounded-xl">
+            <p className="text-sm text-daze-salmon-dark flex items-center gap-2">
               <AlertCircle className="w-4 h-4" />
               {error || duplicateError}
             </p>
@@ -371,7 +371,7 @@ export default function WallboxSerialModal({ leadId, installerId, onClose, onSav
           </Button>
         </div>
 
-        <p className="text-xs text-gray-500 text-center mt-4">
+        <p className="text-xs text-daze-black/60 text-center mt-4">
           I seriali verranno salvati e collegati a questa installazione
         </p>
       </div>

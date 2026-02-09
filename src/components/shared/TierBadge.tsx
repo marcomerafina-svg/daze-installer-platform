@@ -26,10 +26,10 @@ const tierGradients = {
 
 const tierTextColors = {
   Bronze: 'text-[#8B4513]',
-  Silver: 'text-black',
-  Gold: 'text-honey-dark',
-  Platinum: 'text-black',
-  Diamond: 'text-reflex-blue-900',
+  Silver: 'text-daze-black',
+  Gold: 'text-daze-honey-dark',
+  Platinum: 'text-daze-black',
+  Diamond: 'text-daze-blue',
 };
 
 const sizeClasses = {
@@ -58,7 +58,7 @@ export default function TierBadge({
 }: TierBadgeProps) {
   if (!tier) {
     return (
-      <span className={`inline-flex items-center ${sizeClasses[size].container} rounded-full bg-cool-gray text-black/70 font-medium ${className}`}>
+      <span className={`inline-flex items-center ${sizeClasses[size].container} rounded-pill bg-daze-gray text-daze-black/70 font-medium ${className}`}>
         <Trophy className={sizeClasses[size].icon} />
         {showLabel && <span className={sizeClasses[size].text}>Nessun Tier</span>}
       </span>
@@ -71,7 +71,7 @@ export default function TierBadge({
 
   return (
     <span
-      className={`inline-flex items-center ${sizeClasses[size].container} rounded-full bg-gradient-to-r ${gradient} ${textColor} font-bold shadow-md ${className}`}
+      className={`inline-flex items-center ${sizeClasses[size].container} rounded-pill bg-gradient-to-r ${gradient} ${textColor} font-bold ${className}`}
     >
       <Icon className={sizeClasses[size].icon} />
       {showLabel && <span className={sizeClasses[size].text}>{tier.display_name}</span>}

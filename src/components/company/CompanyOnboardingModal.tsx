@@ -111,12 +111,12 @@ const STEPS = [
 ];
 
 const STEP_COLORS = {
-  blue: 'bg-blue-100 text-blue-600 border-blue-200',
-  green: 'bg-green-100 text-green-600 border-green-200',
-  purple: 'bg-purple-100 text-purple-600 border-purple-200',
-  orange: 'bg-orange-100 text-orange-600 border-orange-200',
-  cyan: 'bg-cyan-100 text-cyan-600 border-cyan-200',
-  yellow: 'bg-yellow-100 text-yellow-600 border-yellow-200',
+  blue: 'bg-daze-blue-light text-daze-blue border-daze-blue/20',
+  green: 'bg-daze-forest/10 text-daze-forest border-daze-forest/20',
+  purple: 'bg-daze-blue-light text-daze-blue border-daze-blue/20',
+  orange: 'bg-daze-honey/10 text-daze-honey-dark border-daze-honey/20',
+  cyan: 'bg-daze-sky/20 text-daze-blue border-daze-sky/30',
+  yellow: 'bg-daze-honey/10 text-daze-honey-dark border-daze-honey/20',
 };
 
 export default function CompanyOnboardingModal({
@@ -211,8 +211,8 @@ export default function CompanyOnboardingModal({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
-        <div className="relative bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-6 text-white">
+      <div className="bg-white rounded-squircle max-w-3xl w-full max-h-[90vh] overflow-hidden">
+        <div className="relative bg-daze-blue px-8 py-6 text-white">
           <button
             onClick={handleSkip}
             disabled={loading}
@@ -222,7 +222,7 @@ export default function CompanyOnboardingModal({
           </button>
 
           <h2 className="text-2xl font-bold">{companyName}</h2>
-          <p className="text-blue-100 text-sm mt-1">Configurazione iniziale</p>
+          <p className="text-white/70 text-sm mt-1">Configurazione iniziale</p>
 
           <div className="flex items-center gap-2 mt-6">
             {STEPS.map((s, idx) => (
@@ -234,7 +234,7 @@ export default function CompanyOnboardingModal({
               />
             ))}
           </div>
-          <p className="text-sm text-blue-100 mt-2">
+          <p className="text-sm text-white/70 mt-2">
             Step {step} di {STEPS.length}
           </p>
         </div>
@@ -245,23 +245,23 @@ export default function CompanyOnboardingModal({
             <span className="font-semibold">{currentStepData.title}</span>
           </div>
 
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">
+          <h3 className="text-2xl font-bold text-daze-black mb-4">
             {currentStepData.content.heading}
           </h3>
 
-          <p className="text-gray-600 font-inter text-lg mb-6 leading-relaxed">
+          <p className="text-daze-black/70 font-inter text-lg mb-6 leading-relaxed">
             {currentStepData.content.description}
           </p>
 
-          <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-            <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-green-600" />
+          <div className="bg-daze-gray/10 rounded-squircle p-6 border border-daze-gray">
+            <h4 className="font-semibold text-daze-black mb-4 flex items-center gap-2">
+              <CheckCircle className="w-5 h-5 text-daze-forest" />
               Funzionalità Principali
             </h4>
             <ul className="space-y-3 font-inter">
               {currentStepData.content.features.map((feature, idx) => (
-                <li key={idx} className="flex items-start gap-3 text-gray-700">
-                  <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
+                <li key={idx} className="flex items-start gap-3 text-daze-black/70">
+                  <div className="w-6 h-6 rounded-full bg-daze-blue-light text-daze-blue flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
                     {idx + 1}
                   </div>
                   <span>{feature}</span>
@@ -271,7 +271,7 @@ export default function CompanyOnboardingModal({
           </div>
         </div>
 
-        <div className="bg-gray-50 border-t border-gray-200 px-8 py-5 flex items-center justify-between">
+        <div className="bg-daze-gray/10 border-t border-daze-gray px-8 py-5 flex items-center justify-between">
           <div className="flex gap-3">
             <Button
               variant="ghost"
