@@ -32,10 +32,17 @@ export default function PendingInstallations() {
 
   useEffect(() => {
     loadInstallations();
+
+    // Polling automatico ogni 30 secondi per nuove installazioni
+    const interval = setInterval(() => {
+      loadInstallations(true);
+    }, 30000);
+
+    return () => clearInterval(interval);
   }, [filter]);
 
-  const loadInstallations = async () => {
-    setLoading(true);
+  const loadInstallations = async (silent = false) => {
+    if (!silent) setLoading(true);
     try {
       // Debug: Check current session
       const { data: { session } } = await supabase.auth.getSession();
