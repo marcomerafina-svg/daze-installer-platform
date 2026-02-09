@@ -7,6 +7,7 @@ import InstallerLayout from '../../components/installer/InstallerLayout';
 import Button from '../../components/shared/Button';
 import type { Lead, LeadStatus } from '../../types';
 import { Phone, Mail, ArrowRight, Sparkles, Clock, CheckCircle, XCircle, Lock, ChevronDown, User } from 'lucide-react';
+import WallboxSerialModal from '../../components/installer/WallboxSerialModal';
 
 const PIPELINE_STAGES: { status: LeadStatus; label: string; bgColor: string; borderColor: string; iconBg: string; icon: any }[] = [
   {
@@ -53,6 +54,7 @@ export default function Pipeline() {
   });
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState<string | null>(null);
+  const [serialModal, setSerialModal] = useState<{ leadId: string; fromStatus: LeadStatus } | null>(null);
 
   useEffect(() => {
     if (installer) {
@@ -97,6 +99,18 @@ export default function Pipeline() {
       return;
     }
 
+    // Se si sposta su "Chiusa Vinta", apri la modale seriali
+    if (newStatus === 'Chiusa Vinta') {
+      setSerialModal({ leadId, fromStatus: currentStatus });
+      return;
+    }
+
+    await executeStatusUpdate(leadId, currentStatus, newStatus);
+  };
+
+  const executeStatusUpdate = async (leadId: string, currentStatus: LeadStatus, newStatus: LeadStatus) => {
+    if (!installer) return;
+
     setUpdating(leadId);
 
     try {
@@ -125,6 +139,19 @@ export default function Pipeline() {
     } finally {
       setUpdating(null);
     }
+  };
+
+  const handleSerialModalSave = async () => {
+    if (!serialModal) return;
+    // I seriali sono stati salvati, ora aggiorna lo stato a "Chiusa Vinta"
+    await executeStatusUpdate(serialModal.leadId, serialModal.fromStatus, 'Chiusa Vinta');
+    setSerialModal(null);
+  };
+
+  const handleSerialModalClose = () => {
+    // Annullato: ricarica le lead per ripristinare la posizione originale
+    setSerialModal(null);
+    loadLeads();
   };
 
   const handleDragEnd = async (result: DropResult) => {
@@ -309,6 +336,15 @@ export default function Pipeline() {
         </div>
       </DragDropContext>
       </div>
+
+      {serialModal && installer && (
+        <WallboxSerialModal
+          leadId={serialModal.leadId}
+          installerId={installer.id}
+          onClose={handleSerialModalClose}
+          onSave={handleSerialModalSave}
+        />
+      )}
     </InstallerLayout>
   );
 }

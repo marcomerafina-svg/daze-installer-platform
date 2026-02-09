@@ -600,7 +600,7 @@ export default function LeadDetail() {
                 onChange={(e) => setNewNote(e.target.value)}
                 placeholder="Aggiungi una nota..."
                 rows={3}
-                className="w-full px-4 py-3 font-inter border border-daze-gray rounded-xl focus:ring-2 focus:ring-daze-blue focus:border-transparent resize-none"
+                className="w-full px-4 py-3 font-inter border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all resize-none text-daze-black placeholder:text-daze-border"
               />
               <Button
                 variant="primaryBlack"

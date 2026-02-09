@@ -563,34 +563,37 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
             </Button>
           </div>
 
-          <div className="flex items-center justify-between">
-            {[1, 2, 3, 4].map((s) => (
-              <div key={s} className="flex items-center flex-1">
-                <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all ${
-                    step >= s
-                      ? 'bg-daze-blue text-white'
-                      : 'bg-daze-gray text-daze-black/40'
-                  }`}
-                >
-                  {s}
-                </div>
-                {s < 4 && (
+          <div className="flex items-start">
+            {[
+              { num: 1, label: 'Cliente' },
+              { num: 2, label: 'Seriali' },
+              { num: 3, label: 'Foto' },
+              { num: 4, label: 'Conferma' },
+            ].map((s, i) => (
+              <div key={s.num} className="flex items-center flex-1 last:flex-none">
+                <div className="flex flex-col items-center">
                   <div
-                    className={`flex-1 h-1 mx-2 rounded transition-all ${
-                      step > s ? 'bg-daze-blue' : 'bg-daze-gray'
+                    className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all ${
+                      step >= s.num
+                        ? 'bg-daze-blue text-white'
+                        : 'bg-daze-gray text-daze-black/40'
+                    }`}
+                  >
+                    {s.num}
+                  </div>
+                  <span className={`mt-1.5 text-xs font-medium ${step >= s.num ? 'text-daze-blue' : 'text-daze-black/40'}`}>
+                    {s.label}
+                  </span>
+                </div>
+                {i < 3 && (
+                  <div
+                    className={`flex-1 h-1 mx-2 mt-[18px] -translate-y-1/2 rounded transition-all ${
+                      step > s.num ? 'bg-daze-blue' : 'bg-daze-gray'
                     }`}
                   />
                 )}
               </div>
             ))}
-          </div>
-
-          <div className="flex justify-between mt-2 text-xs font-medium">
-            <span className={step >= 1 ? 'text-daze-blue' : 'text-daze-black/40'}>Cliente</span>
-            <span className={step >= 2 ? 'text-daze-blue' : 'text-daze-black/40'}>Seriali</span>
-            <span className={step >= 3 ? 'text-daze-blue' : 'text-daze-black/40'}>Foto</span>
-            <span className={step >= 4 ? 'text-daze-blue' : 'text-daze-black/40'}>Conferma</span>
           </div>
         </div>
 

@@ -3,8 +3,9 @@ import { supabase } from '../../lib/supabase';
 import AdminLayout from '../../components/admin/AdminLayout';
 import CreateCompanyModal from '../../components/admin/CreateCompanyModal';
 import type { CompanyWithStats, InstallationCompany } from '../../types';
-import { Plus, Search, Building2, Users, Award, TrendingUp, Mail, Phone, MapPin, ToggleLeft, ToggleRight, KeyRound } from 'lucide-react';
+import { Plus, Search, Building2, Users, Award, TrendingUp, Mail, Phone, MapPin, KeyRound } from 'lucide-react';
 import Button from '../../components/shared/Button';
+import Toggle from '../../components/shared/Toggle';
 
 export default function Companies() {
   const [companies, setCompanies] = useState<CompanyWithStats[]>([]);
@@ -310,7 +311,7 @@ export default function Companies() {
                       </div>
                     </div>
 
-                    <div className="flex gap-2">
+                    <div className="flex items-center gap-3">
                       <button
                         onClick={() => resetOwnerPassword(company)}
                         className="p-2 text-daze-honey-dark hover:bg-daze-honey/10 rounded-lg transition-colors"
@@ -318,17 +319,11 @@ export default function Companies() {
                       >
                         <KeyRound className="w-5 h-5" />
                       </button>
-                      <button
-                        onClick={() => toggleCompanyStatus(company.id, company.is_active)}
-                        className="text-daze-black/40 hover:text-daze-black/70"
-                        title={company.is_active ? 'Disattiva azienda' : 'Attiva azienda'}
-                      >
-                        {company.is_active ? (
-                          <ToggleRight className="w-8 h-8 text-daze-forest" />
-                        ) : (
-                          <ToggleLeft className="w-8 h-8 text-daze-black/40" />
-                        )}
-                      </button>
+                      <Toggle
+                        checked={company.is_active}
+                        onChange={() => toggleCompanyStatus(company.id, company.is_active)}
+                        label={company.is_active ? 'Disattiva azienda' : 'Attiva azienda'}
+                      />
                     </div>
                   </div>
                 </div>

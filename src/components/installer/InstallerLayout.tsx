@@ -47,37 +47,37 @@ export default function InstallerLayout({ children }: InstallerLayoutProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 flex">
+    <div className="min-h-screen bg-white flex">
       <div className="flex-1 flex flex-col lg:flex-row">
-        <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+        <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-daze-gray">
           <div className="flex items-center justify-between px-4 py-3">
             <DazeLogo height={28} />
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="p-2 hover:bg-slate-100 rounded-xl transition-all"
+              className="p-2 hover:bg-daze-gray/20 rounded-xl transition-all"
             >
-              {sidebarOpen ? <X className="w-6 h-6 text-slate-700" /> : <Menu className="w-6 h-6 text-slate-700" />}
+              {sidebarOpen ? <X className="w-6 h-6 text-daze-black" /> : <Menu className="w-6 h-6 text-daze-black" />}
             </button>
           </div>
         </div>
 
-        <main className="flex-1 pt-16 lg:pt-0 px-4 sm:px-6 lg:px-8 py-6 lg:py-8 overflow-auto lg:mr-72">
+        <main className="flex-1 pt-16 lg:pt-0 px-4 sm:px-6 lg:px-8 py-6 lg:py-8 overflow-auto lg:ml-72">
           {children}
         </main>
 
         {sidebarOpen && (
           <div
-            className="fixed inset-0 bg-slate-900/50 z-40 lg:hidden"
+            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
             onClick={() => setSidebarOpen(false)}
           />
         )}
 
         <aside className={`
-          fixed inset-y-0 right-0 z-50
+          fixed inset-y-0 left-0 z-50
           w-72 bg-daze-blue
-          h-screen shadow-strong overflow-hidden
+          h-screen overflow-hidden
           transform transition-transform duration-300 ease-in-out
-          ${sidebarOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'}
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}>
           <div className="flex flex-col h-full p-6">
             <div className="hidden lg:flex flex-col items-center mb-10">
@@ -107,15 +107,13 @@ export default function InstallerLayout({ children }: InstallerLayoutProps) {
               })}
             </nav>
 
-            <div className="pt-6 border-t border-white/20 pb-8">
+            <div className="space-y-4 pt-6 border-t border-white/20">
               {installer && (
-                <div className="mb-4">
-                  <NotificationsDropdown
-                    installerId={installer.id}
-                    unreadCount={unreadCount}
-                    onUnreadCountChange={setUnreadCount}
-                  />
-                </div>
+                <NotificationsDropdown
+                  installerId={installer.id}
+                  unreadCount={unreadCount}
+                  onUnreadCountChange={setUnreadCount}
+                />
               )}
 
               <div className="bg-white/10 rounded-squircle p-4">
@@ -152,7 +150,7 @@ export default function InstallerLayout({ children }: InstallerLayoutProps) {
                 <Link
                   to="/company"
                   onClick={() => setSidebarOpen(false)}
-                  className="block mt-4"
+                  className="block"
                 >
                   <Button
                     variant="secondaryDark"

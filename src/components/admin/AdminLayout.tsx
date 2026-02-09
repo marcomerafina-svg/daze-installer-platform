@@ -36,23 +36,23 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 flex">
+    <div className="min-h-screen bg-white flex">
       <div className="flex-1 flex flex-col lg:flex-row">
-        <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+        <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-daze-gray">
           <div className="flex items-center justify-between px-4 py-3">
             <DazeLogo height={28} />
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="p-2 hover:bg-slate-100 rounded-xl transition-all"
+              className="p-2 hover:bg-daze-gray/20 rounded-xl transition-all"
             >
-              {sidebarOpen ? <X className="w-6 h-6 text-slate-700" /> : <Menu className="w-6 h-6 text-slate-700" />}
+              {sidebarOpen ? <X className="w-6 h-6 text-daze-black" /> : <Menu className="w-6 h-6 text-daze-black" />}
             </button>
           </div>
         </div>
 
         {sidebarOpen && (
           <div
-            className="fixed inset-0 bg-slate-900/50 z-40 lg:hidden"
+            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
             onClick={() => setSidebarOpen(false)}
           />
         )}
@@ -60,7 +60,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         <aside className={`
           fixed inset-y-0 left-0 z-50
           w-72 bg-[#c1d7ff]
-          h-screen shadow-strong overflow-hidden
+          h-screen overflow-hidden
           transform transition-transform duration-300 ease-in-out
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}>
@@ -82,7 +82,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                     className={`relative flex items-center gap-3 pl-5 pr-4 py-3 transition-colors ${
                       isActive
                         ? 'text-daze-black font-semibold before:absolute before:left-0 before:top-1.5 before:bottom-1.5 before:w-[3px] before:bg-daze-black before:rounded-full'
-                        : 'text-daze-black/60 hover:text-daze-black font-medium'
+                        : 'text-daze-black/70 hover:text-daze-black font-medium'
                     }`}
                   >
                     <Icon className="w-5 h-5" />
@@ -100,7 +100,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-daze-black font-roobert font-semibold text-sm">Admin</p>
-                    <p className="text-daze-black/60 font-inter text-xs truncate mt-0.5">{user?.email}</p>
+                    <p className="text-daze-black/70 font-inter text-xs truncate mt-0.5">{user?.email}</p>
                   </div>
                 </div>
                 <div className="mt-3 pt-3 border-t border-daze-blue/10">

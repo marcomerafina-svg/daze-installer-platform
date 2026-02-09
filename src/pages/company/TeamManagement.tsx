@@ -3,9 +3,10 @@ import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '../../lib/supabase';
 import CompanyLayout from '../../components/company/CompanyLayout';
 import AddTeamMemberModal from '../../components/company/AddTeamMemberModal';
-import { Users, Mail, Phone, Award, ToggleLeft, ToggleRight, Plus, Shield } from 'lucide-react';
+import { Users, Mail, Phone, Award, Plus, Shield } from 'lucide-react';
 import type { Installer } from '../../types';
 import Button from '../../components/shared/Button';
+import Toggle from '../../components/shared/Toggle';
 
 interface TeamMemberWithStats extends Installer {
   total_points: number;
@@ -236,16 +237,11 @@ export default function TeamManagement() {
                         )}
                       </button>
                     )}
-                    <button
-                      onClick={() => toggleMemberStatus(member.id, member.is_active)}
-                      className="p-2 hover:bg-daze-gray/20 rounded-xl transition-colors"
-                    >
-                      {member.is_active ? (
-                        <ToggleRight className="w-6 h-6 text-daze-forest" />
-                      ) : (
-                        <ToggleLeft className="w-6 h-6 text-daze-black/30" />
-                      )}
-                    </button>
+                    <Toggle
+                      checked={member.is_active}
+                      onChange={() => toggleMemberStatus(member.id, member.is_active)}
+                      size="sm"
+                    />
                   </div>
                 )}
               </div>

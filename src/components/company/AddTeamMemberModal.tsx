@@ -138,9 +138,9 @@ export default function AddTeamMemberModal({ companyId, onClose, onSuccess }: Ad
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-900">Aggiungi Membro al Team</h2>
+      <div className="bg-white rounded-squircle max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 bg-white border-b border-daze-gray px-6 py-4 flex items-center justify-between">
+          <h2 className="text-2xl font-roobert font-bold text-daze-black">Aggiungi Membro al Team</h2>
           <Button variant="icon" onClick={onClose}>
             <X className="w-6 h-6" />
           </Button>
@@ -148,14 +148,14 @@ export default function AddTeamMemberModal({ companyId, onClose, onSuccess }: Ad
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6 font-inter">
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+            <div className="bg-daze-salmon/10 border border-daze-salmon/20 text-daze-salmon-dark px-4 py-3 rounded-xl">
               {error}
             </div>
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-daze-black/70 mb-2">
                 <div className="flex items-center gap-2">
                   <User className="w-4 h-4" />
                   Nome *
@@ -165,14 +165,14 @@ export default function AddTeamMemberModal({ companyId, onClose, onSuccess }: Ad
                 type="text"
                 value={memberData.first_name}
                 onChange={(e) => handleChange('first_name', e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all text-daze-black font-inter placeholder:text-daze-border"
                 placeholder="Mario"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-daze-black/70 mb-2">
                 <div className="flex items-center gap-2">
                   <User className="w-4 h-4" />
                   Cognome *
@@ -182,7 +182,7 @@ export default function AddTeamMemberModal({ companyId, onClose, onSuccess }: Ad
                 type="text"
                 value={memberData.last_name}
                 onChange={(e) => handleChange('last_name', e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all text-daze-black font-inter placeholder:text-daze-border"
                 placeholder="Rossi"
                 required
               />
@@ -190,7 +190,7 @@ export default function AddTeamMemberModal({ companyId, onClose, onSuccess }: Ad
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-daze-black/70 mb-2">
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
                 Email *
@@ -200,14 +200,14 @@ export default function AddTeamMemberModal({ companyId, onClose, onSuccess }: Ad
               type="email"
               value={memberData.email}
               onChange={(e) => handleChange('email', e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all text-daze-black font-inter placeholder:text-daze-border"
               placeholder="mario.rossi@esempio.it"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-daze-black/70 mb-2">
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
                 Telefono *
@@ -217,14 +217,14 @@ export default function AddTeamMemberModal({ companyId, onClose, onSuccess }: Ad
               type="tel"
               value={memberData.phone}
               onChange={(e) => handleChange('phone', e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all text-daze-black font-inter placeholder:text-daze-border"
               placeholder="+39 333 1234567"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-daze-black/70 mb-2">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
                 Regione *
@@ -233,7 +233,7 @@ export default function AddTeamMemberModal({ companyId, onClose, onSuccess }: Ad
             <select
               value={memberData.region}
               onChange={(e) => handleChange('region', e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all text-daze-black font-inter placeholder:text-daze-border"
               required
             >
               <option value="">Seleziona una regione</option>
@@ -245,8 +245,8 @@ export default function AddTeamMemberModal({ companyId, onClose, onSuccess }: Ad
             </select>
           </div>
 
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <p className="text-sm text-blue-800">
+          <div className="bg-daze-blue-light border border-daze-blue/20 rounded-squircle p-4">
+            <p className="text-sm text-daze-blue">
               <strong>Nota:</strong> Il nuovo membro riceverà un'email con le credenziali di accesso generate automaticamente.
             </p>
           </div>

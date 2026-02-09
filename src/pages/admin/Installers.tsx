@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import AdminLayout from '../../components/admin/AdminLayout';
 import type { InstallerWithStats } from '../../types';
-import { Plus, Search, ToggleLeft, ToggleRight, Mail, Phone, MapPin, Building2 } from 'lucide-react';
+import { Plus, Search, Mail, Phone, MapPin, Building2 } from 'lucide-react';
 import Button from '../../components/shared/Button';
+import Toggle from '../../components/shared/Toggle';
 import React from 'react';
 
 export default function Installers() {
@@ -237,22 +238,16 @@ export default function Installers() {
                       </span>
                     </td>
                     <td className="text-center px-6 py-4">
-                      <button
-                        onClick={() => toggleInstallerStatus(installer.id, installer.is_active)}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-all hover:bg-daze-gray/20"
-                      >
-                        {installer.is_active ? (
-                          <>
-                            <ToggleRight className="w-5 h-5 text-daze-forest" />
-                            <span className="text-sm font-medium text-daze-forest">Attivo</span>
-                          </>
-                        ) : (
-                          <>
-                            <ToggleLeft className="w-5 h-5 text-daze-black/40" />
-                            <span className="text-sm font-medium text-daze-black/60">Inattivo</span>
-                          </>
-                        )}
-                      </button>
+                      <div className="inline-flex items-center gap-2">
+                        <Toggle
+                          checked={installer.is_active}
+                          onChange={() => toggleInstallerStatus(installer.id, installer.is_active)}
+                          size="sm"
+                        />
+                        <span className={`text-sm font-medium ${installer.is_active ? 'text-daze-forest' : 'text-daze-black/60'}`}>
+                          {installer.is_active ? 'Attivo' : 'Inattivo'}
+                        </span>
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -294,16 +289,10 @@ export default function Installers() {
                       </div>
                     </div>
 
-                    <button
-                      onClick={() => toggleInstallerStatus(installer.id, installer.is_active)}
-                      className="flex-shrink-0"
-                    >
-                      {installer.is_active ? (
-                        <ToggleRight className="w-8 h-8 text-daze-forest" />
-                      ) : (
-                        <ToggleLeft className="w-8 h-8 text-daze-black/40" />
-                      )}
-                    </button>
+                    <Toggle
+                      checked={installer.is_active}
+                      onChange={() => toggleInstallerStatus(installer.id, installer.is_active)}
+                    />
                   </div>
 
                   <div className="grid grid-cols-4 gap-2 pt-3 border-t border-daze-gray font-inter">

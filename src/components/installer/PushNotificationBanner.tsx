@@ -61,14 +61,14 @@ export default function PushNotificationBanner({ installerId }: PushNotification
 
   return (
     <div
-      className={`mb-6 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl shadow-lg overflow-hidden transition-all duration-300 ${
+      className={`mb-6 bg-daze-blue-light border-2 border-daze-blue/20 rounded-squircle overflow-hidden transition-all duration-300 ${
         isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
       }`}
     >
       <div className="relative p-6">
         <button
           onClick={handleDismiss}
-          className="absolute top-4 right-4 p-1 text-gray-400 hover:text-gray-600 hover:bg-white/50 rounded-lg transition-all"
+          className="absolute top-4 right-4 p-1 text-daze-black/40 hover:text-daze-black/70 hover:bg-white/50 rounded-lg transition-all"
           aria-label="Chiudi"
         >
           <X className="w-5 h-5" />
@@ -76,48 +76,48 @@ export default function PushNotificationBanner({ installerId }: PushNotification
 
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0">
-            <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg animate-pulse">
+            <div className="w-14 h-14 bg-daze-blue rounded-2xl flex items-center justify-center animate-pulse">
               <Bell className="w-7 h-7 text-white" />
             </div>
           </div>
 
           <div className="flex-1">
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
+            <h3 className="text-xl font-roobert font-bold text-daze-black mb-2">
               Non perdere mai più una lead! 🎯
             </h3>
-            <p className="text-gray-600 text-sm font-inter mb-4 leading-relaxed">
+            <p className="text-daze-black/70 text-sm font-inter mb-4 leading-relaxed">
               Attiva le notifiche push per essere avvisato istantaneamente quando ricevi una nuova lead.
               Rispondi più velocemente e aumenta le tue conversioni.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
               <div className="flex items-center gap-2 bg-white/60 backdrop-blur rounded-lg p-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <Zap className="w-4 h-4 text-blue-600" />
+                <div className="flex-shrink-0 w-8 h-8 bg-daze-blue-light rounded-lg flex items-center justify-center">
+                  <Zap className="w-4 h-4 text-daze-blue" />
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-gray-900">Tempo reale</p>
-                  <p className="text-xs text-gray-500">Avviso immediato</p>
+                  <p className="text-xs font-semibold text-daze-black">Tempo reale</p>
+                  <p className="text-xs text-daze-black/60">Avviso immediato</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2 bg-white/60 backdrop-blur rounded-lg p-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                  <TrendingUp className="w-4 h-4 text-green-600" />
+                <div className="flex-shrink-0 w-8 h-8 bg-daze-forest/10 rounded-lg flex items-center justify-center">
+                  <TrendingUp className="w-4 h-4 text-daze-forest" />
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-gray-900">Più vendite</p>
-                  <p className="text-xs text-gray-500">Risposta rapida</p>
+                  <p className="text-xs font-semibold text-daze-black">Più vendite</p>
+                  <p className="text-xs text-daze-black/60">Risposta rapida</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2 bg-white/60 backdrop-blur rounded-lg p-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                  <Clock className="w-4 h-4 text-purple-600" />
+                <div className="flex-shrink-0 w-8 h-8 bg-daze-blue-light rounded-lg flex items-center justify-center">
+                  <Clock className="w-4 h-4 text-daze-blue" />
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-gray-900">Sempre attivo</p>
-                  <p className="text-xs text-gray-500">Anche offline</p>
+                  <p className="text-xs font-semibold text-daze-black">Sempre attivo</p>
+                  <p className="text-xs text-daze-black/60">Anche offline</p>
                 </div>
               </div>
             </div>
@@ -150,7 +150,7 @@ export default function PushNotificationBanner({ installerId }: PushNotification
               </Button>
             </div>
 
-            <p className="text-xs text-gray-500 mt-3 flex items-center gap-1">
+            <p className="text-xs text-daze-black/60 mt-3 flex items-center gap-1">
               <span className="inline-block w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
               Puoi disattivare le notifiche in qualsiasi momento dalle impostazioni
             </p>

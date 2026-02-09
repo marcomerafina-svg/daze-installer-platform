@@ -124,14 +124,14 @@ export default function NotificationsDropdown({
       {isOpen && createPortal(
         <div className="fixed inset-0 z-[9999]" onClick={() => setIsOpen(false)}>
           <div 
-            className="fixed left-4 right-4 sm:left-1/2 sm:-translate-x-1/2 top-1/2 -translate-y-1/2 w-auto sm:w-[400px] bg-white rounded-xl shadow-2xl border border-gray-200 max-h-[80vh] flex flex-col"
+            className="fixed left-4 right-4 sm:left-1/2 sm:-translate-x-1/2 top-1/2 -translate-y-1/2 w-auto sm:w-[400px] bg-white rounded-squircle border border-daze-gray max-h-[80vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
             ref={dropdownRef}
           >
-            <div className="flex items-center justify-between p-4 border-b border-gray-200">
+            <div className="flex items-center justify-between p-4 border-b border-daze-gray">
               <div>
-                <h3 className="font-bold text-gray-900 text-lg">Notifiche</h3>
-                <p className="text-xs font-inter text-gray-500">
+                <h3 className="font-roobert font-bold text-daze-black text-lg">Notifiche</h3>
+                <p className="text-xs font-inter text-daze-black/60">
                   {unreadCount === 0
                     ? 'Nessuna notifica'
                     : `${unreadCount} nuov${unreadCount === 1 ? 'a' : 'e'} lead`}
@@ -148,9 +148,9 @@ export default function NotificationsDropdown({
                 )}
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-1.5 hover:bg-gray-100 rounded transition-all"
+                  className="p-1.5 hover:bg-daze-gray/20 rounded transition-all"
                 >
-                  <X className="w-5 h-5 text-gray-500" />
+                  <X className="w-5 h-5 text-daze-black/60" />
                 </button>
               </div>
             </div>
@@ -162,16 +162,16 @@ export default function NotificationsDropdown({
                 </div>
               ) : notifications.length === 0 ? (
                 <div className="text-center py-12">
-                  <Bell className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                  <p className="text-gray-500 text-sm">Nessuna nuova notifica</p>
-                  <p className="text-gray-400 text-xs mt-1">Tutte le lead sono state visualizzate</p>
+                  <Bell className="w-12 h-12 text-daze-black/20 mx-auto mb-3" />
+                  <p className="text-daze-black/60 text-sm">Nessuna nuova notifica</p>
+                  <p className="text-daze-black/40 text-xs mt-1">Tutte le lead sono state visualizzate</p>
                 </div>
               ) : (
-                <div className="divide-y divide-gray-100">
+                <div className="divide-y divide-daze-gray/50">
                   {notifications.map((lead) => (
                     <div
                       key={lead.id}
-                      className="p-4 hover:bg-gray-50 transition-all"
+                      className="p-4 hover:bg-daze-gray/10 transition-all"
                     >
                       <div className="flex items-start justify-between mb-2">
                         <div className="flex items-center gap-3">
@@ -179,7 +179,7 @@ export default function NotificationsDropdown({
                             <User className="w-5 h-5 text-daze-blue" />
                           </div>
                           <div className="min-w-0">
-                            <h4 className="font-semibold text-gray-900 text-sm">
+                            <h4 className="font-semibold text-daze-black text-sm">
                               {lead.first_name} {lead.last_name}
                             </h4>
                             <span className="inline-block px-2 py-0.5 bg-daze-blue-light text-daze-blue text-xs font-medium rounded mt-1">
@@ -191,12 +191,12 @@ export default function NotificationsDropdown({
 
                       <div className="space-y-1 mb-3 ml-13">
                         {lead.phone && (
-                          <div className="flex items-center gap-2 text-xs text-gray-600">
+                          <div className="flex items-center gap-2 text-xs text-daze-black/70">
                             <Phone className="w-3 h-3 flex-shrink-0" />
                             <span>{lead.phone}</span>
                           </div>
                         )}
-                        <div className="flex items-center gap-2 text-xs text-gray-500">
+                        <div className="flex items-center gap-2 text-xs text-daze-black/60">
                           <Calendar className="w-3 h-3 flex-shrink-0" />
                           <span>
                             Assegnata il{' '}
@@ -222,7 +222,7 @@ export default function NotificationsDropdown({
                         </Link>
                         <button
                           onClick={() => markAsViewed(lead.assignment.id)}
-                          className="px-3 py-2 border border-gray-300 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-50 transition-all"
+                          className="px-3 py-2 border border-daze-gray rounded-lg text-xs font-medium text-daze-black/70 hover:bg-daze-gray/10 transition-all"
                         >
                           Segna letta
                         </button>
@@ -234,7 +234,7 @@ export default function NotificationsDropdown({
             </div>
 
             {notifications.length > 0 && (
-              <div className="p-3 border-t border-gray-200 bg-gray-50 rounded-b-xl">
+              <div className="p-3 border-t border-daze-gray bg-daze-gray/10 rounded-b-squircle">
                 <Link
                   to="/installer/pipeline"
                   onClick={() => setIsOpen(false)}
