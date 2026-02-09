@@ -379,15 +379,6 @@ export default function PendingInstallations() {
                   {filter === 'pending' && (
                     <>
                       <Button
-                        variant="primaryBlack"
-                        size="sm"
-                        icon={<CheckCircle className="w-4 h-4" />}
-                        onClick={() => handleApprove(installation)}
-                        disabled={processing}
-                      >
-                        Approva
-                      </Button>
-                      <Button
                         variant="destructive"
                         size="sm"
                         icon={<XCircle className="w-4 h-4" />}
@@ -398,6 +389,15 @@ export default function PendingInstallations() {
                         disabled={processing}
                       >
                         Rifiuta
+                      </Button>
+                      <Button
+                        variant="primaryBlack"
+                        size="sm"
+                        icon={<CheckCircle className="w-4 h-4" />}
+                        onClick={() => handleApprove(installation)}
+                        disabled={processing}
+                      >
+                        Approva
                       </Button>
                     </>
                   )}
@@ -508,16 +508,6 @@ export default function PendingInstallations() {
             {filter === 'pending' && (
               <div className="flex gap-3">
                 <Button
-                  variant="primaryBlack"
-                  size="md"
-                  icon={<CheckCircle className="w-5 h-5" />}
-                  onClick={() => handleApprove(selectedInstallation)}
-                  disabled={processing}
-                  fullWidth
-                >
-                  {processing ? 'Approvazione...' : 'Approva Installazione'}
-                </Button>
-                <Button
                   variant="destructive"
                   size="md"
                   icon={<XCircle className="w-5 h-5" />}
@@ -526,6 +516,16 @@ export default function PendingInstallations() {
                   fullWidth
                 >
                   Rifiuta Installazione
+                </Button>
+                <Button
+                  variant="primaryBlack"
+                  size="md"
+                  icon={<CheckCircle className="w-5 h-5" />}
+                  onClick={() => handleApprove(selectedInstallation)}
+                  disabled={processing}
+                  fullWidth
+                >
+                  {processing ? 'Approvazione...' : 'Approva Installazione'}
                 </Button>
               </div>
             )}
