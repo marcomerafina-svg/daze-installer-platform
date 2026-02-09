@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { X, Building2, User, Mail, Phone, MapPin, FileText, Lock } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
+import Button from '../shared/Button';
 
 interface CreateCompanyModalProps {
   onClose: () => void;
@@ -143,15 +144,15 @@ export default function CreateCompanyModal({ onClose, onSuccess }: CreateCompany
               {step === 1 ? 'Step 1: Dati Azienda' : 'Step 2: Dati Owner'}
             </p>
           </div>
-          <button
+          <Button
+            variant="icon"
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
           >
-            <X className="w-5 h-5 text-gray-500" />
-          </button>
+            <X className="w-5 h-5" />
+          </Button>
         </div>
 
-        <div className="p-6">
+        <div className="p-6 font-inter">
           {error && (
             <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-800 text-sm">
               {error}
@@ -395,32 +396,23 @@ export default function CreateCompanyModal({ onClose, onSuccess }: CreateCompany
         <div className="sticky bottom-0 bg-gray-50 border-t border-gray-200 px-6 py-4 flex justify-between">
           {step === 1 ? (
             <>
-              <button
-                onClick={onClose}
-                className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-              >
+              <Button variant="secondary" size="sm" onClick={onClose}>
                 Annulla
-              </button>
-              <button
-                onClick={handleNext}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-              >
+              </Button>
+              <Button variant="primaryBlack" size="sm" onClick={handleNext}>
                 Avanti
-              </button>
+              </Button>
             </>
           ) : (
             <>
-              <button
-                onClick={() => setStep(1)}
-                className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-                disabled={loading}
-              >
+              <Button variant="secondary" size="sm" onClick={() => setStep(1)} disabled={loading}>
                 Indietro
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="primaryBlack"
+                size="sm"
                 onClick={handleSubmit}
                 disabled={loading}
-                className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
                 {loading ? (
                   <>
@@ -430,7 +422,7 @@ export default function CreateCompanyModal({ onClose, onSuccess }: CreateCompany
                 ) : (
                   'Crea Azienda'
                 )}
-              </button>
+              </Button>
             </>
           )}
         </div>

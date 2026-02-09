@@ -1,12 +1,14 @@
 import { useState, FormEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { AlertCircle, LogIn } from 'lucide-react';
+import { AlertCircle, LogIn, Eye, EyeOff } from 'lucide-react';
 import DazeLogo from '../../components/shared/DazeLogo';
+import Button from '../../components/shared/Button';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { signIn, user } = useAuth();
@@ -47,27 +49,27 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-500 via-teal-600 to-teal-700 flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-daze-blue flex items-center justify-center px-4 py-8">
       <div className="max-w-md w-full">
-        <div className="bg-white rounded-3xl shadow-strong p-8 sm:p-10">
+        <div className="bg-white rounded-squircle shadow-strong p-8 sm:p-10">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center mb-4 bg-teal-50 p-4 rounded-2xl">
+            <div className="inline-flex items-center justify-center mb-6">
               <DazeLogo height={56} />
             </div>
-            <h1 className="text-2xl font-bold text-slate-900 mb-2">Benvenuto</h1>
-            <p className="text-slate-600">Gestione Lead Installatori</p>
+            <h1 className="text-2xl font-roobert font-bold text-daze-black mb-2">Benvenuto</h1>
+            <p className="text-sm font-inter text-daze-blue">Gestione Lead Installatori</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
-              <div className="bg-rose-50 border-2 border-rose-200 rounded-xl p-4 flex items-start gap-3 animate-scale-in">
-                <AlertCircle className="w-5 h-5 text-rose-600 flex-shrink-0 mt-0.5" />
+              <div className="bg-rose-50 border border-rose-200 rounded-xl p-4 flex items-start gap-3 animate-scale-in">
+                <AlertCircle className="w-5 h-5 text-daze-salmon flex-shrink-0 mt-0.5" />
                 <p className="text-sm text-rose-800 font-medium">{error}</p>
               </div>
             )}
 
             <div>
-              <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium font-inter text-daze-black mb-2">
                 Email
               </label>
               <input
@@ -76,30 +78,44 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all text-slate-900 placeholder:text-slate-400"
+                className="w-full px-4 py-3 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all text-daze-black font-inter placeholder:text-daze-border"
                 placeholder="tua@email.it"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-semibold text-slate-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium font-inter text-daze-black mb-2">
                 Password
               </label>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all text-slate-900 placeholder:text-slate-400"
-                placeholder="••••••••"
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="w-full px-4 py-3 pr-12 border border-daze-gray rounded-xl outline-none focus:ring-0 focus:border-daze-blue transition-all text-daze-black font-inter placeholder:text-daze-border"
+                  placeholder="Inserisci la password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  onMouseDown={(e) => e.preventDefault()}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-daze-border hover:text-daze-black rounded-lg transition-colors outline-none"
+                  tabIndex={-1}
+                >
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
+              </div>
             </div>
 
-            <button
+            <Button
               type="submit"
+              variant="primaryBlack"
+              size="lg"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-teal-500 to-teal-600 text-white py-3.5 rounded-xl font-semibold hover:shadow-medium hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              fullWidth
+              icon={loading ? undefined : <LogIn className="w-5 h-5" />}
             >
               {loading ? (
                 <>
@@ -107,16 +123,13 @@ export default function Login() {
                   Accesso in corso...
                 </>
               ) : (
-                <>
-                  <LogIn className="w-5 h-5" />
-                  Accedi
-                </>
+                'Accedi'
               )}
-            </button>
+            </Button>
           </form>
         </div>
 
-        <p className="text-center text-white text-sm mt-6 px-2 font-medium">
+        <p className="text-center text-white/70 text-sm mt-6 px-2 font-inter">
           © 2025 Daze - Stazioni di ricarica per auto elettriche
         </p>
       </div>

@@ -7,7 +7,7 @@ import { Award, Building2, User } from 'lucide-react';
 import type { RewardsTier, CompanyRewards, InstallerRewards } from '../../types';
 
 export default function CompanyRewards() {
-  const { installer } = useAuth();
+  const { installer, loading: authLoading } = useAuth();
   const [view, setView] = useState<'company' | 'personal'>('company');
   const [tiers, setTiers] = useState<RewardsTier[]>([]);
   const [companyRewards, setCompanyRewards] = useState<CompanyRewards | null>(null);
@@ -15,8 +15,10 @@ export default function CompanyRewards() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadData();
-  }, [installer?.id, installer?.company_id]);
+    if (installer || !authLoading) {
+      loadData();
+    }
+  }, [installer?.id, installer?.company_id, authLoading]);
 
   const loadData = async () => {
     try {
@@ -112,7 +114,7 @@ export default function CompanyRewards() {
               <h3 className="text-2xl font-bold text-blue-900">
                 {currentPoints.toLocaleString()} Punti
               </h3>
-              <p className="text-blue-700">
+              <p className="text-blue-700 font-inter">
                 {view === 'company' ? 'Totale Azienda' : 'Punti Personali'}
               </p>
             </div>
@@ -132,10 +134,10 @@ export default function CompanyRewards() {
             <h3 className="text-lg font-semibold text-gray-900 mb-3">
               Informazioni Azienda
             </h3>
-            <p className="text-gray-700 mb-2">
+            <p className="text-gray-700 font-inter mb-2">
               <strong>{installer.company.company_name}</strong>
             </p>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm font-inter text-gray-600">
               I punti azienda vengono accumulati da tutte le installazioni dei membri del team.
               Il tier aziendale si basa sul totale punti accumulati dall'azienda.
             </p>
@@ -147,7 +149,7 @@ export default function CompanyRewards() {
             <h3 className="text-lg font-semibold text-gray-900 mb-3">
               Punti Personali
             </h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm font-inter text-gray-600">
               I tuoi punti personali vengono accumulati dalle tue installazioni individuali.
               Questi punti sono separati dai punti azienda e contribuiscono al tuo tier personale.
             </p>
@@ -172,7 +174,7 @@ export default function CompanyRewards() {
           <h3 className="text-lg font-semibold text-gray-900 mb-3">
             Come Funziona
           </h3>
-          <div className="space-y-2 text-sm text-gray-700">
+          <div className="space-y-2 text-sm font-inter text-gray-700">
             <p>• <strong>Punti Azienda:</strong> Accumulati da tutte le installazioni approvate dei membri del team</p>
             <p>• <strong>Punti Personali:</strong> Accumulati dalle tue installazioni individuali</p>
             <p>• <strong>Tier:</strong> Il livello viene determinato in base ai punti totali</p>

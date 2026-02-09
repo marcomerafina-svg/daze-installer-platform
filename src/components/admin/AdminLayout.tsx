@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { Users, FileText, LogOut, LayoutDashboard, MapPin, Trophy, Menu, X, Building2, PackageCheck } from 'lucide-react';
 import DazeLogo from '../shared/DazeLogo';
+import Button from '../shared/Button';
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -58,20 +59,18 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
         <aside className={`
           fixed inset-y-0 left-0 z-50
-          w-72 bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900
+          w-72 bg-[#c1d7ff]
           h-screen shadow-strong overflow-hidden
-          transform transition-all duration-300 ease-in-out
+          transform transition-transform duration-300 ease-in-out
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}>
           <div className="flex flex-col h-full p-6">
-            <div className="hidden lg:flex flex-col items-center mb-8">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 mb-4">
-                <DazeLogo height={40} className="filter brightness-0 invert" />
-              </div>
-              <p className="text-white/90 text-sm font-medium">Admin Panel</p>
+            <div className="hidden lg:flex flex-col items-center mb-10">
+              <DazeLogo height={48} />
+              <p className="text-daze-black/70 text-sm font-inter mt-3">Pannello Admin</p>
             </div>
 
-            <nav className="space-y-2 flex-1">
+            <nav className="space-y-1 flex-1 font-inter">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = location.pathname === item.path;
@@ -80,40 +79,44 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                     key={item.path}
                     to={item.path}
                     onClick={() => setSidebarOpen(false)}
-                    className={`flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all group ${
+                    className={`relative flex items-center gap-3 pl-5 pr-4 py-3 transition-colors ${
                       isActive
-                        ? 'bg-white text-slate-800 shadow-medium'
-                        : 'text-white/90 hover:bg-white/10 hover:text-white'
+                        ? 'text-daze-black font-semibold before:absolute before:left-0 before:top-1.5 before:bottom-1.5 before:w-[3px] before:bg-daze-black before:rounded-full'
+                        : 'text-daze-black/60 hover:text-daze-black font-medium'
                     }`}
                   >
-                    <Icon className={`w-5 h-5 transition-transform group-hover:scale-110 ${isActive ? 'text-slate-700' : ''}`} />
-                    <span className="font-medium">{item.label}</span>
+                    <Icon className="w-5 h-5" />
+                    <span>{item.label}</span>
                   </Link>
                 );
               })}
             </nav>
 
-            <div className="space-y-4 pt-6 border-t border-white/20">
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-white/30 to-white/10 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-lg">A</span>
+            <div className="space-y-4 pt-6 border-t border-daze-blue/15">
+              <div className="bg-white/60 rounded-squircle p-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 bg-daze-blue/15 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-daze-blue font-roobert font-bold text-base">A</span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-white font-semibold text-sm">Admin</p>
-                    <p className="text-white/70 text-xs truncate">{user?.email}</p>
+                    <p className="text-daze-black font-roobert font-semibold text-sm">Admin</p>
+                    <p className="text-daze-black/60 font-inter text-xs truncate mt-0.5">{user?.email}</p>
                   </div>
                 </div>
-                <button
-                  onClick={() => {
-                    handleSignOut();
-                    setSidebarOpen(false);
-                  }}
-                  className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg bg-white/20 hover:bg-white/30 transition-all text-white font-medium text-sm border border-white/30"
-                >
-                  <LogOut className="w-4 h-4" />
-                  Esci
-                </button>
+                <div className="mt-3 pt-3 border-t border-daze-blue/10">
+                  <Button
+                    variant="primaryBlack"
+                    size="sm"
+                    fullWidth
+                    icon={<LogOut className="w-4 h-4" />}
+                    onClick={() => {
+                      handleSignOut();
+                      setSidebarOpen(false);
+                    }}
+                  >
+                    Esci
+                  </Button>
+                </div>
               </div>
             </div>
           </div>

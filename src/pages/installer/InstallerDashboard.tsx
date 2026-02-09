@@ -6,14 +6,15 @@ import InstallerLayout from '../../components/installer/InstallerLayout';
 import PushNotificationBanner from '../../components/installer/PushNotificationBanner';
 import RegisterInstallationModal from '../../components/installer/RegisterInstallationModal';
 import type { Lead, LeadAssignment } from '../../types';
-import { Phone, Mail, MapPin, ExternalLink, Sparkles, AlertCircle, TrendingUp, Users, Target, Award, Package, Plus, Clock } from 'lucide-react';
+import { Phone, Mail, MapPin, ArrowRight, ExternalLink, Sparkles, AlertCircle, TrendingUp, Users, User, Target, Award, Package, Plus, Clock } from 'lucide-react';
+import Button from '../../components/shared/Button';
 
 interface LeadWithAssignment extends Lead {
   assignment: LeadAssignment;
 }
 
 export default function InstallerDashboard() {
-  const { installer } = useAuth();
+  const { installer, loading: authLoading } = useAuth();
   const [newLeads, setNewLeads] = useState<LeadWithAssignment[]>([]);
   const [stats, setStats] = useState({ total: 0, active: 0, won: 0, conversionRate: 0 });
   const [installationStats, setInstallationStats] = useState({ total: 0, pending: 0, thisMonth: 0 });
@@ -21,10 +22,14 @@ export default function InstallerDashboard() {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
 
   useEffect(() => {
+    console.log('[Dashboard] useEffect - installer:', installer?.id || 'NULL', 'authLoading:', authLoading, 'loading:', loading);
     if (installer) {
       loadData();
+    } else if (!authLoading) {
+      console.log('[Dashboard] No installer found, stopping spinner');
+      setLoading(false);
     }
-  }, [installer]);
+  }, [installer, authLoading]);
 
   const loadData = async () => {
     if (!installer) return;
@@ -99,19 +104,19 @@ export default function InstallerDashboard() {
 
   const getStatusColor = (status: string) => {
     const colors: Record<string, string> = {
-      'Nuova': 'bg-sky-100 text-sky-700 border-sky-200',
-      'In lavorazione': 'bg-amber-100 text-amber-700 border-amber-200',
-      'Chiusa Vinta': 'bg-emerald-100 text-emerald-700 border-emerald-200',
-      'Chiusa Persa': 'bg-rose-100 text-rose-700 border-rose-200',
+      'Nuova': 'bg-daze-blue-light text-daze-blue border-daze-blue/20',
+      'In lavorazione': 'bg-daze-honey/10 text-daze-honey border-daze-honey/20',
+      'Chiusa Vinta': 'bg-daze-forest/10 text-daze-forest border-daze-forest/20',
+      'Chiusa Persa': 'bg-daze-salmon/10 text-daze-salmon border-daze-salmon/20',
     };
-    return colors[status] || 'bg-slate-100 text-slate-700';
+    return colors[status] || 'bg-daze-gray text-daze-black/70';
   };
 
   if (loading) {
     return (
       <InstallerLayout>
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-daze-blue"></div>
         </div>
       </InstallerLayout>
     );
@@ -119,111 +124,111 @@ export default function InstallerDashboard() {
 
   return (
     <InstallerLayout>
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">
+      <div className="max-w-7xl mx-auto pt-2 lg:pt-4">
+        <div className="mb-10">
+          <h1 className="text-3xl font-roobert font-bold text-daze-black mb-2">
             Benvenuto, {installer?.first_name}!
           </h1>
-          <p className="text-slate-600">Ecco una panoramica delle tue attività</p>
+          <p className="text-daze-black/60 font-inter">Ecco una panoramica delle tue attività</p>
         </div>
 
         {installer && <PushNotificationBanner installerId={installer.id} />}
 
         <div
           onClick={() => setShowRegisterModal(true)}
-          className="bg-gradient-to-br from-teal-500 via-teal-600 to-teal-700 rounded-2xl shadow-strong p-8 mb-8 cursor-pointer hover:shadow-xl hover:scale-[1.02] transition-all group"
+          className="bg-daze-black rounded-squircle p-8 mb-10 cursor-pointer hover:opacity-95 transition-all group"
         >
           <div className="flex items-center justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-3">
-                <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl group-hover:scale-110 transition-transform">
+                <div className="p-3 bg-white/10 rounded-xl">
                   <Package className="w-8 h-8 text-white" />
                 </div>
-                <h2 className="text-2xl font-bold text-white">Registra Nuova Installazione</h2>
+                <h2 className="text-2xl font-roobert font-bold text-white">Registra Nuova Installazione</h2>
               </div>
-              <p className="text-teal-50 text-sm mb-4">
+              <p className="text-white/70 text-sm font-inter mb-4">
                 Hai installato una wallbox autonomamente? Registrala qui per guadagnare punti!
               </p>
-              <div className="flex items-center gap-6 text-white">
+              <div className="flex items-center gap-6 text-white/80 font-inter">
                 <div className="flex items-center gap-2">
-                  <Package className="w-5 h-5 text-teal-200" />
+                  <Package className="w-5 h-5 text-white/50" />
                   <span className="text-sm font-medium">
                     {installationStats.total} totali
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-amber-200" />
+                  <Clock className="w-5 h-5 text-white/50" />
                   <span className="text-sm font-medium">
                     {installationStats.pending} in approvazione
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5 text-emerald-200" />
+                  <TrendingUp className="w-5 h-5 text-white/50" />
                   <span className="text-sm font-medium">
                     {installationStats.thisMonth} questo mese
                   </span>
                 </div>
               </div>
             </div>
-            <div className="hidden lg:flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full group-hover:bg-white/30 transition-all">
+            <div className="hidden lg:flex items-center justify-center w-16 h-16 bg-white/10 rounded-full">
               <Plus className="w-8 h-8 text-white" />
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-2xl shadow-soft border border-slate-200 p-6 hover:shadow-medium transition-all group">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          <div className="bg-white rounded-squircle border border-daze-gray p-6">
             <div className="flex items-start justify-between mb-4">
-              <div className="p-3 bg-gradient-to-br from-slate-500 to-slate-600 rounded-xl shadow-sm">
-                <Users className="w-6 h-6 text-white" />
+              <div className="p-3 bg-daze-black/10 rounded-xl">
+                <Users className="w-6 h-6 text-daze-black" />
               </div>
             </div>
-            <h3 className="text-slate-600 text-sm font-medium mb-1">Lead Totali</h3>
-            <p className="text-3xl font-bold text-slate-900">{stats.total}</p>
+            <h3 className="text-daze-black/60 text-sm font-inter font-medium mb-1">Lead Totali</h3>
+            <p className="text-3xl font-roobert font-bold text-daze-black">{stats.total}</p>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-soft border border-slate-200 p-6 hover:shadow-medium transition-all group">
+          <div className="bg-white rounded-squircle border border-daze-gray p-6">
             <div className="flex items-start justify-between mb-4">
-              <div className="p-3 bg-gradient-to-br from-sky-500 to-sky-600 rounded-xl shadow-sm">
-                <Target className="w-6 h-6 text-white" />
+              <div className="p-3 bg-daze-blue-light rounded-xl">
+                <Target className="w-6 h-6 text-daze-blue" />
               </div>
             </div>
-            <h3 className="text-slate-600 text-sm font-medium mb-1">Lead Attive</h3>
-            <p className="text-3xl font-bold text-slate-900">{stats.active}</p>
+            <h3 className="text-daze-black/60 text-sm font-inter font-medium mb-1">Lead Attive</h3>
+            <p className="text-3xl font-roobert font-bold text-daze-black">{stats.active}</p>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-soft border border-slate-200 p-6 hover:shadow-medium transition-all group">
+          <div className="bg-white rounded-squircle border border-daze-gray p-6">
             <div className="flex items-start justify-between mb-4">
-              <div className="p-3 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl shadow-sm">
-                <Award className="w-6 h-6 text-white" />
+              <div className="p-3 bg-daze-forest/10 rounded-xl">
+                <Award className="w-6 h-6 text-daze-forest" />
               </div>
             </div>
-            <h3 className="text-slate-600 text-sm font-medium mb-1">Lead Vinte</h3>
-            <p className="text-3xl font-bold text-slate-900">{stats.won}</p>
+            <h3 className="text-daze-black/60 text-sm font-inter font-medium mb-1">Lead Vinte</h3>
+            <p className="text-3xl font-roobert font-bold text-daze-black">{stats.won}</p>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-soft border border-slate-200 p-6 hover:shadow-medium transition-all group">
+          <div className="bg-white rounded-squircle border border-daze-gray p-6">
             <div className="flex items-start justify-between mb-4">
-              <div className="p-3 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl shadow-sm">
-                <TrendingUp className="w-6 h-6 text-white" />
+              <div className="p-3 bg-daze-honey/10 rounded-xl">
+                <TrendingUp className="w-6 h-6 text-daze-honey" />
               </div>
             </div>
-            <h3 className="text-slate-600 text-sm font-medium mb-1">Conversione</h3>
-            <p className="text-3xl font-bold text-slate-900">{stats.conversionRate}%</p>
+            <h3 className="text-daze-black/60 text-sm font-inter font-medium mb-1">Conversione</h3>
+            <p className="text-3xl font-roobert font-bold text-daze-black">{stats.conversionRate}%</p>
           </div>
         </div>
 
         {newLeads.some(lead => !lead.assignment.confirmed_by_installer) && (
-          <div className="bg-gradient-to-br from-rose-50 to-rose-100 rounded-2xl p-6 mb-6 border-2 border-rose-200 shadow-soft">
+          <div className="bg-daze-salmon/10 rounded-squircle p-6 mb-6 border border-daze-salmon/30">
             <div className="flex items-start gap-4">
-              <div className="bg-rose-500 p-3 rounded-xl animate-pulse-soft shadow-medium">
+              <div className="bg-daze-salmon p-3 rounded-xl">
                 <AlertCircle className="w-6 h-6 text-white" />
               </div>
               <div className="flex-1">
-                <h2 className="text-xl font-bold text-rose-900 mb-2">
+                <h2 className="text-xl font-roobert font-bold text-daze-black mb-2">
                   Lead da Confermare
                 </h2>
-                <p className="text-rose-800">
+                <p className="text-daze-black/70 font-inter">
                   Hai {newLeads.filter(l => !l.assignment.confirmed_by_installer).length} lead in attesa di conferma.
                   Clicca su "Visualizza Dettagli" e conferma di aver contattato il cliente.
                 </p>
@@ -232,16 +237,16 @@ export default function InstallerDashboard() {
           </div>
         )}
 
-        <div className="bg-gradient-to-br from-teal-50 to-teal-100 rounded-2xl p-6 mb-8 border border-teal-200 shadow-soft">
+        <div className="bg-daze-blue-light rounded-squircle p-6 mb-10 border border-daze-blue/20">
           <div className="flex items-start gap-4">
-            <div className="bg-gradient-to-br from-teal-500 to-teal-600 p-3 rounded-xl shadow-medium">
+            <div className="bg-daze-blue p-3 rounded-xl">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
             <div className="flex-1">
-              <h2 className="text-xl font-bold text-teal-900 mb-2">
+              <h2 className="text-xl font-roobert font-bold text-daze-black mb-2">
                 Nuove Lead ({newLeads.length})
               </h2>
-              <p className="text-teal-800">
+              <p className="text-daze-black/70 font-inter">
                 {newLeads.length === 0
                   ? 'Al momento non hai nuove lead da gestire.'
                   : `Hai ${newLeads.length} nuov${newLeads.length === 1 ? 'a' : 'e'} lead in attesa!`}
@@ -251,91 +256,83 @@ export default function InstallerDashboard() {
         </div>
 
         {newLeads.length > 0 && (
-          <div className="grid gap-6">
+          <div className="grid gap-4">
             {newLeads.map((lead) => (
               <div
                 key={lead.id}
-                className="bg-white rounded-2xl shadow-soft border border-slate-200 p-6 hover:shadow-medium transition-all relative overflow-hidden"
+                className="bg-white rounded-squircle border border-daze-gray p-6 flex items-center gap-6"
               >
-                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-teal-500 to-teal-600"></div>
+                {/* Contenuto a sinistra */}
+                <div className="flex-1 min-w-0">
+                  {/* Data */}
+                  <p className="text-sm font-inter font-medium text-daze-black mb-3">
+                    Assegnato il: {new Date(lead.assignment.assigned_at).toLocaleDateString('it-IT')}
+                  </p>
 
-                <div className="absolute top-4 right-4 flex gap-2">
-                  {!lead.assignment.is_viewed && (
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-rose-500 text-white animate-pulse-soft shadow-medium">
-                      NUOVO
-                    </span>
-                  )}
-                  {!lead.assignment.confirmed_by_installer && (
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-amber-500 text-white shadow-medium">
-                      DA CONF.
-                    </span>
-                  )}
-                </div>
+                  {/* Nome + badge */}
+                  <div className="flex items-center mb-3">
+                    <User className="w-5 h-5 text-daze-black flex-shrink-0" />
+                    <h3 className="text-xl font-roobert font-bold text-daze-black ml-2">
+                      {lead.first_name} {lead.last_name}
+                    </h3>
 
-                <div className="pr-32 mb-4">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                    {lead.first_name} {lead.last_name}
-                  </h3>
+                    <div className="flex items-center gap-2 ml-4">
+                      {!lead.assignment.is_viewed && (
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-inter font-medium bg-daze-salmon text-white">
+                          Nuovo
+                        </span>
+                      )}
+                      {!lead.assignment.confirmed_by_installer && (
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-inter font-medium bg-daze-honey text-daze-black">
+                          Da confermare
+                        </span>
+                      )}
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-inter font-medium border ${getStatusColor(lead.status)}`}>
+                        {lead.status}
+                      </span>
+                    </div>
+                  </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                  {/* Contatti — separati con più spazio */}
+                  <div className="flex flex-wrap items-center gap-x-8 gap-y-2 text-base font-inter font-medium text-daze-black">
                     {lead.phone && (
-                      <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
-                        <Phone className="w-5 h-5 text-slate-400 flex-shrink-0" />
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs text-slate-500">Telefono</p>
-                          <a href={`tel:${lead.phone}`} className="text-sm font-medium text-teal-600 hover:text-teal-700 truncate block">
-                            {lead.phone}
-                          </a>
-                        </div>
-                      </div>
+                      <span className="inline-flex items-center gap-2">
+                        <Phone className="w-[18px] h-[18px] text-daze-black" />
+                        {lead.phone}
+                      </span>
                     )}
                     {lead.email && (
-                      <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
-                        <Mail className="w-5 h-5 text-slate-400 flex-shrink-0" />
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs text-slate-500">Email</p>
-                          <a href={`mailto:${lead.email}`} className="text-sm font-medium text-teal-600 hover:text-teal-700 truncate block">
-                            {lead.email}
-                          </a>
-                        </div>
-                      </div>
+                      <span className="inline-flex items-center gap-2">
+                        <Mail className="w-[18px] h-[18px] text-daze-black" />
+                        {lead.email}
+                      </span>
+                    )}
+                    {lead.address && (
+                      <span className="inline-flex items-center gap-2">
+                        <MapPin className="w-[18px] h-[18px] text-daze-black" />
+                        {lead.address}
+                      </span>
                     )}
                   </div>
 
-                  {lead.address && (
-                    <div className="flex items-start gap-3 p-3 bg-slate-50 rounded-xl mb-4">
-                      <MapPin className="w-5 h-5 text-slate-400 flex-shrink-0 mt-0.5" />
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs text-slate-500 mb-1">Indirizzo</p>
-                        <p className="text-sm text-slate-900">{lead.address}</p>
-                      </div>
-                    </div>
-                  )}
-
                   {lead.description && (
-                    <div className="p-4 bg-slate-50 rounded-xl mb-4">
-                      <p className="text-sm text-slate-700 leading-relaxed">{lead.description}</p>
-                    </div>
+                    <p className="text-sm font-inter text-daze-black mt-3">
+                      <span className="text-daze-black/60">Note:</span> {lead.description}
+                    </p>
                   )}
-
-                  <div className="flex items-center gap-3">
-                    <span className={`inline-block px-3 py-1.5 rounded-lg text-xs font-medium border ${getStatusColor(lead.status)}`}>
-                      {lead.status}
-                    </span>
-                    <span className="text-sm text-slate-500">
-                      Assegnato il {new Date(lead.assignment.assigned_at).toLocaleDateString('it-IT')}
-                    </span>
-                  </div>
                 </div>
 
-                <Link
-                  to={`/installer/leads/${lead.id}`}
-                  onClick={() => markAsViewed(lead.assignment.id)}
-                  className="flex items-center justify-center gap-2 bg-gradient-to-r from-teal-500 to-teal-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-medium hover:scale-[1.02] transition-all"
-                >
-                  Visualizza Dettagli
-                  <ExternalLink className="w-5 h-5" />
-                </Link>
+                {/* Bottone secondary — centrato verticalmente a destra */}
+                <div className="flex-shrink-0">
+                  <Link
+                    to={`/installer/leads/${lead.id}`}
+                    onClick={() => markAsViewed(lead.assignment.id)}
+                  >
+                    <Button variant="secondary" size="sm" icon={<ArrowRight className="w-5 h-5" />}>
+                      Visualizza Dettagli
+                    </Button>
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
@@ -344,7 +341,7 @@ export default function InstallerDashboard() {
         <div className="mt-8 text-center">
           <Link
             to="/installer/pipeline"
-            className="inline-flex items-center gap-2 text-teal-600 hover:text-teal-700 font-semibold"
+            className="inline-flex items-center gap-2 text-daze-blue hover:text-daze-blue/80 font-inter font-semibold"
           >
             Vai alla Pipeline completa
             <ExternalLink className="w-5 h-5" />

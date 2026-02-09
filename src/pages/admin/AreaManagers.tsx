@@ -3,6 +3,7 @@ import { supabase } from '../../lib/supabase';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { MapPin, Mail, Phone, Plus, Pencil, Trash2 } from 'lucide-react';
 import type { AreaManager } from '../../types';
+import Button from '../../components/shared/Button';
 
 export default function AreaManagers() {
   const [areaManagers, setAreaManagers] = useState<AreaManager[]>([]);
@@ -72,29 +73,31 @@ export default function AreaManagers() {
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Area Manager</h1>
-          <p className="text-gray-600">Gestisci i responsabili commerciali per territorio</p>
+          <p className="text-gray-600 font-inter">Gestisci i responsabili commerciali per territorio</p>
         </div>
-        <button
+        <Button
+          variant="primaryBlack"
+          size="sm"
+          icon={<Plus className="w-5 h-5" />}
           onClick={openCreateModal}
-          className="flex items-center gap-2 px-4 py-2 bg-[#4a5fc1] text-white rounded-lg hover:bg-[#223aa3] transition-colors"
         >
-          <Plus className="w-5 h-5" />
           Nuovo Area Manager
-        </button>
+        </Button>
       </div>
 
       {areaManagers.length === 0 ? (
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
           <MapPin className="w-16 h-16 text-gray-300 mx-auto mb-4" />
           <h3 className="text-lg font-medium text-gray-900 mb-2">Nessun area manager</h3>
-          <p className="text-gray-600 mb-6">Inizia aggiungendo il primo area manager</p>
-          <button
+          <p className="text-gray-600 font-inter mb-6">Inizia aggiungendo il primo area manager</p>
+          <Button
+            variant="primaryBlack"
+            size="sm"
+            icon={<Plus className="w-5 h-5" />}
             onClick={openCreateModal}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-[#4a5fc1] text-white rounded-lg hover:bg-[#223aa3] transition-colors"
           >
-            <Plus className="w-5 h-5" />
             Aggiungi Area Manager
-          </button>
+          </Button>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -125,7 +128,7 @@ export default function AreaManagers() {
 
               <h3 className="text-xl font-bold text-gray-900 mb-4">{manager.name}</h3>
 
-              <div className="space-y-3 mb-4">
+              <div className="space-y-3 mb-4 font-inter">
                 <div className="flex items-center gap-2 text-sm text-gray-600">
                   <Mail className="w-4 h-4" />
                   <a href={`mailto:${manager.email}`} className="hover:text-[#4a5fc1]">
@@ -141,7 +144,7 @@ export default function AreaManagers() {
               </div>
 
               <div className="pt-4 border-t border-gray-200">
-                <p className="text-xs font-medium text-gray-500 mb-2">REGIONI GESTITE</p>
+                <p className="text-xs font-inter font-medium text-gray-500 mb-2">REGIONI GESTITE</p>
                 <div className="flex flex-wrap gap-1">
                   {manager.regions.slice(0, 3).map((region) => (
                     <span
@@ -263,7 +266,7 @@ function AreaManagerModal({ manager, onClose, onSave }: AreaManagerModalProps) {
           </h2>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="p-6 space-y-6 font-inter">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Nome completo
@@ -329,20 +332,24 @@ function AreaManagerModal({ manager, onClose, onSave }: AreaManagerModalProps) {
           </div>
 
           <div className="flex gap-3 pt-4">
-            <button
+            <Button
+              variant="secondary"
+              size="sm"
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+              fullWidth
             >
               Annulla
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="primaryBlack"
+              size="sm"
               type="submit"
               disabled={saving || formData.regions.length === 0}
-              className="flex-1 px-4 py-2 bg-[#4a5fc1] text-white rounded-lg hover:bg-[#223aa3] transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+              fullWidth
             >
               {saving ? 'Salvataggio...' : 'Salva'}
-            </button>
+            </Button>
           </div>
         </form>
       </div>

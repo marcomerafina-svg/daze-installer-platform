@@ -6,6 +6,7 @@ import InstallerLayout from '../../components/installer/InstallerLayout';
 import type { Lead, LeadNote, LeadStatusHistory, LeadStatus, LeadAssignment, WallboxSerial } from '../../types';
 import { Phone, Mail, MapPin, ArrowLeft, Clock, MessageSquare, Save, Upload, FileText, Download, X as XIcon, CheckCircle, Package } from 'lucide-react';
 import WallboxSerialModal from '../../components/installer/WallboxSerialModal';
+import Button from '../../components/shared/Button';
 
 const PIPELINE_STAGES: LeadStatus[] = [
   'Nuova',
@@ -17,7 +18,7 @@ const PIPELINE_STAGES: LeadStatus[] = [
 export default function LeadDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { installer } = useAuth();
+  const { installer, loading: authLoading } = useAuth();
   const [lead, setLead] = useState<Lead | null>(null);
   const [assignment, setAssignment] = useState<LeadAssignment | null>(null);
   const [notes, setNotes] = useState<LeadNote[]>([]);
@@ -35,8 +36,10 @@ export default function LeadDetail() {
     if (id && installer) {
       loadLeadData();
       markAsViewed();
+    } else if (!authLoading) {
+      setLoading(false);
     }
-  }, [id, installer]);
+  }, [id, installer, authLoading]);
 
   const loadLeadData = async () => {
     if (!id || !installer) return;
@@ -381,13 +384,16 @@ export default function LeadDetail() {
 
   return (
     <InstallerLayout>
-      <button
+      <Button
+        variant="ghost"
+        size="sm"
+        icon={<ArrowLeft className="w-4 h-4" />}
+        iconPosition="left"
         onClick={() => navigate(-1)}
-        className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4 sm:mb-6 transition-colors"
+        className="mb-4 sm:mb-6"
       >
-        <ArrowLeft className="w-4 h-4" />
         Indietro
-      </button>
+      </Button>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         <div className="lg:col-span-2 space-y-4 sm:space-y-6">
@@ -401,18 +407,21 @@ export default function LeadDetail() {
                   <h3 className="text-lg sm:text-xl font-bold text-blue-900 mb-2">
                     Conferma Presa in Carico
                   </h3>
-                  <p className="text-sm sm:text-base text-blue-700 mb-4">
+                  <p className="text-sm sm:text-base font-inter text-blue-700 mb-4">
                     Hai contattato questa lead? Conferma per far sapere all'admin che hai preso in carico la richiesta.
                     Lo stato passerà automaticamente a "In lavorazione".
                   </p>
-                  <button
+                  <Button
+                    variant="primaryBlack"
+                    size="sm"
+                    icon={<CheckCircle className="w-4 h-4 sm:w-5 sm:h-5" />}
                     onClick={handleConfirmContact}
                     disabled={confirming}
-                    className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    fullWidth
+                    className="sm:w-auto"
                   >
-                    <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5" />
                     {confirming ? 'Conferma in corso...' : 'Conferma di aver contattato la lead'}
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>
@@ -444,7 +453,7 @@ export default function LeadDetail() {
               </div>
             </div>
 
-            <div className="grid gap-3 sm:gap-4">
+            <div className="grid gap-3 sm:gap-4 font-inter">
               <div className="flex items-start gap-2 sm:gap-3">
                 <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                 <div className="min-w-0">
@@ -527,8 +536,8 @@ export default function LeadDetail() {
             ) : (
               <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
                 <Upload className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-                <p className="text-gray-600 font-medium mb-2">Carica il preventivo</p>
-                <p className="text-sm text-gray-500 mb-4">
+                <p className="text-gray-600 font-inter font-medium mb-2">Carica il preventivo</p>
+                <p className="text-sm font-inter text-gray-500 mb-4">
                   File PDF fino a 10MB (opzionale)
                 </p>
                 <label className="inline-flex items-center gap-2 bg-gradient-to-r from-[#223aa3] to-[#4a5fc1] text-white px-4 py-2 rounded-lg font-medium hover:shadow-lg transition-all cursor-pointer">
@@ -590,16 +599,18 @@ export default function LeadDetail() {
                 onChange={(e) => setNewNote(e.target.value)}
                 placeholder="Aggiungi una nota..."
                 rows={3}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4a5fc1] focus:border-transparent resize-none"
+                className="w-full px-4 py-3 font-inter border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4a5fc1] focus:border-transparent resize-none"
               />
-              <button
+              <Button
+                variant="primaryBlack"
+                size="sm"
+                icon={<Save className="w-4 h-4" />}
                 onClick={addNote}
                 disabled={!newNote.trim() || saving}
-                className="mt-2 flex items-center gap-2 bg-gradient-to-r from-[#223aa3] to-[#4a5fc1] text-white px-4 py-2 rounded-lg font-medium hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="mt-2"
               >
-                <Save className="w-4 h-4" />
                 {saving ? 'Salvataggio...' : 'Salva Nota'}
-              </button>
+              </Button>
             </div>
 
             <div className="space-y-3">
@@ -607,7 +618,7 @@ export default function LeadDetail() {
                 <p className="text-gray-500 text-sm text-center py-4">Nessuna nota</p>
               ) : (
                 notes.map((note) => (
-                  <div key={note.id} className="bg-gray-50 rounded-lg p-4">
+                  <div key={note.id} className="bg-gray-50 rounded-lg p-4 font-inter">
                     <p className="text-gray-700 mb-2">{note.note_text}</p>
                     <p className="text-xs text-gray-500">
                       {new Date(note.created_at).toLocaleString('it-IT')}

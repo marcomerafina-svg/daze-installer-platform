@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { X, User, Mail, Phone, MapPin } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
+import Button from '../shared/Button';
 
 const ITALIAN_REGIONS = [
   'Valle d\'Aosta',
@@ -140,15 +141,12 @@ export default function AddTeamMemberModal({ companyId, onClose, onSuccess }: Ad
       <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
           <h2 className="text-2xl font-bold text-gray-900">Aggiungi Membro al Team</h2>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
-          >
+          <Button variant="icon" onClick={onClose}>
             <X className="w-6 h-6" />
-          </button>
+          </Button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="p-6 space-y-6 font-inter">
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
               {error}
@@ -254,21 +252,25 @@ export default function AddTeamMemberModal({ companyId, onClose, onSuccess }: Ad
           </div>
 
           <div className="flex gap-3 pt-4">
-            <button
+            <Button
+              variant="secondary"
+              size="sm"
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
               disabled={loading}
+              fullWidth
             >
               Annulla
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="primaryBlack"
+              size="sm"
               type="submit"
-              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={loading}
+              fullWidth
             >
               {loading ? 'Creazione in corso...' : 'Aggiungi Membro'}
-            </button>
+            </Button>
           </div>
         </form>
       </div>

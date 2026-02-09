@@ -14,7 +14,7 @@ const STATUS_COLORS: Record<string, string> = {
 };
 
 export default function CompanyLeads() {
-  const { installer } = useAuth();
+  const { installer, loading: authLoading } = useAuth();
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'assigned'>('all');
@@ -22,8 +22,10 @@ export default function CompanyLeads() {
   useEffect(() => {
     if (installer?.company_id) {
       loadLeads();
+    } else if (!authLoading) {
+      setLoading(false);
     }
-  }, [installer, filter]);
+  }, [installer, filter, authLoading]);
 
   const loadLeads = async () => {
     if (!installer?.company_id) return;
@@ -85,7 +87,7 @@ export default function CompanyLeads() {
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-slate-900 mb-2">Lead Aziendali</h1>
-          <p className="text-slate-600">Gestisci tutte le lead assegnate alla tua azienda</p>
+          <p className="text-slate-600 font-inter">Gestisci tutte le lead assegnate alla tua azienda</p>
         </div>
 
         <div className="bg-white rounded-xl shadow-soft border border-slate-200 p-6 mb-6">
@@ -143,7 +145,7 @@ export default function CompanyLeads() {
                         </span>
                       </div>
                     )}
-                    <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600">
+                    <div className="flex flex-wrap items-center gap-4 text-sm font-inter text-slate-600">
                       <div className="flex items-center gap-1">
                         <Phone className="w-4 h-4" />
                         <a href={`tel:${lead.customer_phone}`} className="hover:text-teal-600 transition-colors">
@@ -172,7 +174,7 @@ export default function CompanyLeads() {
 
                 {lead.customer_notes && (
                   <div className="bg-slate-50 rounded-lg p-4 mb-4">
-                    <p className="text-sm text-slate-700">{lead.customer_notes}</p>
+                    <p className="text-sm font-inter text-slate-700">{lead.customer_notes}</p>
                   </div>
                 )}
 

@@ -3,6 +3,7 @@ import { supabase } from '../../lib/supabase';
 import { X, AlertCircle, Package, Plus, Trash2, CheckCircle2, XCircle } from 'lucide-react';
 import { Product, SerialParseResult } from '../../types';
 import { parseSerial, validateSerialFormat, getProductExamples } from '../../lib/serialParser';
+import Button from '../shared/Button';
 
 interface WallboxSerialModalProps {
   leadId: string;
@@ -224,12 +225,13 @@ export default function WallboxSerialModal({ leadId, installerId, onClose, onSav
       onClick={handleBackdropClick}
     >
       <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 relative">
-        <button
+        <Button
+          variant="icon"
           onClick={onClose}
-          className="absolute top-4 right-4 p-1 hover:bg-gray-100 rounded transition-all"
+          className="absolute top-4 right-4"
         >
-          <X className="w-5 h-5 text-gray-500" />
-        </button>
+          <X className="w-5 h-5" />
+        </Button>
 
         <div className="flex items-center gap-3 mb-6">
           <div className="bg-gradient-to-br from-[#223aa3] to-[#4a5fc1] p-3 rounded-lg">
@@ -237,11 +239,11 @@ export default function WallboxSerialModal({ leadId, installerId, onClose, onSav
           </div>
           <div>
             <h2 className="text-xl font-bold text-gray-900">Seriali Prodotti Installati</h2>
-            <p className="text-sm text-gray-600">Aggiungi uno o più seriali dei prodotti installati</p>
+            <p className="text-sm font-inter text-gray-600">Aggiungi uno o più seriali dei prodotti installati</p>
           </div>
         </div>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 font-inter">
           <div className="flex gap-3">
             <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
             <div>
@@ -355,19 +357,18 @@ export default function WallboxSerialModal({ leadId, installerId, onClose, onSav
         )}
 
         <div className="flex gap-3">
-          <button
-            onClick={onClose}
-            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-all"
-          >
+          <Button variant="secondary" size="md" onClick={onClose} fullWidth>
             Annulla
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="primaryBlack"
+            size="md"
             onClick={handleSave}
             disabled={saving || validSerialsCount === 0}
-            className="flex-1 px-4 py-3 bg-gradient-to-r from-[#223aa3] to-[#4a5fc1] text-white rounded-lg font-medium hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            fullWidth
           >
             {saving ? 'Salvataggio...' : validSerialsCount === 1 ? 'Salva Seriale' : `Salva ${validSerialsCount} Seriali`}
-          </button>
+          </Button>
         </div>
 
         <p className="text-xs text-gray-500 text-center mt-4">

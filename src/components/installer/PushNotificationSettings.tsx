@@ -140,7 +140,7 @@ export default function PushNotificationSettings({ installerId }: PushNotificati
             <h3 className="text-lg font-semibold text-gray-900 mb-1">
               Notifiche Push del Browser
             </h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm font-inter text-gray-600">
               Ricevi notifiche istantanee quando arriva una nuova lead
             </p>
           </div>
@@ -247,7 +247,7 @@ export default function PushNotificationSettings({ installerId }: PushNotificati
           <h4 className="text-sm font-semibold text-gray-900 mb-3">
             Perché attivare le notifiche push?
           </h4>
-          <ul className="space-y-2">
+          <ul className="space-y-2 font-inter">
             <li className="flex items-start gap-2 text-sm text-gray-700">
               <span className="text-green-600 font-bold">✓</span>
               <span>Rispondi più velocemente alle lead e aumenta le conversioni</span>

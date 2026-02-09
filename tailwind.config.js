@@ -4,9 +4,29 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Roobert', 'Inter', 'system-ui', 'sans-serif'],
+        inter: ['Inter', 'system-ui', 'sans-serif'],
+        roobert: ['Roobert', 'Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
+        // Daze Design System tokens
+        daze: {
+          black: '#1d1d1b',
+          white: '#ffffff',
+          blue: {
+            DEFAULT: '#223aa3',
+            focus: '#4a90e2',
+            light: 'rgba(236, 243, 255, 1)',
+          },
+          gray: '#e0e1e2',
+          sky: '#a9e0ed',
+          salmon: '#ee6c4d',
+          forest: '#00785c',
+          honey: '#f2b200',
+          rose: '#f5d3c8',
+          border: '#aaadb0',
+        },
+        // Legacy colors (kept for gradual migration)
         primary: {
           DEFAULT: '#14B8A6',
           light: '#2DD4BF',
@@ -104,6 +124,8 @@ export default {
         'xl': '1rem',
         '2xl': '1.5rem',
         '3xl': '2rem',
+        'pill': '100px',
+        'squircle': '24px',
       },
       animation: {
         'slide-in': 'slideIn 0.3s ease-out',

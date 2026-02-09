@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Bell, X, Zap, TrendingUp, Clock } from 'lucide-react';
 import { usePushNotifications } from '../../hooks/usePushNotifications';
 import { isPushNotificationDismissed, dismissPushNotificationBanner } from '../../lib/pushNotifications';
+import Button from '../shared/Button';
 
 interface PushNotificationBannerProps {
   installerId: string;
@@ -84,7 +85,7 @@ export default function PushNotificationBanner({ installerId }: PushNotification
             <h3 className="text-xl font-bold text-gray-900 mb-2">
               Non perdere mai più una lead! 🎯
             </h3>
-            <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+            <p className="text-gray-600 text-sm font-inter mb-4 leading-relaxed">
               Attiva le notifiche push per essere avvisato istantaneamente quando ricevi una nuova lead.
               Rispondi più velocemente e aumenta le tue conversioni.
             </p>
@@ -122,10 +123,14 @@ export default function PushNotificationBanner({ installerId }: PushNotification
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <button
+              <Button
+                variant="primaryBlack"
+                size="md"
+                icon={isLoading ? undefined : <Bell className="w-5 h-5" />}
                 onClick={handleActivate}
                 disabled={isLoading}
-                className="flex-1 bg-gradient-to-r from-[#223aa3] to-[#4a5fc1] text-white px-6 py-3 rounded-lg font-semibold hover:shadow-xl hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                fullWidth
+                className="sm:flex-1 sm:w-auto"
               >
                 {isLoading ? (
                   <span className="flex items-center justify-center gap-2">
@@ -133,18 +138,16 @@ export default function PushNotificationBanner({ installerId }: PushNotification
                     Attivazione...
                   </span>
                 ) : (
-                  <span className="flex items-center justify-center gap-2">
-                    <Bell className="w-5 h-5" />
-                    Attiva Notifiche Push
-                  </span>
+                  'Attiva Notifiche Push'
                 )}
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
                 onClick={handleDismiss}
-                className="px-6 py-3 text-gray-600 hover:text-gray-800 font-medium text-sm transition-all"
               >
                 Ricordamelo dopo
-              </button>
+              </Button>
             </div>
 
             <p className="text-xs text-gray-500 mt-3 flex items-center gap-1">

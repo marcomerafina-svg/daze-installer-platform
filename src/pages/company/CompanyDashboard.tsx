@@ -21,7 +21,7 @@ interface CompanyStats {
 }
 
 export default function CompanyDashboard() {
-  const { installer } = useAuth();
+  const { installer, loading: authLoading } = useAuth();
   const [stats, setStats] = useState<CompanyStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [showOnboarding, setShowOnboarding] = useState(false);
@@ -31,8 +31,10 @@ export default function CompanyDashboard() {
     if (installer?.company_id) {
       loadCompanyStats();
       checkOnboardingStatus();
+    } else if (!authLoading) {
+      setLoading(false);
     }
-  }, [installer?.company_id]);
+  }, [installer?.company_id, authLoading]);
 
   const checkOnboardingStatus = async () => {
     if (!installer?.company_id) return;
@@ -180,7 +182,7 @@ export default function CompanyDashboard() {
         <div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard Azienda</h1>
           {installer?.company && (
-            <div className="flex items-center gap-2 text-gray-600">
+            <div className="flex items-center gap-2 text-gray-600 font-inter">
               <Building2 className="w-5 h-5" />
               <span className="text-lg">{installer.company.company_name}</span>
             </div>
@@ -197,7 +199,7 @@ export default function CompanyDashboard() {
             <p className="text-3xl font-bold text-gray-900 mb-1">
               {stats?.active_members}/{stats?.total_members}
             </p>
-            <p className="text-sm text-gray-600">Membri Attivi</p>
+            <p className="text-sm font-inter text-gray-600">Membri Attivi</p>
           </div>
 
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
@@ -209,7 +211,7 @@ export default function CompanyDashboard() {
             <p className="text-3xl font-bold text-gray-900 mb-1">
               {stats?.total_points.toLocaleString()}
             </p>
-            <p className="text-sm text-gray-600">Punti Totali</p>
+            <p className="text-sm font-inter text-gray-600">Punti Totali</p>
             {stats?.current_tier && (
               <div className="mt-2 inline-block px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded">
                 {stats.current_tier.display_name}
@@ -226,8 +228,8 @@ export default function CompanyDashboard() {
             <p className="text-3xl font-bold text-gray-900 mb-1">
               {stats?.active_leads}
             </p>
-            <p className="text-sm text-gray-600">Lead Attive</p>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-sm font-inter text-gray-600">Lead Attive</p>
+            <p className="text-xs font-inter text-gray-500 mt-1">
               {stats?.won_leads} vinte su {stats?.total_leads} totali
             </p>
           </div>
@@ -241,7 +243,7 @@ export default function CompanyDashboard() {
             <p className="text-3xl font-bold text-gray-900 mb-1">
               {stats?.conversion_rate}%
             </p>
-            <p className="text-sm text-gray-600">Conversion Rate</p>
+            <p className="text-sm font-inter text-gray-600">Conversion Rate</p>
           </div>
         </div>
 
@@ -258,7 +260,7 @@ export default function CompanyDashboard() {
               <CheckCircle className="w-5 h-5 text-green-600" />
               Installazioni
             </h3>
-            <div className="space-y-3">
+            <div className="space-y-3 font-inter">
               <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
                 <span className="text-sm text-gray-700">Totali</span>
                 <span className="text-lg font-bold text-green-700">
@@ -282,7 +284,7 @@ export default function CompanyDashboard() {
               <TrendingUp className="w-5 h-5 text-blue-600" />
               Performance Lead
             </h3>
-            <div className="space-y-3">
+            <div className="space-y-3 font-inter">
               <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
                 <span className="text-sm text-gray-700">Lead Totali</span>
                 <span className="text-lg font-bold text-blue-700">
@@ -315,14 +317,14 @@ export default function CompanyDashboard() {
                 <h3 className="text-2xl font-bold text-green-900">
                   {stats.current_tier.display_name}
                 </h3>
-                <p className="text-green-700">Tier Attuale</p>
+                <p className="text-green-700 font-inter">Tier Attuale</p>
               </div>
             </div>
-            <p className="text-green-800 mb-2">
+            <p className="text-green-800 font-inter mb-2">
               <strong>{stats.total_points.toLocaleString()}</strong> punti totali
             </p>
             {stats.current_tier.description && (
-              <p className="text-sm text-green-700">{stats.current_tier.description}</p>
+              <p className="text-sm font-inter text-green-700">{stats.current_tier.description}</p>
             )}
           </div>
         )}

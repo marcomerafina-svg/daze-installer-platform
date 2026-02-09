@@ -3,6 +3,7 @@ import { supabase } from '../../lib/supabase';
 import { X, ChevronLeft, ChevronRight, User, Package, Camera, FileCheck, AlertCircle, CheckCircle2, Upload, Trash2 } from 'lucide-react';
 import { Product, SerialParseResult } from '../../types';
 import { parseSerial, validateSerialFormat } from '../../lib/serialParser';
+import Button from '../shared/Button';
 
 interface RegisterInstallationModalProps {
   installerId: string;
@@ -564,12 +565,9 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
         <div className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 rounded-t-2xl">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-bold text-slate-900">Registra Installazione</h2>
-            <button
-              onClick={onClose}
-              className="p-2 hover:bg-slate-100 rounded-lg transition-all"
-            >
-              <X className="w-5 h-5 text-slate-500" />
-            </button>
+            <Button variant="icon" onClick={onClose}>
+              <X className="w-5 h-5" />
+            </Button>
           </div>
 
           <div className="flex items-center justify-between">
@@ -603,7 +601,7 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
           </div>
         </div>
 
-        <div className="p-6">
+        <div className="p-6 font-inter">
           {step === 1 && renderStep1()}
           {step === 2 && renderStep2()}
           {step === 3 && renderStep3()}
@@ -621,37 +619,43 @@ export default function RegisterInstallationModal({ installerId, onClose, onSucc
 
         <div className="sticky bottom-0 bg-white border-t border-slate-200 px-6 py-4 rounded-b-2xl flex gap-3">
           {step > 1 && (
-            <button
+            <Button
+              variant="secondary"
+              size="md"
+              icon={<ChevronLeft className="w-5 h-5" />}
+              iconPosition="left"
               onClick={() => setStep(step - 1)}
-              className="flex items-center gap-2 px-6 py-3 border border-slate-300 rounded-xl font-medium text-slate-700 hover:bg-slate-50 transition-all"
             >
-              <ChevronLeft className="w-5 h-5" />
               Indietro
-            </button>
+            </Button>
           )}
 
           {step < 4 && (
-            <button
+            <Button
+              variant="primaryBlack"
+              size="md"
+              icon={<ChevronRight className="w-5 h-5" />}
+              fullWidth
               onClick={() => setStep(step + 1)}
               disabled={
                 (step === 1 && !canProceedToStep2()) ||
                 (step === 2 && !canProceedToStep3())
               }
-              className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-xl font-medium hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Avanti
-              <ChevronRight className="w-5 h-5" />
-            </button>
+            </Button>
           )}
 
           {step === 4 && (
-            <button
+            <Button
+              variant="primaryBlack"
+              size="md"
+              fullWidth
               onClick={handleSave}
               disabled={saving}
-              className="flex-1 px-6 py-3 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-xl font-medium hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {saving ? 'Salvataggio...' : 'Conferma e Invia'}
-            </button>
+            </Button>
           )}
         </div>
       </div>

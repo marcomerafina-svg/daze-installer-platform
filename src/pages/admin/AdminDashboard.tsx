@@ -132,7 +132,7 @@ export default function AdminDashboard() {
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-slate-900 mb-2">Dashboard</h1>
-          <p className="text-slate-600">Panoramica generale della piattaforma</p>
+          <p className="text-slate-600 font-inter">Panoramica generale della piattaforma</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -148,9 +148,9 @@ export default function AdminDashboard() {
                     <Icon className="w-6 h-6 text-white" />
                   </div>
                 </div>
-                <h3 className="text-slate-600 text-sm font-medium mb-1">{card.title}</h3>
+                <h3 className="text-slate-600 text-sm font-inter font-medium mb-1">{card.title}</h3>
                 <p className="text-3xl font-bold text-slate-900 mb-1">{card.value}</p>
-                <p className="text-sm text-slate-500">{card.subtitle}</p>
+                <p className="text-sm font-inter text-slate-500">{card.subtitle}</p>
               </div>
             );
           })}
@@ -169,19 +169,19 @@ export default function AdminDashboard() {
                   </div>
                   <h2 className="text-2xl font-bold text-white">Installazioni da Approvare</h2>
                 </div>
-                <p className="text-amber-50 text-sm mb-4">
+                <p className="text-amber-50 text-sm font-inter mb-4">
                   Ci sono installazioni autonome degli installatori in attesa di verifica e approvazione
                 </p>
                 <div className="flex items-center gap-6 text-white">
                   <div className="flex items-center gap-2">
                     <Package className="w-5 h-5 text-amber-200" />
-                    <span className="text-sm font-medium">
+                    <span className="text-sm font-inter font-medium">
                       {stats.pendingInstallations} in attesa
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle className="w-5 h-5 text-emerald-200" />
-                    <span className="text-sm font-medium">
+                    <span className="text-sm font-inter font-medium">
                       {stats.approvedInstallations} approvate
                     </span>
                   </div>

@@ -4,6 +4,7 @@ import AdminLayout from '../../components/admin/AdminLayout';
 import CreateCompanyModal from '../../components/admin/CreateCompanyModal';
 import type { CompanyWithStats, InstallationCompany } from '../../types';
 import { Plus, Search, Building2, Users, Award, TrendingUp, Mail, Phone, MapPin, ToggleLeft, ToggleRight, KeyRound } from 'lucide-react';
+import Button from '../../components/shared/Button';
 
 export default function Companies() {
   const [companies, setCompanies] = useState<CompanyWithStats[]>([]);
@@ -153,15 +154,16 @@ export default function Companies() {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Aziende Installatrici</h1>
-            <p className="text-gray-500 mt-1">Gestisci le aziende partner e i loro team</p>
+            <p className="text-gray-500 font-inter mt-1">Gestisci le aziende partner e i loro team</p>
           </div>
-          <button
+          <Button
+            variant="primaryBlack"
+            size="sm"
+            icon={<Plus className="w-5 h-5" />}
             onClick={() => setShowModal(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2"
           >
-            <Plus className="w-5 h-5" />
             Nuova Azienda
-          </button>
+          </Button>
         </div>
 
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
@@ -172,7 +174,7 @@ export default function Companies() {
               placeholder="Cerca per nome azienda, città, owner..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 font-inter border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
         </div>
@@ -180,7 +182,7 @@ export default function Companies() {
         {loading ? (
           <div className="text-center py-12">
             <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-            <p className="text-gray-500 mt-2">Caricamento aziende...</p>
+            <p className="text-gray-500 font-inter mt-2">Caricamento aziende...</p>
           </div>
         ) : filteredCompanies.length === 0 ? (
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
@@ -189,12 +191,14 @@ export default function Companies() {
               {searchQuery ? 'Nessuna azienda trovata' : 'Nessuna azienda ancora registrata'}
             </p>
             {!searchQuery && (
-              <button
+              <Button
+                variant="ghost"
+                size="sm"
                 onClick={() => setShowModal(true)}
-                className="mt-4 text-blue-600 hover:text-blue-700 font-medium"
+                className="mt-4"
               >
                 Crea la prima azienda
-              </button>
+              </Button>
             )}
           </div>
         ) : (
@@ -231,10 +235,10 @@ export default function Companies() {
                       </div>
 
                       {company.business_name && (
-                        <p className="text-sm text-gray-600 mb-2">{company.business_name}</p>
+                        <p className="text-sm font-inter text-gray-600 mb-2">{company.business_name}</p>
                       )}
 
-                      <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-4">
+                      <div className="flex flex-wrap gap-4 text-sm font-inter text-gray-600 mb-4">
                         {company.owner && (
                           <div className="flex items-center gap-1">
                             <Users className="w-4 h-4" />
@@ -261,7 +265,7 @@ export default function Companies() {
                         )}
                       </div>
 
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 font-inter">
                         <div className="bg-blue-50 rounded-lg p-3">
                           <div className="flex items-center gap-2 mb-1">
                             <Users className="w-4 h-4 text-blue-600" />

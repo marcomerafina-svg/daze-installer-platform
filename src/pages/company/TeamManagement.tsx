@@ -5,6 +5,7 @@ import CompanyLayout from '../../components/company/CompanyLayout';
 import AddTeamMemberModal from '../../components/company/AddTeamMemberModal';
 import { Users, Mail, Phone, Award, ToggleLeft, ToggleRight, Plus, Shield } from 'lucide-react';
 import type { Installer } from '../../types';
+import Button from '../../components/shared/Button';
 
 interface TeamMemberWithStats extends Installer {
   total_points: number;
@@ -14,7 +15,7 @@ interface TeamMemberWithStats extends Installer {
 }
 
 export default function TeamManagement() {
-  const { installer } = useAuth();
+  const { installer, loading: authLoading } = useAuth();
   const [teamMembers, setTeamMembers] = useState<TeamMemberWithStats[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAddModal, setShowAddModal] = useState(false);
@@ -22,8 +23,10 @@ export default function TeamManagement() {
   useEffect(() => {
     if (installer?.company_id) {
       loadTeamMembers();
+    } else if (!authLoading) {
+      setLoading(false);
     }
-  }, [installer?.company_id]);
+  }, [installer?.company_id, authLoading]);
 
   const loadTeamMembers = async () => {
     if (!installer?.company_id) return;
@@ -146,18 +149,19 @@ export default function TeamManagement() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Gestione Team</h1>
-            <p className="text-gray-600">
+            <p className="text-gray-600 font-inter">
               {teamMembers.length} {teamMembers.length === 1 ? 'membro' : 'membri'} nel team
             </p>
           </div>
           {installer?.can_manage_company && (
-            <button
-              className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            <Button
+              variant="primaryBlack"
+              size="sm"
+              icon={<Plus className="w-5 h-5" />}
               onClick={() => setShowAddModal(true)}
             >
-              <Plus className="w-5 h-5" />
               Aggiungi Membro
-            </button>
+            </Button>
           )}
         </div>
 
@@ -196,7 +200,7 @@ export default function TeamManagement() {
                         </span>
                       )}
                     </div>
-                    <div className="space-y-1 text-sm text-gray-600">
+                    <div className="space-y-1 text-sm font-inter text-gray-600">
                       <div className="flex items-center gap-2">
                         <Mail className="w-4 h-4" />
                         <a href={`mailto:${member.email}`} className="hover:text-blue-600">
@@ -244,7 +248,7 @@ export default function TeamManagement() {
                 )}
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 font-inter">
                 <div className="bg-green-50 rounded-lg p-3">
                   <div className="flex items-center gap-2 mb-1">
                     <Award className="w-4 h-4 text-green-600" />
@@ -294,12 +298,14 @@ export default function TeamManagement() {
             <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
             <p className="text-gray-500 text-lg mb-2">Nessun membro nel team</p>
             {installer?.can_manage_company && (
-              <button
+              <Button
+                variant="ghost"
+                size="sm"
                 onClick={() => setShowAddModal(true)}
-                className="mt-4 text-blue-600 hover:text-blue-700 font-medium"
+                className="mt-4"
               >
                 Aggiungi il primo membro
-              </button>
+              </Button>
             )}
           </div>
         )}

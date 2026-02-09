@@ -50,6 +50,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const loadUserData = async (authUser: User) => {
     try {
       const role = (authUser.app_metadata?.role || authUser.user_metadata?.role) as UserRole;
+      console.log('[Auth] loadUserData - user:', authUser.email, 'role:', role, 'id:', authUser.id);
 
       setUser({
         id: authUser.id,
@@ -58,24 +59,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
 
       if (role === 'installer' || role === 'company_owner' || role === 'company_admin') {
-        const { data: installerData } = await supabase
+        const { data: installerData, error: installerError } = await supabase
           .from('installers')
           .select('*, company:installation_companies(*)')
           .eq('user_id', authUser.id)
           .maybeSingle();
 
+        if (installerError) {
+          console.error('[Auth] Error fetching installer:', installerError);
+        }
+
         if (installerData) {
+          console.log('[Auth] Installer found:', installerData.id, installerData.first_name, installerData.last_name);
           setInstaller(installerData);
 
           // Load company if installer is part of one
           if (installerData.company_id) {
             setCompany(installerData.company || null);
           }
+        } else {
+          console.warn('[Auth] No installer record found for user:', authUser.id, authUser.email);
         }
+      } else {
+        console.log('[Auth] User role is', role, '- skipping installer query');
       }
     } catch (error) {
-      console.error('Error loading user data:', error);
+      console.error('[Auth] Error loading user data:', error);
     } finally {
+      console.log('[Auth] loadUserData complete - setting loading=false');
       setLoading(false);
     }
   };

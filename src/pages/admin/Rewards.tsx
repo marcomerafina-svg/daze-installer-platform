@@ -133,7 +133,7 @@ export default function Rewards() {
     <AdminLayout>
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Rewards Leaderboard</h1>
-        <p className="text-gray-600">Classifica installatori per punti e performance</p>
+        <p className="text-gray-600 font-inter">Classifica installatori per punti e performance</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
@@ -143,9 +143,9 @@ export default function Rewards() {
               <Trophy className="w-6 h-6 text-white" />
             </div>
           </div>
-          <h3 className="text-gray-600 text-sm font-medium mb-1">Installatori Totali</h3>
+          <h3 className="text-gray-600 text-sm font-inter font-medium mb-1">Installatori Totali</h3>
           <p className="text-3xl font-bold text-gray-900 mb-1">{stats.totalInstallers}</p>
-          <p className="text-sm text-gray-500">{stats.activeInstallers} attivi</p>
+          <p className="text-sm font-inter text-gray-500">{stats.activeInstallers} attivi</p>
         </div>
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
@@ -154,9 +154,9 @@ export default function Rewards() {
               <Award className="w-6 h-6 text-white" />
             </div>
           </div>
-          <h3 className="text-gray-600 text-sm font-medium mb-1">Punti Totali</h3>
+          <h3 className="text-gray-600 text-sm font-inter font-medium mb-1">Punti Totali</h3>
           <p className="text-3xl font-bold text-gray-900 mb-1">{stats.totalPoints.toLocaleString('it-IT')}</p>
-          <p className="text-sm text-gray-500">Sistema rewards</p>
+          <p className="text-sm font-inter text-gray-500">Sistema rewards</p>
         </div>
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
@@ -165,9 +165,9 @@ export default function Rewards() {
               <TrendingUp className="w-6 h-6 text-white" />
             </div>
           </div>
-          <h3 className="text-gray-600 text-sm font-medium mb-1">Media Punti</h3>
+          <h3 className="text-gray-600 text-sm font-inter font-medium mb-1">Media Punti</h3>
           <p className="text-3xl font-bold text-gray-900 mb-1">{stats.avgPoints.toLocaleString('it-IT')}</p>
-          <p className="text-sm text-gray-500">Per installatore</p>
+          <p className="text-sm font-inter text-gray-500">Per installatore</p>
         </div>
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
@@ -176,9 +176,9 @@ export default function Rewards() {
               <Trophy className="w-6 h-6 text-white" />
             </div>
           </div>
-          <h3 className="text-gray-600 text-sm font-medium mb-1">Tier Attivi</h3>
+          <h3 className="text-gray-600 text-sm font-inter font-medium mb-1">Tier Attivi</h3>
           <p className="text-3xl font-bold text-gray-900 mb-1">{tiers.length}</p>
-          <p className="text-sm text-gray-500">Livelli disponibili</p>
+          <p className="text-sm font-inter text-gray-500">Livelli disponibili</p>
         </div>
       </div>
 
@@ -188,7 +188,7 @@ export default function Rewards() {
           {tiers.map((tier) => {
             const installersInTier = leaderboard.filter((e) => e.current_tier?.id === tier.id).length;
             return (
-              <div key={tier.id} className="text-center p-4 bg-gray-50 rounded-lg">
+              <div key={tier.id} className="text-center p-4 bg-gray-50 rounded-lg font-inter">
                 <TierBadge tier={tier} size="lg" showLabel={false} className="mb-2" />
                 <p className="font-bold text-gray-900 text-sm mb-1">{tier.display_name}</p>
                 <p className="text-xs text-gray-600 mb-2">{tier.points_required.toLocaleString('it-IT')} pts</p>
@@ -216,7 +216,7 @@ export default function Rewards() {
 
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-200">
+            <thead className="bg-gray-50 border-b border-gray-200 font-inter">
               <tr>
                 <th className="text-center px-6 py-4 text-sm font-semibold text-gray-900 w-20">Rank</th>
                 <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Installatore</th>
@@ -251,7 +251,7 @@ export default function Rewards() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-200 font-inter">
               {filteredLeaderboard.length === 0 ? (
                 <tr>
                   <td colSpan={7} className="text-center py-12 text-gray-500">

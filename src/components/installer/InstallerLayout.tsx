@@ -1,9 +1,10 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { Home, Kanban, LogOut, MessageCircle, Trophy, Menu, X, Bell, Package, Building2 } from 'lucide-react';
+import { LayoutDashboard, Kanban, LogOut, MessageCircle, Trophy, Menu, X, Bell, Package, Building2 } from 'lucide-react';
 import DazeLogo from '../shared/DazeLogo';
 import NotificationsDropdown from './NotificationsDropdown';
+import Button from '../shared/Button';
 
 interface InstallerLayoutProps {
   children: ReactNode;
@@ -38,7 +39,7 @@ export default function InstallerLayout({ children }: InstallerLayoutProps) {
   };
 
   const navItems = [
-    { path: '/installer', icon: Home, label: 'Dashboard' },
+    { path: '/installer', icon: LayoutDashboard, label: 'Dashboard' },
     { path: '/installer/pipeline', icon: Kanban, label: 'Pipeline' },
     { path: '/installer/installations', icon: Package, label: 'Le Mie Installazioni' },
     { path: '/installer/rewards', icon: Trophy, label: 'Rewards' },
@@ -73,20 +74,18 @@ export default function InstallerLayout({ children }: InstallerLayoutProps) {
 
         <aside className={`
           fixed inset-y-0 right-0 z-50
-          w-72 bg-gradient-to-br from-teal-500 via-teal-600 to-teal-700
+          w-72 bg-daze-blue
           h-screen shadow-strong overflow-hidden
-          transform transition-all duration-300 ease-in-out
+          transform transition-transform duration-300 ease-in-out
           ${sidebarOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'}
         `}>
           <div className="flex flex-col h-full p-6">
-            <div className="hidden lg:flex flex-col items-center mb-8">
-              <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 mb-4">
-                <DazeLogo height={40} className="filter brightness-0 invert" />
-              </div>
-              <p className="text-white/90 text-sm font-medium">Installer Portal</p>
+            <div className="hidden lg:flex flex-col items-center mb-10">
+              <DazeLogo height={48} className="filter brightness-0 invert" />
+              <p className="text-white/70 text-sm font-inter mt-3">Portale Installatori</p>
             </div>
 
-            <nav className="space-y-2 flex-1">
+            <nav className="space-y-1 flex-1 font-inter">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = location.pathname === item.path;
@@ -95,14 +94,14 @@ export default function InstallerLayout({ children }: InstallerLayoutProps) {
                     key={item.path}
                     to={item.path}
                     onClick={() => setSidebarOpen(false)}
-                    className={`flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all group ${
+                    className={`relative flex items-center gap-3 pl-5 pr-4 py-3 transition-colors ${
                       isActive
-                        ? 'bg-white text-teal-700 shadow-medium'
-                        : 'text-white/90 hover:bg-white/10 hover:text-white'
+                        ? 'text-white font-semibold before:absolute before:left-0 before:top-1.5 before:bottom-1.5 before:w-[3px] before:bg-white before:rounded-full'
+                        : 'text-white/60 hover:text-white/90 font-medium'
                     }`}
                   >
-                    <Icon className={`w-5 h-5 transition-transform group-hover:scale-110 ${isActive ? 'text-teal-600' : ''}`} />
-                    <span className="font-medium">{item.label}</span>
+                    <Icon className="w-5 h-5" />
+                    <span>{item.label}</span>
                   </Link>
                 );
               })}
@@ -119,40 +118,51 @@ export default function InstallerLayout({ children }: InstallerLayoutProps) {
                 </div>
               )}
 
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-white/30 to-white/10 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-lg">
+              <div className="bg-white/10 rounded-squircle p-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-white font-roobert font-bold text-base">
                       {installer?.first_name?.[0]}{installer?.last_name?.[0]}
                     </span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-white font-semibold text-sm truncate">
+                    <p className="text-white font-roobert font-semibold text-sm truncate">
                       {installer?.first_name} {installer?.last_name}
                     </p>
-                    <p className="text-white/70 text-xs truncate">{user?.email}</p>
+                    <p className="text-white/50 font-inter text-xs truncate mt-0.5">{user?.email}</p>
                   </div>
                 </div>
-                <button
-                  onClick={() => {
-                    handleSignOut();
-                    setSidebarOpen(false);
-                  }}
-                  className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg bg-white/20 hover:bg-white/30 transition-all text-white font-medium text-sm border border-white/30"
-                >
-                  <LogOut className="w-4 h-4" />
-                  Esci
-                </button>
+                <div className="mt-3 pt-3 border-t border-white/15">
+                  <Button
+                    variant="primaryWhite"
+                    size="sm"
+                    fullWidth
+                    icon={<LogOut className="w-4 h-4" />}
+                    onClick={() => {
+                      handleSignOut();
+                      setSidebarOpen(false);
+                    }}
+                  >
+                    Esci
+                  </Button>
+                </div>
               </div>
 
               {installer?.company_id && installer?.can_manage_company && (
                 <Link
                   to="/company"
                   onClick={() => setSidebarOpen(false)}
-                  className="mt-4 mb-2 block w-full text-center px-4 py-2.5 bg-white/10 hover:bg-white/20 rounded-lg transition-all text-white font-medium text-sm flex items-center justify-center gap-2"
+                  className="block mt-4"
                 >
-                  <Building2 className="w-4 h-4" />
-                  Dashboard Azienda
+                  <Button
+                    variant="secondaryDark"
+                    size="sm"
+                    fullWidth
+                    icon={<Building2 className="w-4 h-4" />}
+                    iconPosition="left"
+                  >
+                    Dashboard Azienda
+                  </Button>
                 </Link>
               )}
             </div>

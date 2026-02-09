@@ -39,7 +39,7 @@ const PIPELINE_STAGES: { status: LeadStatus; label: string; color: string; icon:
 ];
 
 export default function Pipeline() {
-  const { installer } = useAuth();
+  const { installer, loading: authLoading } = useAuth();
   const [leadsByStatus, setLeadsByStatus] = useState<Record<LeadStatus, Lead[]>>({
     'Nuova': [],
     'In lavorazione': [],
@@ -52,8 +52,10 @@ export default function Pipeline() {
   useEffect(() => {
     if (installer) {
       loadLeads();
+    } else if (!authLoading) {
+      setLoading(false);
     }
-  }, [installer]);
+  }, [installer, authLoading]);
 
   const loadLeads = async () => {
     if (!installer) return;
@@ -160,7 +162,7 @@ export default function Pipeline() {
     <InstallerLayout>
       <div className="max-w-7xl mx-auto mb-8">
         <h1 className="text-3xl font-bold text-slate-900 mb-2">Pipeline Lead</h1>
-        <p className="text-slate-600">Gestisci lo stato delle tue lead con il board Kanban - Trascina le card per cambiare stato</p>
+        <p className="text-slate-600 font-inter">Gestisci lo stato delle tue lead con il board Kanban - Trascina le card per cambiare stato</p>
       </div>
 
       <DragDropContext onDragEnd={handleDragEnd}>
@@ -177,7 +179,7 @@ export default function Pipeline() {
                       </div>
                       <h3 className="font-bold text-lg">{stage.label}</h3>
                     </div>
-                    <p className="text-sm opacity-80 font-medium">
+                    <p className="text-sm opacity-80 font-inter font-medium">
                       {leadsByStatus[stage.status].length} lead
                     </p>
                   </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { X, CheckCircle, Users, Award, TrendingUp, Zap, Building2, ArrowRight, ArrowLeft } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
+import Button from '../shared/Button';
 
 interface CompanyOnboardingModalProps {
   companyId: string;
@@ -248,7 +249,7 @@ export default function CompanyOnboardingModal({
             {currentStepData.content.heading}
           </h3>
 
-          <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+          <p className="text-gray-600 font-inter text-lg mb-6 leading-relaxed">
             {currentStepData.content.description}
           </p>
 
@@ -257,7 +258,7 @@ export default function CompanyOnboardingModal({
               <CheckCircle className="w-5 h-5 text-green-600" />
               Funzionalità Principali
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-3 font-inter">
               {currentStepData.content.features.map((feature, idx) => (
                 <li key={idx} className="flex items-start gap-3 text-gray-700">
                   <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
@@ -272,31 +273,36 @@ export default function CompanyOnboardingModal({
 
         <div className="bg-gray-50 border-t border-gray-200 px-8 py-5 flex items-center justify-between">
           <div className="flex gap-3">
-            <button
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={handleSkip}
               disabled={loading}
-              className="px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors disabled:opacity-50"
             >
               Salta tour
-            </button>
+            </Button>
           </div>
 
           <div className="flex gap-3">
             {step > 1 && (
-              <button
+              <Button
+                variant="secondary"
+                size="sm"
+                icon={<ArrowLeft className="w-4 h-4" />}
+                iconPosition="left"
                 onClick={handlePrevious}
                 disabled={loading}
-                className="px-5 py-2.5 text-gray-700 bg-white border-2 border-gray-300 hover:border-gray-400 rounded-lg transition-colors disabled:opacity-50 flex items-center gap-2 font-medium"
               >
-                <ArrowLeft className="w-4 h-4" />
                 Indietro
-              </button>
+              </Button>
             )}
 
-            <button
+            <Button
+              variant="primaryBlack"
+              size="sm"
               onClick={handleNext}
               disabled={loading}
-              className="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center gap-2 font-medium shadow-lg shadow-blue-600/30"
+              icon={step === STEPS.length ? <CheckCircle className="w-5 h-5" /> : undefined}
             >
               {loading ? (
                 <>
@@ -304,17 +310,14 @@ export default function CompanyOnboardingModal({
                   Caricamento...
                 </>
               ) : step === STEPS.length ? (
-                <>
-                  <CheckCircle className="w-5 h-5" />
-                  Completa Tour
-                </>
+                'Completa Tour'
               ) : (
                 <>
                   Avanti
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}
-            </button>
+            </Button>
           </div>
         </div>
       </div>

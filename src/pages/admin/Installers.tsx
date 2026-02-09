@@ -3,6 +3,7 @@ import { supabase } from '../../lib/supabase';
 import AdminLayout from '../../components/admin/AdminLayout';
 import type { InstallerWithStats } from '../../types';
 import { Plus, Search, ToggleLeft, ToggleRight, Mail, Phone, MapPin, Building2 } from 'lucide-react';
+import Button from '../../components/shared/Button';
 import React from 'react';
 
 export default function Installers() {
@@ -103,16 +104,17 @@ export default function Installers() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
           <div>
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Installatori</h1>
-            <p className="text-sm sm:text-base text-gray-600">Gestisci i tuoi partner installatori</p>
+            <p className="text-sm sm:text-base font-inter text-gray-600">Gestisci i tuoi partner installatori</p>
           </div>
-          <button
+          <Button
+            variant="primaryBlack"
+            size="sm"
+            icon={<Plus className="w-5 h-5" />}
             onClick={() => setShowModal(true)}
-            className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#223aa3] to-[#4a5fc1] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-medium hover:shadow-lg transition-all whitespace-nowrap"
           >
-            <Plus className="w-5 h-5" />
             <span className="hidden sm:inline">Nuovo Installatore</span>
             <span className="sm:hidden">Nuovo</span>
-          </button>
+          </Button>
         </div>
 
         <div className="relative">
@@ -122,7 +124,7 @@ export default function Installers() {
             placeholder="Cerca installatore..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4a5fc1] focus:border-transparent"
+            className="w-full pl-12 pr-4 py-3 font-inter border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4a5fc1] focus:border-transparent"
           />
         </div>
       </div>
@@ -135,7 +137,7 @@ export default function Installers() {
         <>
           <div className="hidden lg:block bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
             <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-200">
+            <thead className="bg-gray-50 border-b border-gray-200 font-inter">
               <tr>
                 <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Installatore</th>
                 <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Azienda</th>
@@ -148,7 +150,7 @@ export default function Installers() {
                 <th className="text-center px-6 py-4 text-sm font-semibold text-gray-900">Stato</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-200 font-inter">
               {filteredInstallers.length === 0 ? (
                 <tr>
                   <td colSpan={9} className="text-center py-12 text-gray-500">
@@ -271,9 +273,9 @@ export default function Installers() {
                       <h3 className="font-bold text-gray-900 text-lg mb-1">
                         {installer.first_name} {installer.last_name}
                       </h3>
-                      <p className="text-sm text-gray-500 mb-3">{installer.email}</p>
+                      <p className="text-sm font-inter text-gray-500 mb-3">{installer.email}</p>
 
-                      <div className="space-y-2 mb-3">
+                      <div className="space-y-2 mb-3 font-inter">
                         {installer.phone && (
                           <div className="flex items-center gap-2 text-sm text-gray-600">
                             <Phone className="w-4 h-4" />
@@ -303,7 +305,7 @@ export default function Installers() {
                     </button>
                   </div>
 
-                  <div className="grid grid-cols-4 gap-2 pt-3 border-t border-gray-200">
+                  <div className="grid grid-cols-4 gap-2 pt-3 border-t border-gray-200 font-inter">
                     <div className="text-center">
                       <p className="text-xs text-gray-500 mb-1">Totali</p>
                       <span className="inline-flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full text-sm font-semibold text-gray-900">
@@ -449,7 +451,7 @@ function CreateInstallerModal({ onClose, onSuccess }: { onClose: () => void; onS
       <div className="bg-white rounded-xl max-w-md w-full p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
         <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Nuovo Installatore</h2>
 
-        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 font-inter">
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-2 sm:p-3 text-xs sm:text-sm text-red-800">
               {error}
@@ -545,21 +547,25 @@ function CreateInstallerModal({ onClose, onSuccess }: { onClose: () => void; onS
           </div>
 
           <div className="flex gap-3 pt-4">
-            <button
+            <Button
+              variant="secondary"
+              size="sm"
               type="button"
               onClick={onClose}
               disabled={loading}
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-all disabled:opacity-50"
+              fullWidth
             >
               Annulla
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="primaryBlack"
+              size="sm"
               type="submit"
               disabled={loading}
-              className="flex-1 px-4 py-2 bg-gradient-to-r from-[#223aa3] to-[#4a5fc1] text-white rounded-lg font-medium hover:shadow-lg transition-all disabled:opacity-50"
+              fullWidth
             >
               {loading ? 'Creazione...' : 'Crea Installatore'}
-            </button>
+            </Button>
           </div>
         </form>
       </div>

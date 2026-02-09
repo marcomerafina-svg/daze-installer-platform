@@ -8,7 +8,7 @@ import type { InstallerRewards, RewardsTier, PointsTransaction } from '../../typ
 import { Trophy, TrendingUp, Award, Clock, ArrowRight } from 'lucide-react';
 
 export default function Rewards() {
-  const { installer } = useAuth();
+  const { installer, loading: authLoading } = useAuth();
   const [rewards, setRewards] = useState<InstallerRewards | null>(null);
   const [allTiers, setAllTiers] = useState<RewardsTier[]>([]);
   const [transactions, setTransactions] = useState<PointsTransaction[]>([]);
@@ -18,8 +18,10 @@ export default function Rewards() {
   useEffect(() => {
     if (installer) {
       loadData();
+    } else if (!authLoading) {
+      setLoading(false);
     }
-  }, [installer]);
+  }, [installer, authLoading]);
 
   const loadData = async () => {
     if (!installer) return;
@@ -107,7 +109,7 @@ export default function Rewards() {
     <InstallerLayout>
       <div className="mb-6 sm:mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Il Mio Sistema Rewards</h1>
-        <p className="text-sm sm:text-base text-gray-600">Traccia i tuoi progressi e sblocca premi esclusivi</p>
+        <p className="text-sm sm:text-base font-inter text-gray-600">Traccia i tuoi progressi e sblocca premi esclusivi</p>
       </div>
 
       {pendingPoints > 0 && (
@@ -133,7 +135,7 @@ export default function Rewards() {
               <Trophy className="w-6 h-6 text-white" />
             </div>
           </div>
-          <h3 className="text-gray-600 text-sm font-medium mb-1">Punti Confermati</h3>
+          <h3 className="text-gray-600 text-sm font-inter font-medium mb-1">Punti Confermati</h3>
           <p className="text-3xl font-bold text-gray-900">{rewards?.total_points.toLocaleString('it-IT') || 0}</p>
         </div>
 
@@ -144,7 +146,7 @@ export default function Rewards() {
                 <Clock className="w-6 h-6 text-white" />
               </div>
             </div>
-            <h3 className="text-gray-600 text-sm font-medium mb-1">In Attesa</h3>
+            <h3 className="text-gray-600 text-sm font-inter font-medium mb-1">In Attesa</h3>
             <p className="text-3xl font-bold text-amber-600">{pendingPoints.toLocaleString('it-IT')}</p>
           </div>
         )}
@@ -155,7 +157,7 @@ export default function Rewards() {
               <Award className="w-6 h-6 text-white" />
             </div>
           </div>
-          <h3 className="text-gray-600 text-sm font-medium mb-1">Tier Attuale</h3>
+          <h3 className="text-gray-600 text-sm font-inter font-medium mb-1">Tier Attuale</h3>
           <div className="mt-2">
             <TierBadge tier={rewards?.tier} size="lg" />
           </div>
@@ -167,11 +169,11 @@ export default function Rewards() {
               <TrendingUp className="w-6 h-6 text-white" />
             </div>
           </div>
-          <h3 className="text-gray-600 text-sm font-medium mb-1">Prossimo Traguardo</h3>
+          <h3 className="text-gray-600 text-sm font-inter font-medium mb-1">Prossimo Traguardo</h3>
           <p className="text-3xl font-bold text-gray-900">
             {getNextTier() ? getPointsToNextTier().toLocaleString('it-IT') : '✓'}
           </p>
-          <p className="text-xs text-gray-500 mt-1">{getNextTier() ? 'punti mancanti' : 'Massimo livello raggiunto!'}</p>
+          <p className="text-xs font-inter text-gray-500 mt-1">{getNextTier() ? 'punti mancanti' : 'Massimo livello raggiunto!'}</p>
         </div>
       </div>
 
@@ -183,7 +185,7 @@ export default function Rewards() {
             </div>
             <div className="flex-1">
               <h2 className="text-2xl font-bold text-yellow-900 mb-3">Prossimo Obiettivo</h2>
-              <p className="text-yellow-700 mb-6 text-lg">
+              <p className="text-yellow-700 font-inter mb-6 text-lg">
                 Ancora <span className="font-bold text-2xl">{getPointsToNextTier().toLocaleString('it-IT')}</span> punti per
                 raggiungere il livello <span className="font-bold">{getNextTier()?.display_name}</span>!
               </p>
@@ -217,7 +219,7 @@ export default function Rewards() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
             <h2 className="text-xl font-bold text-gray-900">Storico Punti</h2>
-            <p className="text-sm text-gray-600">Le tue ultime 10 transazioni</p>
+            <p className="text-sm font-inter text-gray-600">Le tue ultime 10 transazioni</p>
           </div>
           <div className="divide-y divide-gray-200">
             {transactions.map((transaction) => (

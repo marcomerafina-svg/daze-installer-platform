@@ -62,10 +62,10 @@ export default function TierCard({ tier, isUnlocked, isCurrent }: TierCardProps)
 
         <div>
           <h3 className="text-xl font-bold text-black mb-1">{tier.display_name}</h3>
-          <p className="text-sm font-medium text-black/70">{tier.points_required.toLocaleString('it-IT')} punti</p>
+          <p className="text-sm font-inter font-medium text-black/70">{tier.points_required.toLocaleString('it-IT')} punti</p>
         </div>
 
-        <p className="text-sm text-black/80 leading-relaxed">{tier.description}</p>
+        <p className="text-sm font-inter text-black/80 leading-relaxed">{tier.description}</p>
 
         {isUnlocked && !isCurrent && (
           <div className="flex items-center gap-1 text-forest text-sm font-medium">

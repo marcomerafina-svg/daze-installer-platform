@@ -75,7 +75,7 @@ export default function AdminLeads() {
     <AdminLayout>
       <div className="mb-6 sm:mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold text-black mb-2">Lead</h1>
-        <p className="text-sm sm:text-base text-black/70">Tutte le lead della piattaforma</p>
+        <p className="text-sm sm:text-base font-inter text-black/70">Tutte le lead della piattaforma</p>
       </div>
 
       <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row gap-3 sm:gap-4">
@@ -86,13 +86,13 @@ export default function AdminLeads() {
             placeholder="Cerca lead..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 text-sm sm:text-base border border-cool-gray-400 rounded-lg focus:ring-2 focus:ring-reflex-blue focus:border-transparent"
+            className="w-full pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 text-sm sm:text-base font-inter border border-cool-gray-400 rounded-lg focus:ring-2 focus:ring-reflex-blue focus:border-transparent"
           />
         </div>
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-cool-gray-400 rounded-lg focus:ring-2 focus:ring-reflex-blue focus:border-transparent"
+          className="px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base font-inter border border-cool-gray-400 rounded-lg focus:ring-2 focus:ring-reflex-blue focus:border-transparent"
         >
           <option value="all">Tutti gli stati</option>
           <option value="Nuova">Nuova</option>
@@ -125,7 +125,7 @@ export default function AdminLeads() {
                         <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">
                           {lead.first_name} {lead.last_name}
                         </h3>
-                        <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600">
+                        <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm font-inter text-gray-600">
                           {lead.phone && (
                             <div className="flex items-center gap-2">
                               <Phone className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
@@ -156,7 +156,7 @@ export default function AdminLeads() {
                     </div>
 
                     {lead.description && (
-                      <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4 line-clamp-2">{lead.description}</p>
+                      <p className="text-xs sm:text-sm font-inter text-gray-600 mb-3 sm:mb-4 line-clamp-2">{lead.description}</p>
                     )}
 
                     <div className="flex flex-wrap items-center gap-2 sm:gap-4 mb-3">

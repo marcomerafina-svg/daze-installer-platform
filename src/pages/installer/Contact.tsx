@@ -59,7 +59,7 @@ export default function Contact() {
     <InstallerLayout>
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Impostazioni e Contatti</h1>
-        <p className="text-gray-600">Gestisci le tue preferenze e trova i tuoi contatti di riferimento</p>
+        <p className="text-gray-600 font-inter">Gestisci le tue preferenze e trova i tuoi contatti di riferimento</p>
       </div>
 
       {installer && (
@@ -74,7 +74,7 @@ export default function Contact() {
             <MapPin className="w-6 h-6 text-yellow-600 mt-1" />
             <div>
               <h3 className="font-semibold text-yellow-900 mb-2">Regione non configurata</h3>
-              <p className="text-yellow-800">
+              <p className="text-yellow-800 font-inter">
                 La tua regione di operatività non è ancora stata configurata.
                 Contatta l'amministratore per completare il tuo profilo e visualizzare il tuo area manager di riferimento.
               </p>
@@ -105,11 +105,11 @@ export default function Contact() {
               </div>
               <div>
                 <h2 className="text-xl font-bold text-gray-900 mb-1">Il tuo Area Manager</h2>
-                <p className="text-gray-600">Referente commerciale per la tua zona</p>
+                <p className="text-gray-600 font-inter">Referente commerciale per la tua zona</p>
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-4 font-inter">
               <div>
                 <p className="text-sm font-medium text-gray-500 mb-1">Nome</p>
                 <p className="text-lg font-semibold text-gray-900">{areaManager.name}</p>
@@ -167,7 +167,7 @@ export default function Contact() {
               </div>
               <div>
                 <h2 className="text-xl font-bold text-gray-900 mb-1">La tua regione</h2>
-                <p className="text-gray-600">Area di operatività</p>
+                <p className="text-gray-600 font-inter">Area di operatività</p>
               </div>
             </div>
 
@@ -178,7 +178,7 @@ export default function Contact() {
 
             <div className="mt-6 p-4 bg-gray-50 rounded-lg">
               <h3 className="font-semibold text-gray-900 mb-2">Come possiamo aiutarti?</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
+              <ul className="space-y-2 text-sm font-inter text-gray-600">
                 <li className="flex items-start gap-2">
                   <span className="text-[#4a5fc1] mt-1">•</span>
                   <span>Domande tecniche sulle installazioni</span>
@@ -203,7 +203,7 @@ export default function Contact() {
 
       <div className="mt-8 bg-gradient-to-r from-[#223aa3] to-[#4a5fc1] rounded-xl p-8 text-white">
         <h2 className="text-2xl font-bold mb-4">Hai bisogno di aiuto immediato?</h2>
-        <p className="text-white/90 mb-6">
+        <p className="text-white/90 font-inter mb-6">
           Il nostro team è qui per supportarti in ogni fase del processo. Non esitare a contattarci per qualsiasi domanda o necessità.
         </p>
         <div className="flex flex-wrap gap-4">

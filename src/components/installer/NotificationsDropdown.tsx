@@ -106,12 +106,16 @@ export default function NotificationsDropdown({
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 w-full px-4 py-3 rounded-xl text-white/90 hover:bg-white/10 transition-all"
+        className={`flex items-center gap-3 w-full px-5 py-3 rounded-pill font-inter font-medium text-sm transition-all ${
+          unreadCount > 0
+            ? 'bg-white/20 border border-white/30 text-white hover:bg-white/30'
+            : 'bg-white/10 border border-white/20 text-white/80 hover:bg-white/20 hover:text-white'
+        }`}
       >
         <Bell className="w-5 h-5" />
-        <span className="font-medium">Notifiche</span>
+        <span>Notifiche</span>
         {unreadCount > 0 && (
-          <span className="ml-auto bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center animate-pulse">
+          <span className="ml-auto bg-daze-salmon text-white text-xs font-bold rounded-full min-w-[22px] h-[22px] flex items-center justify-center px-1 animate-pulse">
             {unreadCount > 9 ? '9+' : unreadCount}
           </span>
         )}
@@ -127,7 +131,7 @@ export default function NotificationsDropdown({
             <div className="flex items-center justify-between p-4 border-b border-gray-200">
               <div>
                 <h3 className="font-bold text-gray-900 text-lg">Notifiche</h3>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs font-inter text-gray-500">
                   {unreadCount === 0
                     ? 'Nessuna notifica'
                     : `${unreadCount} nuov${unreadCount === 1 ? 'a' : 'e'} lead`}
@@ -137,7 +141,7 @@ export default function NotificationsDropdown({
                 {unreadCount > 0 && (
                   <button
                     onClick={markAllAsViewed}
-                    className="text-xs text-teal-600 hover:text-teal-700 font-medium"
+                    className="text-xs text-daze-blue hover:text-daze-blue/80 font-medium"
                   >
                     Segna tutte lette
                   </button>
@@ -154,7 +158,7 @@ export default function NotificationsDropdown({
             <div className="overflow-y-auto flex-1">
               {loading ? (
                 <div className="flex items-center justify-center py-12">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-daze-blue"></div>
                 </div>
               ) : notifications.length === 0 ? (
                 <div className="text-center py-12">
@@ -171,14 +175,14 @@ export default function NotificationsDropdown({
                     >
                       <div className="flex items-start justify-between mb-2">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0">
-                            <User className="w-5 h-5 text-teal-600" />
+                          <div className="w-10 h-10 bg-daze-blue-light rounded-full flex items-center justify-center flex-shrink-0">
+                            <User className="w-5 h-5 text-daze-blue" />
                           </div>
                           <div className="min-w-0">
                             <h4 className="font-semibold text-gray-900 text-sm">
                               {lead.first_name} {lead.last_name}
                             </h4>
-                            <span className="inline-block px-2 py-0.5 bg-teal-100 text-teal-800 text-xs font-medium rounded mt-1">
+                            <span className="inline-block px-2 py-0.5 bg-daze-blue-light text-daze-blue text-xs font-medium rounded mt-1">
                               Nuova Lead
                             </span>
                           </div>
@@ -212,7 +216,7 @@ export default function NotificationsDropdown({
                             markAsViewed(lead.assignment.id);
                             setIsOpen(false);
                           }}
-                          className="flex-1 text-center bg-gradient-to-r from-teal-500 to-teal-600 text-white px-3 py-2 rounded-lg text-xs font-medium hover:shadow-lg transition-all"
+                          className="flex-1 text-center bg-daze-blue text-white px-3 py-2 rounded-lg text-xs font-medium hover:opacity-90 transition-all"
                         >
                           Visualizza Dettagli
                         </Link>
@@ -234,7 +238,7 @@ export default function NotificationsDropdown({
                 <Link
                   to="/installer/pipeline"
                   onClick={() => setIsOpen(false)}
-                  className="block text-center text-sm text-teal-600 hover:text-teal-700 font-medium"
+                  className="block text-center text-sm text-daze-blue hover:text-daze-blue/80 font-medium"
                 >
                   Vedi tutte le lead →
                 </Link>

@@ -3,6 +3,7 @@ import { supabase } from '../../lib/supabase';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { CheckCircle, XCircle, Clock, Package, User, Calendar, Phone, MapPin, Image as ImageIcon, AlertCircle, X } from 'lucide-react';
 import type { WallboxSerial, Installer } from '../../types';
+import Button from '../../components/shared/Button';
 
 interface PendingInstallation {
   id: string;
@@ -241,7 +242,7 @@ export default function PendingInstallations() {
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-slate-900 mb-2">Approvazione Installazioni</h1>
-          <p className="text-slate-600">Gestisci le installazioni autonome degli installatori</p>
+          <p className="text-slate-600 font-inter">Gestisci le installazioni autonome degli installatori</p>
         </div>
 
         <div className="bg-white rounded-xl shadow-soft border border-slate-200 p-6 mb-6">
@@ -289,7 +290,7 @@ export default function PendingInstallations() {
 
           {filter === 'pending' && stats.pending > 0 && (
             <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-              <p className="text-sm text-amber-800">
+              <p className="text-sm font-inter text-amber-800">
                 <span className="font-bold">{stats.pending}</span> installazioni in attesa di approvazione per un totale di{' '}
                 <span className="font-bold">{stats.total_points} punti</span>
               </p>
@@ -319,13 +320,13 @@ export default function PendingInstallations() {
                         Autonoma
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-slate-600 mb-2">
+                    <div className="flex items-center gap-2 text-sm font-inter text-slate-600 mb-2">
                       <User className="w-4 h-4" />
                       <span className="font-medium">
                         {installation.installer.first_name} {installation.installer.last_name}
                       </span>
                     </div>
-                    <div className="flex items-center gap-4 text-sm text-slate-600">
+                    <div className="flex items-center gap-4 text-sm font-inter text-slate-600">
                       <div className="flex items-center gap-1">
                         <Calendar className="w-4 h-4" />
                         <span>{new Date(installation.installation_date).toLocaleDateString('it-IT')}</span>
@@ -342,14 +343,14 @@ export default function PendingInstallations() {
                       )}
                     </div>
                   </div>
-                  <div className="text-right">
+                  <div className="text-right font-inter">
                     <p className="text-sm text-slate-600 mb-1">Punti</p>
                     <p className="text-2xl font-bold text-teal-600">{installation.total_points}</p>
                   </div>
                 </div>
 
                 <div className="mb-4">
-                  <p className="text-sm text-slate-600 mb-2">Prodotti Installati ({installation.serials.length})</p>
+                  <p className="text-sm font-inter text-slate-600 mb-2">Prodotti Installati ({installation.serials.length})</p>
                   <div className="flex flex-wrap gap-2">
                     {installation.serials.map((serial, idx) => (
                       <span key={idx} className="px-3 py-1 bg-slate-100 text-slate-700 rounded-lg text-sm font-medium">
@@ -360,37 +361,37 @@ export default function PendingInstallations() {
                 </div>
 
                 <div className="flex gap-3">
-                  <button
+                  <Button
+                    variant="secondary"
+                    size="sm"
                     onClick={() => setSelectedInstallation(installation)}
-                    className="flex-1 px-4 py-2 border border-slate-300 rounded-lg font-medium text-slate-700 hover:bg-slate-50 transition-all"
+                    fullWidth
                   >
                     Visualizza Dettagli
-                  </button>
+                  </Button>
                   {filter === 'pending' && (
                     <>
-                      <button
+                      <Button
+                        variant="primaryBlack"
+                        size="sm"
+                        icon={<CheckCircle className="w-4 h-4" />}
                         onClick={() => handleApprove(installation)}
                         disabled={processing}
-                        className="px-6 py-2 bg-emerald-500 text-white rounded-lg font-medium hover:bg-emerald-600 transition-all disabled:opacity-50"
                       >
-                        <div className="flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4" />
-                          Approva
-                        </div>
-                      </button>
-                      <button
+                        Approva
+                      </Button>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        icon={<XCircle className="w-4 h-4" />}
                         onClick={() => {
                           setSelectedInstallation(installation);
                           setShowRejectModal(true);
                         }}
                         disabled={processing}
-                        className="px-6 py-2 bg-rose-500 text-white rounded-lg font-medium hover:bg-rose-600 transition-all disabled:opacity-50"
                       >
-                        <div className="flex items-center gap-2">
-                          <XCircle className="w-4 h-4" />
-                          Rifiuta
-                        </div>
-                      </button>
+                        Rifiuta
+                      </Button>
                     </>
                   )}
                 </div>
@@ -412,22 +413,19 @@ export default function PendingInstallations() {
             <div className="flex items-start justify-between mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-slate-900 mb-2">{selectedInstallation.customer_name}</h2>
-                <p className="text-slate-600">
+                <p className="text-slate-600 font-inter">
                   Installatore: {selectedInstallation.installer.first_name} {selectedInstallation.installer.last_name}
                 </p>
               </div>
-              <button
-                onClick={() => setSelectedInstallation(null)}
-                className="p-2 hover:bg-slate-100 rounded-lg transition-all"
-              >
-                <X className="w-6 h-6 text-slate-500" />
-              </button>
+              <Button variant="icon" onClick={() => setSelectedInstallation(null)}>
+                <X className="w-6 h-6" />
+              </Button>
             </div>
 
             <div className="space-y-4 mb-6">
               <div className="bg-slate-50 rounded-xl p-4">
                 <h3 className="font-semibold text-slate-900 mb-3">Informazioni Cliente</h3>
-                <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="grid grid-cols-2 gap-4 text-sm font-inter">
                   <div>
                     <p className="text-slate-600">Nome Completo</p>
                     <p className="font-medium text-slate-900">{selectedInstallation.customer_name}</p>
@@ -502,26 +500,26 @@ export default function PendingInstallations() {
 
             {filter === 'pending' && (
               <div className="flex gap-3">
-                <button
+                <Button
+                  variant="primaryBlack"
+                  size="md"
+                  icon={<CheckCircle className="w-5 h-5" />}
                   onClick={() => handleApprove(selectedInstallation)}
                   disabled={processing}
-                  className="flex-1 px-6 py-3 bg-emerald-500 text-white rounded-xl font-medium hover:bg-emerald-600 transition-all disabled:opacity-50"
+                  fullWidth
                 >
-                  <div className="flex items-center justify-center gap-2">
-                    <CheckCircle className="w-5 h-5" />
-                    {processing ? 'Approvazione...' : 'Approva Installazione'}
-                  </div>
-                </button>
-                <button
+                  {processing ? 'Approvazione...' : 'Approva Installazione'}
+                </Button>
+                <Button
+                  variant="destructive"
+                  size="md"
+                  icon={<XCircle className="w-5 h-5" />}
                   onClick={() => setShowRejectModal(true)}
                   disabled={processing}
-                  className="flex-1 px-6 py-3 bg-rose-500 text-white rounded-xl font-medium hover:bg-rose-600 transition-all disabled:opacity-50"
+                  fullWidth
                 >
-                  <div className="flex items-center justify-center gap-2">
-                    <XCircle className="w-5 h-5" />
-                    Rifiuta Installazione
-                  </div>
-                </button>
+                  Rifiuta Installazione
+                </Button>
               </div>
             )}
           </div>
@@ -547,7 +545,7 @@ export default function PendingInstallations() {
               <h3 className="text-xl font-bold text-slate-900">Rifiuta Installazione</h3>
             </div>
 
-            <p className="text-slate-600 mb-4">
+            <p className="text-slate-600 font-inter mb-4">
               Inserisci il motivo per cui rifiuti questa installazione. Il messaggio sarà visibile all'installatore.
             </p>
 
@@ -556,26 +554,30 @@ export default function PendingInstallations() {
               onChange={(e) => setRejectReason(e.target.value)}
               placeholder="Es: Le foto fornite non sono sufficienti per verificare l'installazione..."
               rows={4}
-              className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:border-transparent mb-4"
+              className="w-full px-4 py-3 font-inter border border-slate-300 rounded-xl focus:ring-2 focus:ring-rose-500 focus:border-transparent mb-4"
             />
 
             <div className="flex gap-3">
-              <button
+              <Button
+                variant="secondary"
+                size="sm"
                 onClick={() => {
                   setShowRejectModal(false);
                   setRejectReason('');
                 }}
-                className="flex-1 px-4 py-2 border border-slate-300 rounded-lg font-medium text-slate-700 hover:bg-slate-50 transition-all"
+                fullWidth
               >
                 Annulla
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="destructive"
+                size="sm"
                 onClick={handleReject}
                 disabled={!rejectReason.trim() || processing}
-                className="flex-1 px-4 py-2 bg-rose-500 text-white rounded-lg font-medium hover:bg-rose-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                fullWidth
               >
                 {processing ? 'Rifiuto...' : 'Conferma Rifiuto'}
-              </button>
+              </Button>
             </div>
           </div>
         </div>

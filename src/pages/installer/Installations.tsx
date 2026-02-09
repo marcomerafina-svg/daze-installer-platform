@@ -24,7 +24,7 @@ interface InstallationGroup {
 type FilterTab = 'all' | 'daze_lead' | 'self_reported' | 'pending';
 
 export default function Installations() {
-  const { installer } = useAuth();
+  const { installer, loading: authLoading } = useAuth();
   const [installations, setInstallations] = useState<InstallationGroup[]>([]);
   const [filter, setFilter] = useState<FilterTab>('all');
   const [loading, setLoading] = useState(true);
@@ -33,8 +33,10 @@ export default function Installations() {
   useEffect(() => {
     if (installer) {
       loadInstallations();
+    } else if (!authLoading) {
+      setLoading(false);
     }
-  }, [installer]);
+  }, [installer, authLoading]);
 
   const loadInstallations = async () => {
     if (!installer) return;
@@ -164,10 +166,10 @@ export default function Installations() {
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-slate-900 mb-2">Le Mie Installazioni</h1>
-          <p className="text-slate-600">Tutte le tue installazioni, da lead Daze e autonome</p>
+          <p className="text-slate-600 font-inter">Tutte le tue installazioni, da lead Daze e autonome</p>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8 font-inter">
           <div className="bg-white rounded-xl shadow-soft border border-slate-200 p-4">
             <p className="text-sm text-slate-600 mb-1">Totali</p>
             <p className="text-3xl font-bold text-slate-900">{stats.total}</p>
@@ -276,7 +278,7 @@ export default function Installations() {
                           {sourceBadge.label}
                         </span>
                       </div>
-                      <div className="flex items-center gap-4 text-sm text-slate-600">
+                      <div className="flex items-center gap-4 text-sm font-inter text-slate-600">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-4 h-4" />
                           <span>{new Date(installation.installation_date).toLocaleDateString('it-IT')}</span>
@@ -405,7 +407,7 @@ export default function Installations() {
             <div className="space-y-4">
               <div className="bg-slate-50 rounded-xl p-4">
                 <h3 className="font-semibold text-slate-900 mb-3">Informazioni Cliente</h3>
-                <div className="space-y-2 text-sm">
+                <div className="space-y-2 text-sm font-inter">
                   <div className="flex items-center gap-2">
                     <User className="w-4 h-4 text-slate-400" />
                     <span className="text-slate-900 font-medium">{selectedInstallation.customer_name}</span>

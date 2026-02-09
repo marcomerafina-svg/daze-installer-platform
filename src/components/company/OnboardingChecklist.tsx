@@ -86,7 +86,7 @@ export default function OnboardingChecklist({
       <div className="flex items-center justify-between mb-6">
         <div>
           <h3 className="text-lg font-semibold text-gray-900">Primi Passi</h3>
-          <p className="text-sm text-gray-600 mt-1">
+          <p className="text-sm font-inter text-gray-600 mt-1">
             Completa questi obiettivi per iniziare al meglio
           </p>
         </div>
@@ -129,7 +129,7 @@ export default function OnboardingChecklist({
                       <h4 className={`font-semibold ${colors.text}`}>
                         {item.title}
                       </h4>
-                      <p className="text-sm text-gray-600 mt-0.5">
+                      <p className="text-sm font-inter text-gray-600 mt-0.5">
                         {item.description}
                       </p>
                     </div>
