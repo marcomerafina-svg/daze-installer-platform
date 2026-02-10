@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { supabase } from '../../lib/supabase';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { CheckCircle, XCircle, Clock, Package, User, Calendar, Phone, MapPin, Image as ImageIcon, AlertCircle, X } from 'lucide-react';
@@ -30,8 +30,16 @@ export default function PendingInstallations() {
   const [rejectReason, setRejectReason] = useState('');
   const [processing, setProcessing] = useState(false);
 
+  const isFirstLoad = useRef(true);
+
   useEffect(() => {
-    loadInstallations();
+    // Solo il primo caricamento mostra lo spinner
+    if (isFirstLoad.current) {
+      loadInstallations();
+      isFirstLoad.current = false;
+    } else {
+      loadInstallations(true);
+    }
 
     // Polling automatico ogni 30 secondi per nuove installazioni
     const interval = setInterval(() => {
