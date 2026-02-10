@@ -634,22 +634,40 @@ export default function LeadDetail() {
         <div className="space-y-4 sm:space-y-6">
           <div className="bg-white rounded-squircle border border-daze-gray p-4 sm:p-6">
             <h2 className="text-base sm:text-lg font-bold text-daze-black mb-3 sm:mb-4">Cambia Stato</h2>
-            <div className="space-y-2">
-              {PIPELINE_STAGES.map((status) => (
-                <button
-                  key={status}
-                  onClick={() => updateLeadStatus(status)}
-                  disabled={lead.status === status}
-                  className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-medium text-left transition-all ${
-                    lead.status === status
-                      ? 'bg-daze-blue text-white'
-                      : 'bg-daze-gray/10 text-daze-black hover:bg-daze-gray'
-                  }`}
-                >
-                  {status}
-                </button>
-              ))}
-            </div>
+            {lead.status === 'Chiusa Vinta' || lead.status === 'Chiusa Persa' ? (
+              <div className="bg-daze-gray/10 rounded-xl p-4 text-center">
+                <p className="text-sm font-inter font-medium text-daze-black/70">
+                  Questa lead è stata chiusa come
+                </p>
+                <span className={`inline-block mt-2 px-3 py-1 rounded-pill text-sm font-bold ${
+                  lead.status === 'Chiusa Vinta'
+                    ? 'bg-daze-forest/10 text-daze-forest'
+                    : 'bg-daze-salmon/10 text-daze-salmon-dark'
+                }`}>
+                  {lead.status}
+                </span>
+                <p className="text-xs font-inter text-daze-black/50 mt-2">
+                  Lo stato non può essere modificato
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                {PIPELINE_STAGES.map((status) => (
+                  <button
+                    key={status}
+                    onClick={() => updateLeadStatus(status)}
+                    disabled={lead.status === status}
+                    className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-medium text-left transition-all ${
+                      lead.status === status
+                        ? 'bg-daze-blue text-white'
+                        : 'bg-daze-gray/10 text-daze-black hover:bg-daze-gray'
+                    }`}
+                  >
+                    {status}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="bg-white rounded-squircle border border-daze-gray p-4 sm:p-6">
