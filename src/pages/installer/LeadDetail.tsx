@@ -429,14 +429,38 @@ export default function LeadDetail() {
           )}
 
           {assignment?.confirmed_by_installer && (
-            <div className="bg-daze-forest/10 rounded-squircle p-4 border border-daze-forest/20">
+            <div className={`rounded-squircle p-4 border ${
+              lead.status === 'Chiusa Persa'
+                ? 'bg-daze-salmon/10 border-daze-salmon/20'
+                : 'bg-daze-forest/10 border-daze-forest/20'
+            }`}>
               <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-daze-forest" />
+                <CheckCircle className={`w-5 h-5 ${
+                  lead.status === 'Chiusa Persa' ? 'text-daze-salmon' : 'text-daze-forest'
+                }`} />
                 <div>
-                  <p className="text-daze-black font-semibold">Lead confermata</p>
-                  <p className="text-sm text-daze-black/70">
-                    Hai confermato di aver contattato questa lead il {new Date(assignment.confirmed_at!).toLocaleString('it-IT')}
-                  </p>
+                  {lead.status === 'Chiusa Vinta' ? (
+                    <>
+                      <p className="text-daze-black font-semibold">Lead chiusa come Vinta</p>
+                      <p className="text-sm text-daze-black/70">
+                        Hai chiuso questa lead come vinta il {new Date(assignment.confirmed_at!).toLocaleString('it-IT')}
+                      </p>
+                    </>
+                  ) : lead.status === 'Chiusa Persa' ? (
+                    <>
+                      <p className="text-daze-black font-semibold">Lead chiusa come Persa</p>
+                      <p className="text-sm text-daze-black/70">
+                        Hai chiuso questa lead come persa il {new Date(assignment.confirmed_at!).toLocaleString('it-IT')}
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-daze-black font-semibold">Lead confermata</p>
+                      <p className="text-sm text-daze-black/70">
+                        Hai confermato di aver contattato questa lead il {new Date(assignment.confirmed_at!).toLocaleString('it-IT')}
+                      </p>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
