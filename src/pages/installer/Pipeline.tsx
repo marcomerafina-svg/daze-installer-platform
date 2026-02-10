@@ -247,8 +247,9 @@ export default function Pipeline() {
                                     snapshot.isDragging
                                       ? 'rotate-2 scale-105 border-daze-blue'
                                       : ''
-                                  } ${isClosed ? 'opacity-75 cursor-not-allowed' : 'cursor-grab active:cursor-grabbing'}`}
+                                  } ${isClosed ? 'cursor-not-allowed' : 'cursor-grab active:cursor-grabbing'}`}
                                 >
+                                  <div className={isClosed ? 'opacity-60' : ''}>
                                   {/* Closed banner */}
                                   {isClosed && (
                                     <div className="flex items-center gap-2 mb-3 text-xs font-inter font-medium text-daze-black bg-daze-gray rounded-lg px-3 py-1.5">
@@ -304,6 +305,7 @@ export default function Pipeline() {
                                       ))}
                                     </select>
                                     <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-daze-black/40 pointer-events-none" />
+                                  </div>
                                   </div>
 
                                   {/* Bottone Visualizza Dettagli */}
