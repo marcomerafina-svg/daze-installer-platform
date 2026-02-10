@@ -211,7 +211,7 @@ export default function Rewards() {
       {/* Tutti i Livelli */}
       <div className="mb-8">
         <h2 className="text-2xl font-roobert font-bold text-daze-black mb-6">Tutti i Livelli</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
           {allTiers.map((tier) => {
             const isUnlocked = (rewards?.total_points || 0) >= tier.points_required;
             const isCurrent = rewards?.tier?.id === tier.id;

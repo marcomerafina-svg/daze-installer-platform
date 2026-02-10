@@ -38,7 +38,7 @@ export default function TierCard({ tier, isUnlocked, isCurrent }: TierCardProps)
 
   return (
     <div
-      className={`relative ${cardBg} rounded-squircle p-6 border-2 transition-all ${
+      className={`relative ${cardBg} rounded-squircle p-4 border-2 transition-all flex flex-col ${
         isCurrent
           ? 'border-daze-forest'
           : isUnlocked
@@ -47,29 +47,29 @@ export default function TierCard({ tier, isUnlocked, isCurrent }: TierCardProps)
       }`}
     >
       {isCurrent && (
-        <div className="absolute top-3 right-3">
-          <div className="flex items-center gap-1 bg-daze-forest text-white px-2.5 py-1 rounded-pill text-xs font-roobert font-bold">
+        <div className="flex justify-center mb-2">
+          <div className="flex items-center gap-1 bg-daze-forest text-white px-2.5 py-0.5 rounded-pill text-xs font-roobert font-bold">
             <CheckCircle className="w-3 h-3" />
             Tier Attuale
           </div>
         </div>
       )}
 
-      <div className="flex flex-col items-center text-center gap-4">
-        <div className={`w-16 h-16 rounded-full ${iconBg} flex items-center justify-center`}>
-          <Icon className="w-8 h-8 text-white" />
+      <div className="flex flex-col items-center text-center gap-2 flex-1">
+        <div className={`w-12 h-12 rounded-full ${iconBg} flex items-center justify-center shrink-0`}>
+          <Icon className="w-6 h-6 text-white" />
         </div>
 
         <div>
-          <h3 className="text-xl font-roobert font-bold text-daze-black mb-1">{tier.display_name}</h3>
-          <p className="text-sm font-inter font-medium text-daze-black/70">{tier.points_required.toLocaleString('it-IT')} punti</p>
+          <h3 className="text-base font-roobert font-bold text-daze-black leading-tight">{tier.display_name}</h3>
+          <p className="text-xs font-inter font-medium text-daze-black/70 mt-0.5">{tier.points_required.toLocaleString('it-IT')} punti</p>
         </div>
 
-        <p className="text-sm font-inter text-daze-black/70 leading-relaxed">{tier.description}</p>
+        <p className="text-xs font-inter text-daze-black/60 leading-snug flex-1">{tier.description}</p>
 
         {isUnlocked && !isCurrent && (
-          <div className="flex items-center gap-1 text-daze-forest text-sm font-roobert font-medium">
-            <CheckCircle className="w-4 h-4" />
+          <div className="flex items-center gap-1 text-daze-forest text-xs font-roobert font-medium mt-auto">
+            <CheckCircle className="w-3.5 h-3.5" />
             Sbloccato
           </div>
         )}
