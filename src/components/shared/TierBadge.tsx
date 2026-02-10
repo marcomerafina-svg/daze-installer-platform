@@ -16,20 +16,12 @@ const tierIcons = {
   Diamond: Gem,
 };
 
-const tierGradients = {
-  Bronze: 'from-[#CD7F32] via-[#E8A87C] to-[#CD7F32]',
-  Silver: 'from-[#C0C0C0] via-[#E8E8E8] to-[#C0C0C0]',
-  Gold: 'from-[#FFD700] via-[#FFED4E] to-[#FFD700]',
-  Platinum: 'from-[#E5E4E2] via-[#F5F5F5] to-[#E5E4E2]',
-  Diamond: 'from-[#B9F2FF] via-[#E0F9FF] to-[#B9F2FF]',
-};
-
-const tierTextColors = {
-  Bronze: 'text-[#8B4513]',
-  Silver: 'text-daze-black',
-  Gold: 'text-daze-honey-dark',
-  Platinum: 'text-daze-black',
-  Diamond: 'text-daze-blue',
+const tierBg = {
+  Bronze: 'bg-[#CD7F32]',
+  Silver: 'bg-[#A0A0A0]',
+  Gold: 'bg-[#D4A017]',
+  Platinum: 'bg-[#6B6B6B]',
+  Diamond: 'bg-[#5BB8D4]',
 };
 
 const sizeClasses = {
@@ -66,12 +58,11 @@ export default function TierBadge({
   }
 
   const Icon = tierIcons[tier.tier_name as keyof typeof tierIcons] || Trophy;
-  const gradient = tierGradients[tier.tier_name as keyof typeof tierGradients];
-  const textColor = tierTextColors[tier.tier_name as keyof typeof tierTextColors];
+  const bgColor = tierBg[tier.tier_name as keyof typeof tierBg] || 'bg-daze-blue';
 
   return (
     <span
-      className={`inline-flex items-center ${sizeClasses[size].container} rounded-pill bg-gradient-to-r ${gradient} ${textColor} font-bold ${className}`}
+      className={`inline-flex items-center ${sizeClasses[size].container} rounded-pill ${bgColor} text-white font-bold ${className}`}
     >
       <Icon className={sizeClasses[size].icon} />
       {showLabel && <span className={sizeClasses[size].text}>{tier.display_name}</span>}
