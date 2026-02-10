@@ -122,9 +122,9 @@ export default function NotificationsDropdown({
       </button>
 
       {isOpen && createPortal(
-        <div className="fixed inset-0 z-[9999]" onClick={() => setIsOpen(false)}>
+        <div className="fixed inset-0 z-[9999] bg-black/30 backdrop-blur-sm" onClick={() => setIsOpen(false)}>
           <div 
-            className="fixed left-4 right-4 sm:left-1/2 sm:-translate-x-1/2 top-1/2 -translate-y-1/2 w-auto sm:w-[400px] bg-white rounded-squircle border border-daze-gray max-h-[80vh] flex flex-col"
+            className="fixed left-4 right-4 sm:left-1/2 sm:-translate-x-1/2 top-1/2 -translate-y-1/2 w-auto sm:w-[520px] bg-white rounded-squircle border border-daze-gray shadow-2xl max-h-[80vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
             ref={dropdownRef}
           >
