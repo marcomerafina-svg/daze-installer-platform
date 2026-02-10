@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import AdminLayout from '../../components/admin/AdminLayout';
 import type { InstallerWithStats } from '../../types';
-import { Plus, Search, Mail, Phone, MapPin, Building2 } from 'lucide-react';
+import { Plus, Search, Phone, MapPin, Building2 } from 'lucide-react';
 import Button from '../../components/shared/Button';
 import Toggle from '../../components/shared/Toggle';
 import React from 'react';
@@ -138,46 +138,51 @@ export default function Installers() {
       ) : (
         <>
           <div className="hidden lg:block bg-white rounded-squircle border border-daze-gray overflow-hidden">
-            <table className="w-full">
+            <table className="w-full table-fixed">
             <thead className="bg-daze-gray/10 border-b border-daze-gray font-inter">
               <tr>
-                <th className="text-left px-6 py-4 text-sm font-semibold text-daze-black">Installatore</th>
-                <th className="text-left px-6 py-4 text-sm font-semibold text-daze-black">Azienda</th>
-                <th className="text-left px-6 py-4 text-sm font-semibold text-daze-black">Contatti</th>
-                <th className="text-left px-6 py-4 text-sm font-semibold text-daze-black">Regione</th>
-                <th className="text-center px-6 py-4 text-sm font-semibold text-daze-black">Lead Totali</th>
-                <th className="text-center px-6 py-4 text-sm font-semibold text-daze-black">Lead Attive</th>
-                <th className="text-center px-6 py-4 text-sm font-semibold text-daze-black">Lead Vinte</th>
-                <th className="text-center px-6 py-4 text-sm font-semibold text-daze-black">Conversion Rate</th>
-                <th className="text-center px-6 py-4 text-sm font-semibold text-daze-black">Stato</th>
+                <th className="text-left px-3 py-3 text-sm font-semibold text-daze-black w-[22%]">Installatore</th>
+                <th className="text-left px-3 py-3 text-sm font-semibold text-daze-black w-[16%]">Azienda</th>
+                <th className="text-left px-3 py-3 text-sm font-semibold text-daze-black w-[12%]">Regione</th>
+                <th className="text-center px-2 py-3 text-sm font-semibold text-daze-black w-[10%]">Totali</th>
+                <th className="text-center px-2 py-3 text-sm font-semibold text-daze-black w-[10%]">Attive</th>
+                <th className="text-center px-2 py-3 text-sm font-semibold text-daze-black w-[10%]">Vinte</th>
+                <th className="text-center px-2 py-3 text-sm font-semibold text-daze-black w-[10%]">Conv.</th>
+                <th className="text-center px-2 py-3 text-sm font-semibold text-daze-black w-[10%]">Stato</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-daze-gray font-inter">
               {filteredInstallers.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="text-center py-12 text-daze-black/60">
+                  <td colSpan={8} className="text-center py-12 text-daze-black/60">
                     Nessun installatore trovato
                   </td>
                 </tr>
               ) : (
                 filteredInstallers.map((installer) => (
                   <tr key={installer.id} className="hover:bg-daze-gray/10 transition-colors">
-                    <td className="px-6 py-4">
-                      <div>
-                        <p className="font-medium text-daze-black">
+                    <td className="px-3 py-3">
+                      <div className="min-w-0">
+                        <p className="font-medium text-daze-black truncate">
                           {installer.first_name} {installer.last_name}
                         </p>
-                        <p className="text-sm text-daze-black/60">{installer.email}</p>
+                        <p className="text-xs text-daze-black/60 truncate">{installer.email}</p>
+                        {installer.phone && (
+                          <p className="text-xs text-daze-black/50 truncate mt-0.5">
+                            <Phone className="w-3 h-3 inline mr-1" />
+                            {installer.phone}
+                          </p>
+                        )}
                       </div>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-3 py-3">
                       {installer.company ? (
-                        <div className="flex items-center gap-2">
-                          <Building2 className="w-4 h-4 text-daze-blue" />
-                          <div>
-                            <p className="text-sm font-medium text-daze-black">{installer.company.company_name}</p>
+                        <div className="flex items-center gap-1.5 min-w-0">
+                          <Building2 className="w-4 h-4 text-daze-blue shrink-0" />
+                          <div className="min-w-0">
+                            <p className="text-sm font-medium text-daze-black truncate">{installer.company.company_name}</p>
                             {installer.role_in_company && (
-                              <p className="text-xs text-daze-black/60 capitalize">{installer.role_in_company}</p>
+                              <p className="text-xs text-daze-black/60 capitalize truncate">{installer.role_in_company}</p>
                             )}
                           </div>
                         </div>
@@ -185,51 +190,33 @@ export default function Installers() {
                         <span className="text-sm text-daze-black/40 italic">Indipendente</span>
                       )}
                     </td>
-                    <td className="px-6 py-4">
-                      <div className="flex flex-col gap-1">
-                        <div className="flex items-center gap-2 text-sm text-daze-black/70">
-                          <Mail className="w-4 h-4" />
-                          <a href={`mailto:${installer.email}`} className="hover:text-daze-blue">
-                            {installer.email}
-                          </a>
-                        </div>
-                        {installer.phone && (
-                          <div className="flex items-center gap-2 text-sm text-daze-black/70">
-                            <Phone className="w-4 h-4" />
-                            <a href={`tel:${installer.phone}`} className="hover:text-daze-blue">
-                              {installer.phone}
-                            </a>
-                          </div>
-                        )}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
+                    <td className="px-3 py-3">
                       {installer.region ? (
-                        <div className="flex items-center gap-2">
-                          <MapPin className="w-4 h-4 text-daze-black/40" />
-                          <span className="text-sm text-daze-black">{installer.region}</span>
+                        <div className="flex items-center gap-1.5 min-w-0">
+                          <MapPin className="w-3.5 h-3.5 text-daze-black/40 shrink-0" />
+                          <span className="text-sm text-daze-black truncate">{installer.region}</span>
                         </div>
                       ) : (
-                        <span className="text-sm text-daze-black/40 italic">Non specificata</span>
+                        <span className="text-xs text-daze-black/40 italic">N/D</span>
                       )}
                     </td>
-                    <td className="text-center px-6 py-4">
-                      <span className="inline-flex items-center justify-center w-10 h-10 bg-daze-gray rounded-full font-semibold text-daze-black">
+                    <td className="text-center px-2 py-3">
+                      <span className="inline-flex items-center justify-center w-8 h-8 bg-daze-gray rounded-full text-sm font-semibold text-daze-black">
                         {installer.total_leads}
                       </span>
                     </td>
-                    <td className="text-center px-6 py-4">
-                      <span className="inline-flex items-center justify-center w-10 h-10 bg-daze-blue-light rounded-full font-semibold text-daze-blue">
+                    <td className="text-center px-2 py-3">
+                      <span className="inline-flex items-center justify-center w-8 h-8 bg-daze-blue-light rounded-full text-sm font-semibold text-daze-blue">
                         {installer.active_leads}
                       </span>
                     </td>
-                    <td className="text-center px-6 py-4">
-                      <span className="inline-flex items-center justify-center w-10 h-10 bg-daze-forest/10 rounded-full font-semibold text-daze-forest">
+                    <td className="text-center px-2 py-3">
+                      <span className="inline-flex items-center justify-center w-8 h-8 bg-daze-forest/10 rounded-full text-sm font-semibold text-daze-forest">
                         {installer.won_leads}
                       </span>
                     </td>
-                    <td className="text-center px-6 py-4">
-                      <span className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-semibold ${
+                    <td className="text-center px-2 py-3">
+                      <span className={`inline-flex items-center justify-center px-2 py-1 rounded-full text-xs font-semibold ${
                         installer.conversion_rate >= 70 ? 'bg-daze-forest/10 text-daze-forest' :
                         installer.conversion_rate >= 40 ? 'bg-daze-honey/10 text-daze-honey-dark' :
                         'bg-daze-salmon/10 text-daze-salmon-dark'
@@ -237,14 +224,14 @@ export default function Installers() {
                         {installer.conversion_rate}%
                       </span>
                     </td>
-                    <td className="text-center px-6 py-4">
-                      <div className="inline-flex items-center gap-2">
+                    <td className="text-center px-2 py-3">
+                      <div className="flex flex-col items-center gap-1">
                         <Toggle
                           checked={installer.is_active}
                           onChange={() => toggleInstallerStatus(installer.id, installer.is_active)}
                           size="sm"
                         />
-                        <span className={`text-sm font-medium ${installer.is_active ? 'text-daze-forest' : 'text-daze-black/60'}`}>
+                        <span className={`text-xs font-medium ${installer.is_active ? 'text-daze-forest' : 'text-daze-black/60'}`}>
                           {installer.is_active ? 'Attivo' : 'Inattivo'}
                         </span>
                       </div>
