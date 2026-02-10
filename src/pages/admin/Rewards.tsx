@@ -131,6 +131,7 @@ export default function Rewards() {
 
   return (
     <AdminLayout>
+      <div className="max-w-7xl mx-auto pt-2 lg:pt-4">
       <div className="mb-8">
         <h1 className="text-3xl font-roobert font-bold text-daze-black mb-2">Rewards Leaderboard</h1>
         <p className="text-daze-black/70 font-inter">Classifica installatori per punti e performance</p>
@@ -323,6 +324,7 @@ export default function Rewards() {
             </tbody>
           </table>
         </div>
+      </div>
       </div>
     </AdminLayout>
   );
