@@ -149,7 +149,7 @@ export default function AreaManagers() {
                 <div className="pt-4 border-t border-daze-gray">
                   <p className="text-xs font-inter font-medium text-daze-black/60 mb-2">REGIONI GESTITE</p>
                   <div className="flex flex-wrap gap-1">
-                    {manager.regions.slice(0, 3).map((region) => (
+                    {manager.regions.map((region) => (
                       <span
                         key={region}
                         className="inline-flex items-center px-2 py-1 rounded-md bg-daze-blue-light text-daze-blue text-xs font-medium"
@@ -157,11 +157,6 @@ export default function AreaManagers() {
                         {region}
                       </span>
                     ))}
-                    {manager.regions.length > 3 && (
-                      <span className="inline-flex items-center px-2 py-1 rounded-md bg-daze-gray text-daze-black/70 text-xs font-medium">
-                        +{manager.regions.length - 3}
-                      </span>
-                    )}
                   </div>
                 </div>
               </div>
