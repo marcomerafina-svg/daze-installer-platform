@@ -3,7 +3,8 @@ import { supabase } from '../../lib/supabase';
 import AdminLayout from '../../components/admin/AdminLayout';
 import CreateCompanyModal from '../../components/admin/CreateCompanyModal';
 import type { CompanyWithStats, InstallationCompany } from '../../types';
-import { Plus, Search, Building2, Users, Award, TrendingUp, Mail, Phone, MapPin, KeyRound } from 'lucide-react';
+import { Plus, Search, Building2, Users, Award, TrendingUp, Mail, Phone, MapPin, KeyRound, Pencil } from 'lucide-react';
+import React from 'react';
 import Button from '../../components/shared/Button';
 import Toggle from '../../components/shared/Toggle';
 
@@ -12,6 +13,7 @@ export default function Companies() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [editingCompany, setEditingCompany] = useState<CompanyWithStats | null>(null);
 
   useEffect(() => {
     loadCompanies();
@@ -313,6 +315,13 @@ export default function Companies() {
 
                     <div className="flex items-center gap-3">
                       <button
+                        onClick={() => setEditingCompany(company)}
+                        className="p-2 text-daze-blue hover:bg-daze-blue-light rounded-lg transition-colors"
+                        title="Modifica azienda"
+                      >
+                        <Pencil className="w-5 h-5" />
+                      </button>
+                      <button
                         onClick={() => resetOwnerPassword(company)}
                         className="p-2 text-daze-honey-dark hover:bg-daze-honey/10 rounded-lg transition-colors"
                         title="Reset password owner"
@@ -341,6 +350,195 @@ export default function Companies() {
           }}
         />
       )}
+      {editingCompany && (
+        <EditCompanyModal
+          company={editingCompany}
+          onClose={() => setEditingCompany(null)}
+          onSuccess={() => { setEditingCompany(null); loadCompanies(); }}
+        />
+      )}
     </AdminLayout>
+  );
+}
+
+function EditCompanyModal({ company, onClose, onSuccess }: { company: CompanyWithStats; onClose: () => void; onSuccess: () => void }) {
+  const [formData, setFormData] = useState({
+    company_name: company.company_name,
+    business_name: company.business_name || '',
+    vat_number: company.vat_number || '',
+    address: company.address || '',
+    city: company.city || '',
+    province: company.province || '',
+    zip_code: company.zip_code || '',
+    phone: company.phone || '',
+    email: company.email || '',
+    is_active: company.is_active,
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    try {
+      const { error } = await supabase
+        .from('installation_companies')
+        .update({
+          company_name: formData.company_name,
+          business_name: formData.business_name || null,
+          vat_number: formData.vat_number || null,
+          address: formData.address || null,
+          city: formData.city || null,
+          province: formData.province || null,
+          zip_code: formData.zip_code || null,
+          phone: formData.phone || null,
+          email: formData.email || null,
+          is_active: formData.is_active,
+        })
+        .eq('id', company.id);
+
+      if (error) throw error;
+      onSuccess();
+    } catch (err: any) {
+      setError(err.message || 'Errore durante il salvataggio');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4 sm:p-6">
+      <div className="bg-white rounded-squircle max-w-lg w-full p-4 sm:p-6 max-h-[90vh] overflow-y-auto shadow-2xl">
+        <h2 className="text-xl sm:text-2xl font-roobert font-bold text-daze-black mb-4 sm:mb-6">Modifica Azienda</h2>
+
+        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 font-inter">
+          {error && (
+            <div className="bg-daze-salmon/10 border border-daze-salmon/20 rounded-lg p-2 sm:p-3 text-xs sm:text-sm text-daze-salmon-dark">
+              {error}
+            </div>
+          )}
+
+          <div>
+            <label className="block text-sm font-medium text-daze-black/70 mb-1">Nome Azienda</label>
+            <input
+              type="text"
+              required
+              value={formData.company_name}
+              onChange={(e) => setFormData({ ...formData, company_name: e.target.value })}
+              className="w-full px-4 py-2 border border-daze-gray rounded-lg outline-none focus:ring-0 focus:border-daze-blue transition-all"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-daze-black/70 mb-1">Ragione Sociale</label>
+            <input
+              type="text"
+              value={formData.business_name}
+              onChange={(e) => setFormData({ ...formData, business_name: e.target.value })}
+              className="w-full px-4 py-2 border border-daze-gray rounded-lg outline-none focus:ring-0 focus:border-daze-blue transition-all"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-daze-black/70 mb-1">P.IVA</label>
+            <input
+              type="text"
+              value={formData.vat_number}
+              onChange={(e) => setFormData({ ...formData, vat_number: e.target.value })}
+              className="w-full px-4 py-2 border border-daze-gray rounded-lg outline-none focus:ring-0 focus:border-daze-blue transition-all"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-daze-black/70 mb-1">Indirizzo</label>
+            <input
+              type="text"
+              value={formData.address}
+              onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+              className="w-full px-4 py-2 border border-daze-gray rounded-lg outline-none focus:ring-0 focus:border-daze-blue transition-all"
+            />
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div>
+              <label className="block text-sm font-medium text-daze-black/70 mb-1">Citta</label>
+              <input
+                type="text"
+                value={formData.city}
+                onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                className="w-full px-4 py-2 border border-daze-gray rounded-lg outline-none focus:ring-0 focus:border-daze-blue transition-all"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-daze-black/70 mb-1">Provincia</label>
+              <input
+                type="text"
+                value={formData.province}
+                onChange={(e) => setFormData({ ...formData, province: e.target.value })}
+                className="w-full px-4 py-2 border border-daze-gray rounded-lg outline-none focus:ring-0 focus:border-daze-blue transition-all"
+                maxLength={2}
+                placeholder="RM"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-daze-black/70 mb-1">CAP</label>
+              <input
+                type="text"
+                value={formData.zip_code}
+                onChange={(e) => setFormData({ ...formData, zip_code: e.target.value })}
+                className="w-full px-4 py-2 border border-daze-gray rounded-lg outline-none focus:ring-0 focus:border-daze-blue transition-all"
+                maxLength={5}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-sm font-medium text-daze-black/70 mb-1">Telefono</label>
+              <input
+                type="tel"
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                className="w-full px-4 py-2 border border-daze-gray rounded-lg outline-none focus:ring-0 focus:border-daze-blue transition-all"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-daze-black/70 mb-1">Email</label>
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="w-full px-4 py-2 border border-daze-gray rounded-lg outline-none focus:ring-0 focus:border-daze-blue transition-all"
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between pt-2">
+            <label className="text-sm font-medium text-daze-black/70">Stato</label>
+            <div className="flex items-center gap-2">
+              <Toggle
+                checked={formData.is_active}
+                onChange={() => setFormData({ ...formData, is_active: !formData.is_active })}
+                size="sm"
+              />
+              <span className={`text-sm font-medium ${formData.is_active ? 'text-daze-forest' : 'text-daze-black/60'}`}>
+                {formData.is_active ? 'Attiva' : 'Inattiva'}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex gap-3 pt-4">
+            <Button variant="secondary" size="sm" type="button" onClick={onClose} disabled={loading} fullWidth>
+              Annulla
+            </Button>
+            <Button variant="primaryBlack" size="sm" type="submit" disabled={loading} fullWidth>
+              {loading ? 'Salvataggio...' : 'Salva Modifiche'}
+            </Button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }

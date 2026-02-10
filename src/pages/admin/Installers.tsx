@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import AdminLayout from '../../components/admin/AdminLayout';
-import type { InstallerWithStats } from '../../types';
-import { Plus, Search, Phone, MapPin, Building2 } from 'lucide-react';
+import type { InstallerWithStats, Installer } from '../../types';
+import { Plus, Search, Phone, MapPin, Building2, Pencil } from 'lucide-react';
 import Button from '../../components/shared/Button';
 import Toggle from '../../components/shared/Toggle';
 import React from 'react';
@@ -12,6 +12,7 @@ export default function Installers() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [editingInstaller, setEditingInstaller] = useState<InstallerWithStats | null>(null);
 
   useEffect(() => {
     loadInstallers();
@@ -149,12 +150,13 @@ export default function Installers() {
                 <th className="text-center px-2 py-3 text-sm font-semibold text-daze-black w-[10%]">Vinte</th>
                 <th className="text-center px-2 py-3 text-sm font-semibold text-daze-black w-[10%]">Conv.</th>
                 <th className="text-center px-2 py-3 text-sm font-semibold text-daze-black w-[10%]">Stato</th>
+                <th className="text-center px-2 py-3 text-sm font-semibold text-daze-black w-[6%]"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-daze-gray font-inter">
               {filteredInstallers.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-12 text-daze-black/60">
+                  <td colSpan={9} className="text-center py-12 text-daze-black/60">
                     Nessun installatore trovato
                   </td>
                 </tr>
@@ -236,6 +238,15 @@ export default function Installers() {
                         </span>
                       </div>
                     </td>
+                    <td className="text-center px-2 py-3">
+                      <button
+                        onClick={() => setEditingInstaller(installer)}
+                        className="p-1.5 hover:bg-daze-blue-light rounded-lg transition-colors"
+                        title="Modifica installatore"
+                      >
+                        <Pencil className="w-4 h-4 text-daze-blue" />
+                      </button>
+                    </td>
                   </tr>
                 ))
               )}
@@ -276,10 +287,19 @@ export default function Installers() {
                       </div>
                     </div>
 
-                    <Toggle
-                      checked={installer.is_active}
-                      onChange={() => toggleInstallerStatus(installer.id, installer.is_active)}
-                    />
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => setEditingInstaller(installer)}
+                        className="p-1.5 hover:bg-daze-blue-light rounded-lg transition-colors"
+                        title="Modifica"
+                      >
+                        <Pencil className="w-4 h-4 text-daze-blue" />
+                      </button>
+                      <Toggle
+                        checked={installer.is_active}
+                        onChange={() => toggleInstallerStatus(installer.id, installer.is_active)}
+                      />
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-4 gap-2 pt-3 border-t border-daze-gray font-inter">
@@ -320,6 +340,13 @@ export default function Installers() {
       )}
 
       {showModal && <CreateInstallerModal onClose={() => setShowModal(false)} onSuccess={loadInstallers} />}
+      {editingInstaller && (
+        <EditInstallerModal
+          installer={editingInstaller}
+          onClose={() => setEditingInstaller(null)}
+          onSuccess={() => { setEditingInstaller(null); loadInstallers(); }}
+        />
+      )}
       </div>
     </AdminLayout>
   );
@@ -347,6 +374,192 @@ const ITALIAN_REGIONS = [
   'Sicilia',
   'Sardegna',
 ];
+
+function EditInstallerModal({ installer, onClose, onSuccess }: { installer: InstallerWithStats; onClose: () => void; onSuccess: () => void }) {
+  const [formData, setFormData] = useState({
+    first_name: installer.first_name,
+    last_name: installer.last_name,
+    phone: installer.phone || '',
+    region: installer.region || '',
+    company_id: installer.company_id || '',
+    role_in_company: installer.role_in_company || '',
+    is_active: installer.is_active,
+  });
+  const [companies, setCompanies] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    loadCompanies();
+  }, []);
+
+  const loadCompanies = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('installation_companies')
+        .select('id, company_name')
+        .order('company_name');
+      if (error) throw error;
+      setCompanies(data || []);
+    } catch (error) {
+      console.error('Error loading companies:', error);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    try {
+      const { error } = await supabase
+        .from('installers')
+        .update({
+          first_name: formData.first_name,
+          last_name: formData.last_name,
+          phone: formData.phone || null,
+          region: formData.region || null,
+          company_id: formData.company_id || null,
+          role_in_company: formData.company_id ? (formData.role_in_company || 'member') : null,
+          is_active: formData.is_active,
+        } as any)
+        .eq('id', installer.id);
+
+      if (error) throw error;
+      onSuccess();
+    } catch (err: any) {
+      setError(err.message || 'Errore durante il salvataggio');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4 sm:p-6">
+      <div className="bg-white rounded-squircle max-w-md w-full p-4 sm:p-6 max-h-[90vh] overflow-y-auto shadow-2xl">
+        <h2 className="text-xl sm:text-2xl font-roobert font-bold text-daze-black mb-4 sm:mb-6">Modifica Installatore</h2>
+
+        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 font-inter">
+          {error && (
+            <div className="bg-daze-salmon/10 border border-daze-salmon/20 rounded-lg p-2 sm:p-3 text-xs sm:text-sm text-daze-salmon-dark">
+              {error}
+            </div>
+          )}
+
+          <div>
+            <label className="block text-sm font-medium text-daze-black/70 mb-1">Email</label>
+            <input
+              type="email"
+              value={installer.email}
+              disabled
+              className="w-full px-4 py-2 border border-daze-gray rounded-lg bg-daze-gray/10 text-daze-black/50 cursor-not-allowed"
+            />
+            <p className="text-xs text-daze-black/40 mt-1">L'email non e modificabile</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+            <div>
+              <label className="block text-sm font-medium text-daze-black/70 mb-1">Nome</label>
+              <input
+                type="text"
+                required
+                value={formData.first_name}
+                onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
+                className="w-full px-4 py-2 border border-daze-gray rounded-lg outline-none focus:ring-0 focus:border-daze-blue transition-all"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-daze-black/70 mb-1">Cognome</label>
+              <input
+                type="text"
+                required
+                value={formData.last_name}
+                onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
+                className="w-full px-4 py-2 border border-daze-gray rounded-lg outline-none focus:ring-0 focus:border-daze-blue transition-all"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-daze-black/70 mb-1">Telefono</label>
+            <input
+              type="tel"
+              value={formData.phone}
+              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              className="w-full px-4 py-2 border border-daze-gray rounded-lg outline-none focus:ring-0 focus:border-daze-blue transition-all"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-daze-black/70 mb-1">Regione</label>
+            <select
+              value={formData.region}
+              onChange={(e) => setFormData({ ...formData, region: e.target.value })}
+              className="w-full px-4 py-2 border border-daze-gray rounded-lg outline-none focus:ring-0 focus:border-daze-blue transition-all"
+            >
+              <option value="">Nessuna regione</option>
+              {ITALIAN_REGIONS.map((region) => (
+                <option key={region} value={region}>{region}</option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-daze-black/70 mb-1">Azienda</label>
+            <select
+              value={formData.company_id}
+              onChange={(e) => setFormData({ ...formData, company_id: e.target.value })}
+              className="w-full px-4 py-2 border border-daze-gray rounded-lg outline-none focus:ring-0 focus:border-daze-blue transition-all"
+            >
+              <option value="">Indipendente</option>
+              {companies.map((company) => (
+                <option key={company.id} value={company.id}>{company.company_name}</option>
+              ))}
+            </select>
+          </div>
+
+          {formData.company_id && (
+            <div>
+              <label className="block text-sm font-medium text-daze-black/70 mb-1">Ruolo in azienda</label>
+              <select
+                value={formData.role_in_company}
+                onChange={(e) => setFormData({ ...formData, role_in_company: e.target.value })}
+                className="w-full px-4 py-2 border border-daze-gray rounded-lg outline-none focus:ring-0 focus:border-daze-blue transition-all"
+              >
+                <option value="member">Membro</option>
+                <option value="admin">Admin</option>
+                <option value="owner">Owner</option>
+              </select>
+            </div>
+          )}
+
+          <div className="flex items-center justify-between pt-2">
+            <label className="text-sm font-medium text-daze-black/70">Stato</label>
+            <div className="flex items-center gap-2">
+              <Toggle
+                checked={formData.is_active}
+                onChange={() => setFormData({ ...formData, is_active: !formData.is_active })}
+                size="sm"
+              />
+              <span className={`text-sm font-medium ${formData.is_active ? 'text-daze-forest' : 'text-daze-black/60'}`}>
+                {formData.is_active ? 'Attivo' : 'Inattivo'}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex gap-3 pt-4">
+            <Button variant="secondary" size="sm" type="button" onClick={onClose} disabled={loading} fullWidth>
+              Annulla
+            </Button>
+            <Button variant="primaryBlack" size="sm" type="submit" disabled={loading} fullWidth>
+              {loading ? 'Salvataggio...' : 'Salva Modifiche'}
+            </Button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
 
 function CreateInstallerModal({ onClose, onSuccess }: { onClose: () => void; onSuccess: () => void }) {
   const [formData, setFormData] = useState({
